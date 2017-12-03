@@ -254,7 +254,7 @@ bool HelloWorld::init()
 
 #ifndef PLAYER_INIT
 	player1 = Player::create("Player1");
-	player1->Init("Player_Plane.png");
+	player1->Init("Plane_Idle.png");
 	this->addChild(player1->get_Node(),1);
 	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
 #endif 
@@ -415,6 +415,14 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	Key_map.erase(keyCode);
+	if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
+	{
+		player1->Set_moving_state(Player::Moving_State::Idle);
+	}
+	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
+	{
+		player1->Set_moving_state(Player::Moving_State::Idle);
+	}
 }
 
 bool HelloWorld::isKeyPressed(EventKeyboard::KeyCode code) 

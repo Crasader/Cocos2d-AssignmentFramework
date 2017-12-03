@@ -10,28 +10,37 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Header">
+      <UniqueIdentifier>{6bdfc07d-56a4-4663-b425-39d1680baebd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\cpp">
+      <UniqueIdentifier>{d083bddb-9153-4d77-a245-072c2a618016}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src</Filter>
+      <Filter>src\cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BaseProjectile.cpp">
-      <Filter>src</Filter>
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>src\cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>src</Filter>
+      <Filter>src\cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Scene2.cpp">
-      <Filter>src</Filter>
+      <Filter>src\cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SceneManager.cpp">
-      <Filter>src</Filter>
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnimationManager.cpp">
+      <Filter>src\cpp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -39,22 +48,25 @@
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src</Filter>
+      <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BaseProjectile.h">
-      <Filter>src</Filter>
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Player.h">
-      <Filter>src</Filter>
+      <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Scene2.h">
-      <Filter>src</Filter>
+      <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\SceneManager.h">
-      <Filter>src</Filter>
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnimationManager.h">
+      <Filter>src\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

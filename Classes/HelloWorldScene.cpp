@@ -83,14 +83,14 @@ bool HelloWorld::init()
 	this->addChild(hpbar_frame, 0);
 
 
-	/*auto powerup_frame = Sprite::create("powerupEmpty.jpg");
+	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
 	powerup_frame->setAnchorPoint(Vec2::ZERO);
-	float PUpos_x = getContentSize().width * 0.91f;
-	float PUpos_y = getContentSize().height * 0.91f;
+	float PUpos_x = getContentSize().width * 0.85f;
+	float PUpos_y = getContentSize().height * 0.005f;
 	powerup_frame->setPosition(Vec2(PUpos_x, PUpos_y));
 	powerup_frame->setName("pwrupFrame");
 
-	this->addChild(powerup_frame, 0);*/
+	this->addChild(powerup_frame, 0);
 
 	//int count = visibleSize.width - (sprite->getContentSize().height);
 	//int bgcount = std::ceil(visibleSize.width / bg->getContentSize().width);

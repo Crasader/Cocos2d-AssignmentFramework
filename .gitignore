@@ -48,56 +48,54 @@ project.xcworkspace
 
 # proj.android
 bin/
-proj.android/assets/
-proj.android/bin/
-proj.android/gen/
-proj.android/libs/
-proj.android/local.properties
-proj.android/obj/
-cocos2d/cocos/platform/android/java/bin/
-cocos2d/cocos/platform/android/java/gen/
-cocos2d/cocos/platform/android/java/local.properties
-cocos2d/cocos/platform/android/java/res/
+TheCompany/NewGame+/proj.android/assets/
+TheCompany/NewGame+/proj.android/bin/
+TheCompany/NewGame+/proj.android/gen/
+TheCompany/NewGame+/proj.android/libs/
+TheCompany/NewGame+/proj.android/local.properties
+TheCompany/NewGame+/proj.android/obj/
+TheCompany/NewGame+/cocos2d/cocos/platform/android/java/bin/
+TheCompany/NewGame+/cocos2d/cocos/platform/android/java/gen/
+TheCompany/NewGame+/cocos2d/cocos/platform/android/java/local.properties
+TheCompany/NewGame+/cocos2d/cocos/platform/android/java/res/
 .metadata/
 .recommenders/
 
 # proj.android-studio
 .idea/
 *.iml
-proj.android-studio/app/assets/
-proj.android-studio/app/obj/
-proj.android-studio/app/libs/armeabi/
-proj.android-studio/app/libs/armeabi-v7a/
-proj.android-studio/app/libs/x86/
-proj.android-studio/app/gradle.properties
-proj.android-studio/app/local.properties
-proj.android-studio/*/build/
-cocos2d/cocos/platform/android/libcocos2dx/build/
-cocos2d/cocos/platform/android/java/libs/gps/build/
+TheCompany/NewGame+/proj.android-studio/app/assets/
+TheCompany/NewGame+/proj.android-studio/app/obj/
+TheCompany/NewGame+/proj.android-studio/app/libs/armeabi/
+TheCompany/NewGame+/proj.android-studio/app/libs/armeabi-v7a/
+TheCompany/NewGame+/proj.android-studio/app/libs/x86/
+TheCompany/NewGame+/proj.android-studio/app/gradle.properties
+TheCompany/NewGame+/proj.android-studio/app/local.properties
+TheCompany/NewGame+/proj.android-studio/*/build/
+TheCompany/NewGame+/cocos2d/cocos/platform/android/libcocos2dx/build/
+TheCompany/NewGame+/cocos2d/cocos/platform/android/java/libs/gps/build/
 
 # proj.ios_mac
-cocos2d/build/build/
-cocos2d/build/cocos2d_libs.xcodeproj/xcuserdata/
-proj.ios_mac/build/
-proj.ios_mac/*.xcodeproj/project.xcworkspace
-proj.ios_mac/*.xcodeproj/xcuserdata/
+TheCompany/NewGame+/cocos2d/build/build/
+TheCompany/NewGame+/cocos2d/build/cocos2d_libs.xcodeproj/xcuserdata/
+TheCompany/NewGame+/proj.ios_mac/build/
+TheCompany/NewGame+/proj.ios_mac/*.xcodeproj/project.xcworkspace
+TheCompany/NewGame+/proj.ios_mac/*.xcodeproj/xcuserdata/
 !*.pch
-
-# proj.linux
 
 # proj.win32
 *.suo
 .vs/
 .vscode/
-cocos2d/cocos/2d/Debug.*/
-cocos2d/cocos/editor-support/spine/proj.win32/Debug.*/
-cocos2d/external/Box2D/proj.win32/Debug.*/
-cocos2d/external/recast/proj.win32/Debug.*/
-cocos2d/cocos/2d/Release.*/
-cocos2d/cocos/editor-support/spine/proj.win32/Release.*/
-cocos2d/external/Box2D/proj.win32/Release.*/
-cocos2d/external/recast/proj.win32/Release.*/
-proj.win32/*.sdf
-proj.win32/*.opensdf
-proj.win32/Debug.*/
-proj.win32/Release.*/
+TheCompany/NewGame+/cocos2d/cocos/2d/Debug.*/
+TheCompany/NewGame+/cocos2d/cocos/editor-support/spine/proj.win32/Debug.*/
+TheCompany/NewGame+/cocos2d/external/Box2D/proj.win32/Debug.*/
+TheCompany/NewGame+/cocos2d/external/recast/proj.win32/Debug.*/
+TheCompany/NewGame+/cocos2d/cocos/2d/Release.*/
+TheCompany/NewGame+/cocos2d/cocos/editor-support/spine/proj.win32/Release.*/
+TheCompany/NewGame+/cocos2d/external/Box2D/proj.win32/Release.*/
+TheCompany/NewGame+/cocos2d/external/recast/proj.win32/Release.*/
+TheCompany/NewGame+/proj.win32/*.sdf
+TheCompany/NewGame+/proj.win32/*.opensdf
+TheCompany/NewGame+/proj.win32/Debug.*/
+TheCompany/NewGame+/proj.win32/Release.*/

@@ -73,6 +73,24 @@ bool HelloWorld::init()
 
 	this->addChild(bgNode, 0);
 
+	auto hpbar_frame = Sprite::create("fullbar.jpg");
+	hpbar_frame->setAnchorPoint(Vec2::ZERO);
+	float hppos_x = getContentSize().width * 0.01f;
+	float hppos_y = getContentSize().height * 0.01f;
+	hpbar_frame->setPosition(Vec2(hppos_x, hppos_y));
+	hpbar_frame->setName("hpFrame");
+
+	this->addChild(hpbar_frame, 0);
+
+
+	/*auto powerup_frame = Sprite::create("powerupEmpty.jpg");
+	powerup_frame->setAnchorPoint(Vec2::ZERO);
+	float PUpos_x = getContentSize().width * 0.91f;
+	float PUpos_y = getContentSize().height * 0.91f;
+	powerup_frame->setPosition(Vec2(PUpos_x, PUpos_y));
+	powerup_frame->setName("pwrupFrame");
+
+	this->addChild(powerup_frame, 0);*/
 
 	//int count = visibleSize.width - (sprite->getContentSize().height);
 	//int bgcount = std::ceil(visibleSize.width / bg->getContentSize().width);

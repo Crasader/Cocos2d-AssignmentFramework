@@ -9,9 +9,9 @@ std::map<cocos2d::EventKeyboard::KeyCode,
 
 Scene* HelloWorld::createScene()
 {
-	auto scene = Scene::create();
+	auto scene = Scene::createWithPhysics();
 	auto layer = HelloWorld::create();
-	scene->addChild(layer, 0, 999);
+	scene->addChild(layer);
 	return scene;
 }
 
@@ -80,7 +80,7 @@ bool HelloWorld::init()
 	hpbar_frame->setPosition(Vec2(hppos_x, hppos_y));
 	hpbar_frame->setName("hpFrame");
 
-	this->addChild(hpbar_frame, 0);
+	this->addChild(hpbar_frame, 2);
 
 
 	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
@@ -90,7 +90,7 @@ bool HelloWorld::init()
 	powerup_frame->setPosition(Vec2(PUpos_x, PUpos_y));
 	powerup_frame->setName("pwrupFrame");
 
-	this->addChild(powerup_frame, 0);
+	this->addChild(powerup_frame, 2);
 
 	//int count = visibleSize.width - (sprite->getContentSize().height);
 	//int bgcount = std::ceil(visibleSize.width / bg->getContentSize().width);
@@ -114,12 +114,43 @@ bool HelloWorld::init()
 	spriteNode->setName("spriteNode");
 	//Load Sprite
 	auto mainSprite = Sprite::create("Blue_Front1.png");
-	mainSprite->setAnchorPoint(Vec2(0, 0));
-	mainSprite->setPosition(100, (visibleSize.height - playingSize.height));
+	//mainSprite->setAnchorPoint(Vec2(0, 0));
+	mainSprite->setPosition(300, (visibleSize.height - playingSize.height * 0.5f));
 	mainSprite->setName("mainSprite");
+	{
+		auto physicsbody = PhysicsBody::createBox(Size(mainSprite->getContentSize().width, mainSprite->getContentSize().height), PhysicsMaterial(0.01f, 1.0f, 0.0f));
+		//physicsbody->setDynamic(false);
+		mainSprite->addComponent(physicsbody);
+	}
 	//Add the sprite into the scene
 	spriteNode->addChild(mainSprite, 1);
 	this->addChild(spriteNode, 1);
+
+	{
+		
+		//auto testbox = Sprite::create("ZigzagForest_Square.png");
+		//testbox->setName("testbox");
+		//testbox->setPosition(Vec2(mainSprite->getPosition().x,mainSprite->getPosition().y - testbox->getContentSize().height * 1.5f));
+
+		//auto physicsbody = PhysicsBody::createBox(Size(testbox->getContentSize().width, testbox->getContentSize().height), PhysicsMaterial(0.1f, 1.0f, 0.0f));
+		//physicsbody->setDynamic(false);
+		//testbox->addComponent(physicsbody);
+
+		//this->addChild(testbox, 1);
+
+		//for (int i = 0; i < visibleSize.width / testbox->getContentSize().width; ++i)
+		//{
+		//	auto platformbox = Sprite::create("ZigzagForest_Square.png");
+		//	platformbox->setName("platformbox_no" + i );
+		//	platformbox->setPosition(Vec2(i * testbox->getContentSize().width, testbox->getPosition().y));
+		//	auto m_physicsbody = PhysicsBody::createBox(Size(platformbox->getContentSize().width, platformbox->getContentSize().height), PhysicsMaterial(0.1f, 1.0f, 0.0f));
+		//	m_physicsbody->setDynamic(false);
+		//	platformbox->addComponent(m_physicsbody);
+
+		//	this->addChild(platformbox, 1);
+		//}
+	}
+	
 
 	//Movement
 	//auto moveEvent = MoveBy::create(5, Vec2(200, 0));
@@ -128,6 +159,7 @@ bool HelloWorld::init()
 	//auto delaySequence = Sequence::create(delay, delay->clone(), nullptr);
 	//auto sequence = Sequence::create(moveEvent, moveEvent->reverse(), delaySequence, nullptr);
 	//mainSprite->runAction(sequence);
+
 
 #ifndef KEYBOARD_EVENT_INIT
 	auto listener = EventListenerKeyboard::create();
@@ -277,10 +309,9 @@ bool HelloWorld::init()
 	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
 #endif 
 
-
 	//mainSprite->runAction(RepeatForever::create(animIdle));
 	mainSprite->runAction(animate);
-	this->removeChild(spriteNode);
+	//this->removeChild(spriteNode);
 #ifdef COMMENTS
 	/////////////////////////////
 	// 2. add a menu item with "X" image, which is clicked to quit the program

@@ -17,7 +17,6 @@ public:
 	virtual void set_Position(float x, float y);
 	static BaseProjectile* create();
 
-	void retain();
 	void release();
 
 	bool destroy;

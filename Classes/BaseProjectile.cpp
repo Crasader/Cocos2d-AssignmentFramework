@@ -66,8 +66,3 @@ void BaseProjectile::release()
 	delete sprite;
 	delete node;
 }
-
-void BaseProjectile::retain()
-{
-
-}

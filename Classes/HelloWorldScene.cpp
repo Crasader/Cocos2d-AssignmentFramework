@@ -225,7 +225,7 @@ bool HelloWorld::init()
 		{
 			sprintf(str, "Blue_Back%d.png", i);
 			SpriteFrame* frame = cache->getSpriteFrameByName(str);
-			//frame->setAnchorPoint(Vec2(0, 0));
+			frame->setAnchorPoint(Vec2::ZERO);
 			animFrames.pushBack(frame);
 		}
 	}

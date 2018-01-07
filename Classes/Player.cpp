@@ -57,16 +57,16 @@ void Player::Init(string sprite_filename)
 
 void Player::Update(float delta)
 {
-	for (int i = 0; i < ProjectileList.size(); i++)
-	{
-		ProjectileList.at(i)->Update(delta);
-		/*if (ProjectileList.at(i)->destroy)
-		{
-			BaseProjectile* temp = ProjectileList.at(i);
-			delete temp;
-			--i;
-		}*/
-	}
+	//for (int i = 0; i < ProjectileList.size(); i++)
+	//{
+	//	ProjectileList.at(i)->Update(delta);
+	//	/*if (ProjectileList.at(i)->destroy)
+	//	{
+	//		BaseProjectile* temp = ProjectileList.at(i);
+	//		delete temp;
+	//		--i;
+	//	}*/
+	//}
 }
 
 Node* Player::get_Node()

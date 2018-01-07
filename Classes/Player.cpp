@@ -57,16 +57,16 @@ void Player::Init(string sprite_filename)
 
 void Player::Update(float delta)
 {
-	for (int i = 0; i < ProjectileList.size(); i++)
-	{
-		ProjectileList.at(i)->Update(delta);
-		/*if (ProjectileList.at(i)->destroy)
-		{
-			BaseProjectile* temp = ProjectileList.at(i);
-			delete temp;
-			--i;
-		}*/
-	}
+	//for (int i = 0; i < ProjectileList.size(); i++)
+	//{
+	//	ProjectileList.at(i)->Update(delta);
+	//	/*if (ProjectileList.at(i)->destroy)
+	//	{
+	//		BaseProjectile* temp = ProjectileList.at(i);
+	//		delete temp;
+	//		--i;
+	//	}*/
+	//}
 }
 
 Node* Player::get_Node()
@@ -141,9 +141,10 @@ void Player::Move(Movement_Direction dir)
 
 void Player::Shoot()
 {
-	BaseProjectile* temp = BaseProjectile::create();
+	/*BaseProjectile* temp = BaseProjectile::create();
 	temp->Init("projectile1.png", Vec2(0.f, 4.f),node->getPosition());
-	ProjectileList.push_back(temp);
+	ProjectileList.push_back(temp);*/
+	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
 }
 
 void Player::Set_moving_state(Moving_State mov_st)

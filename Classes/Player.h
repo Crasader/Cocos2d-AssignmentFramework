@@ -1,7 +1,7 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include "BaseProjectile.h"
+#include "ProjectileManager.h"
 #include <vector>
 class Player
 {

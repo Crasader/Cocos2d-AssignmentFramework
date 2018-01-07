@@ -51,6 +51,12 @@
     <ClCompile Include="..\Classes\PowerUp.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Wave.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WaveManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -84,6 +90,12 @@
       <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PowerUp.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Wave.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WaveManager.h">
       <Filter>src\Header</Filter>
     </ClInclude>
   </ItemGroup>

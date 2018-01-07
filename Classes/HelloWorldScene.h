@@ -2,6 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "Player.h"
+#include "PowerUp.h"
 
 using namespace cocos2d;
 
@@ -44,6 +45,7 @@ private:
 	Size playingSize = Size(visibleSize.width, visibleSize.height - (visibleSize.height / 8));
 
 	Player* player1;
+	PowerUp* powerUp;
 
 	Node* bgNode;
 	float bgX, bgY, bg2X, bg2Y;

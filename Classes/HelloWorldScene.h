@@ -2,6 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "Player.h"
+#include "Enemy.h"
 #include "PowerUp.h"
 
 using namespace cocos2d;
@@ -46,6 +47,9 @@ private:
 
 	Player* player1;
 	PowerUp* powerUp;
+
+	Enemy* enemyInstance;
+
 
 	Node* bgNode;
 	float bgX, bgY, bg2X, bg2Y;

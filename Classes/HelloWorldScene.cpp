@@ -310,6 +310,14 @@ bool HelloWorld::init()
 	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
 #endif 
 
+#ifndef ENEMY_INIT
+	/*enemyInstance = Enemy::create("Enemy1");
+	enemyInstance->Init("Enemy_Idle.png");
+	this->addChild(enemyInstance->get_Node(), 1);
+	enemyInstance->set_Position(playingSize.width*0.5f, playingSize.height);*/
+
+#endif
+
 #ifndef POWERUP_INIT
 	powerUp = PowerUp::create("PowerUp");
 	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL);

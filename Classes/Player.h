@@ -37,6 +37,8 @@ public:
 	void Set_moving_state(Moving_State mov_st);
 	int get_hp();
 
+	Sprite* getSprite(void) { return sprite; }
+
 	static Player* create(string name);
 	
 private:

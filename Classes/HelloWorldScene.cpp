@@ -310,10 +310,25 @@ bool HelloWorld::init()
 	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
 #endif 
 
+#ifndef ENEMY_INIT
+	enemyInstance = Enemy::create("Enemy1");
+	enemyInstance->Init("Enemy_Idle.png");
+	this->addChild(enemyInstance->get_Node(), 1);
+	float random = rand() % (int)(playingSize.width);
+	enemyInstance->set_Position(random, playingSize.height);
+
+#endif
+
+#ifndef POWERUP_INIT
+	powerUp = PowerUp::create("PowerUp");
+	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL);
+	this->addChild(powerUp->get_Node(), 1);
+	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);
+#endif 
+
 #ifndef PROJECTILE_MANAGER_INIT
 	ProjectileManager::getInstance().Init();
 #endif // !PROJECTILE_MANAGER_INIT
-
 
 	//mainSprite->runAction(RepeatForever::create(animIdle));
 	mainSprite->runAction(animate);
@@ -390,8 +405,6 @@ bool HelloWorld::init()
 	//activate update feature per frame
 	this->scheduleUpdate();
 
-
-
     return true;
 }
 
@@ -404,6 +417,10 @@ void HelloWorld::update(float delta)
 	rendtexSprite->setGLProgram(proPostProcess);*/
 	ProjectileManager::getInstance().Update(delta);
 	player1->Update(delta);
+	enemyInstance->Update(delta);
+	powerUp->Update(delta);
+
+
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
 		player1->Move(Player::Movement_Direction::Right);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_LEFT_ARROW))
@@ -430,7 +447,6 @@ void HelloWorld::update(float delta)
 	{
 		this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->setPosition(0, bgSize.y);
 	}
-
 }
 
 void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
@@ -556,5 +572,3 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 
 }
-
-

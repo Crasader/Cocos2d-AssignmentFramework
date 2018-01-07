@@ -310,6 +310,11 @@ bool HelloWorld::init()
 	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
 #endif 
 
+#ifndef PROJECTILE_MANAGER_INIT
+	ProjectileManager::getInstance().Init();
+#endif // !PROJECTILE_MANAGER_INIT
+
+
 	//mainSprite->runAction(RepeatForever::create(animIdle));
 	mainSprite->runAction(animate);
 	//this->removeChild(spriteNode);
@@ -397,6 +402,7 @@ void HelloWorld::update(float delta)
 	rendtex->end();
 	rendtexSprite->setTexture(rendtex->getSprite()->getTexture());
 	rendtexSprite->setGLProgram(proPostProcess);*/
+	ProjectileManager::getInstance().Update(delta);
 	player1->Update(delta);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
 		player1->Move(Player::Movement_Direction::Right);
@@ -452,7 +458,8 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 	{
 		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, HelloWorld::createScene(),Color3B(0,255,255)));
-		player1->Shoot();
+		player1->Shoot();		
+		CCLOG(std::to_string(ProjectileManager::getInstance().get_Number_of_Projectiles()).c_str());
 	}
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)

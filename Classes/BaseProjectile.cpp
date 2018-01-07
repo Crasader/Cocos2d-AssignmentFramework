@@ -63,6 +63,4 @@ BaseProjectile* BaseProjectile::create()
 void BaseProjectile::release()
 {
 	CCDirector::getInstance()->getRunningScene()->removeChild(node);
-	delete sprite;
-	delete node;
 }

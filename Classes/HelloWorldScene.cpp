@@ -311,10 +311,11 @@ bool HelloWorld::init()
 #endif 
 
 #ifndef ENEMY_INIT
-	/*enemyInstance = Enemy::create("Enemy1");
+	enemyInstance = Enemy::create("Enemy1");
 	enemyInstance->Init("Enemy_Idle.png");
 	this->addChild(enemyInstance->get_Node(), 1);
-	enemyInstance->set_Position(playingSize.width*0.5f, playingSize.height);*/
+	float random = rand() % (int)(playingSize.width);
+	enemyInstance->set_Position(random, playingSize.height);
 
 #endif
 
@@ -416,7 +417,9 @@ void HelloWorld::update(float delta)
 	rendtexSprite->setGLProgram(proPostProcess);*/
 	ProjectileManager::getInstance().Update(delta);
 	player1->Update(delta);
+	enemyInstance->Update(delta);
 	powerUp->Update(delta);
+
 
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
 		player1->Move(Player::Movement_Direction::Right);

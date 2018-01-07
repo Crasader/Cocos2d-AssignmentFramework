@@ -31,7 +31,8 @@ void Enemy::Init(string sprite_filename)
 
 void Enemy::Update(float dt)
 {
-
+	auto moveEvent = MoveBy::create(0.f, Vec2(0, -1) * 1);
+	spriteNode->runAction(moveEvent);
 }
 
 void Enemy::Set_Name(string name)

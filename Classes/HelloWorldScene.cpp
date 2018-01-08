@@ -1,6 +1,8 @@
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
 #include "SceneManager.h"
+#include "WaveManager.h"
+#include "PowerUpManager.h"
 USING_NS_CC;
 
 // Because cocos2d-x requres createScene() to be static, we need to make other non-pointer members static
@@ -308,27 +310,49 @@ bool HelloWorld::init()
 	player1->Init("Plane_Idle.png");
 	this->addChild(player1->get_Node(),1);
 	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
-#endif 
+#endif
 
 #ifndef ENEMY_INIT
-	enemyInstance = Enemy::create("Enemy1");
-	enemyInstance->Init("Enemy_Idle.png");
-	this->addChild(enemyInstance->get_Node(), 1);
-	float random = rand() % (int)(playingSize.width);
-	enemyInstance->set_Position(random, playingSize.height);
+	//enemyInstance = Enemy::create("Enemy1");
+	//enemyInstance->Init("Enemy_Idle.png");
+	//this->addChild(enemyInstance->get_Node(), 1);
+	////float random = rand() % (int)(playingSize.width);
+	//float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
+	//enemyInstance->set_Position(random, playingSize.height);
 
 #endif
 
 #ifndef POWERUP_INIT
-	powerUp = PowerUp::create("PowerUp");
-	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL);
+	/*powerUp = PowerUp::create("PowerUp");
+	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1);
 	this->addChild(powerUp->get_Node(), 1);
-	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);
+	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
 #endif 
 
 #ifndef PROJECTILE_MANAGER_INIT
 	ProjectileManager::getInstance().Init();
 #endif // !PROJECTILE_MANAGER_INIT
+
+#ifndef ENEMY_MANAGER_INIT
+	EnemyManager::getInstance().Init();
+#endif // !ENEMY_MANAGER_INIT
+
+#ifndef WAVE_MANAGER_INIT
+	WaveManager::getInstance().Init();
+#endif // WAVE_MANAGER_INIT
+
+#ifndef POWERUP_MANAGER_INIT
+	PowerUpManager::getInstance().Init();
+#endif // !POWERUP_MANAGER_INIT
+
+
+
+	{
+		/*float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
+		EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));*/
+	}
+	
+
 
 	//mainSprite->runAction(RepeatForever::create(animIdle));
 	mainSprite->runAction(animate);
@@ -416,9 +440,12 @@ void HelloWorld::update(float delta)
 	rendtexSprite->setTexture(rendtex->getSprite()->getTexture());
 	rendtexSprite->setGLProgram(proPostProcess);*/
 	ProjectileManager::getInstance().Update(delta);
+	EnemyManager::getInstance().Update(delta);
+	PowerUpManager::getInstance().Update(delta);
+
 	player1->Update(delta);
-	enemyInstance->Update(delta);
-	powerUp->Update(delta);
+	//enemyInstance->Update(delta);
+	//powerUp->Update(delta);
 
 
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
@@ -477,6 +504,26 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		player1->Shoot();		
 		CCLOG(std::to_string(ProjectileManager::getInstance().get_Number_of_Projectiles()).c_str());
 	}
+	if (keyCode == EventKeyboard::KeyCode::KEY_ALT)
+	{
+		float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
+		EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));
+		CCLOG(std::to_string(playingSize.height).c_str());
+	}
+	if (keyCode == EventKeyboard::KeyCode::KEY_CTRL)
+	{
+		WaveManager::getInstance().Run_next_wave();
+		WaveManager::getInstance().Init();
+	}
+	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_SHIFT)
+	{
+		/*powerUp = PowerUp::create("PowerUp");
+		powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1);
+		this->addChild(powerUp->get_Node(), 1);
+		powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
+		PowerUpManager::getInstance().CreatePowerUp("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1,Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
+	}
+	
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)
 	{

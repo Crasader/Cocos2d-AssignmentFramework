@@ -16,16 +16,18 @@ public:
 	virtual Node* get_Node();
 	virtual void set_Position(float x, float y);
 	static BaseProjectile* create();
+	virtual void Collision();
 
-	void release();
-
+	virtual void release();
+public:
 	bool destroy;
-private:
+protected:
 	float movement_spd;
 	Sprite* sprite;
 	Node* node;
 	Vec2 Direction_Vector;
 	float lifetime;
+	int damage;
 };
 
 

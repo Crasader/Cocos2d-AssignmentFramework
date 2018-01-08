@@ -1,6 +1,8 @@
 #include "Scene2.h"
 #include "SimpleAudioEngine.h"
 #include "SceneManager.h"
+#include "WaveManager.h"
+#include "PowerUpManager.h"
 USING_NS_CC;
 
 // Because cocos2d-x requres createScene() to be static, we need to make other non-pointer members static
@@ -259,6 +261,22 @@ bool Scene2::init()
 	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
 #endif 
 
+#ifndef PROJECTILE_MANAGER_INIT
+	ProjectileManager::getInstance().Init();
+#endif // !PROJECTILE_MANAGER_INIT
+
+#ifndef ENEMY_MANAGER_INIT
+	EnemyManager::getInstance().Init();
+#endif // !ENEMY_MANAGER_INIT
+
+#ifndef WAVE_MANAGER_INIT
+	WaveManager::getInstance().Init();
+#endif // WAVE_MANAGER_INIT
+
+#ifndef POWERUP_MANAGER_INIT
+	PowerUpManager::getInstance().Init();
+#endif // !POWERUP_MANAGER_INIT
+
 
 	//mainSprite->runAction(RepeatForever::create(animIdle));
 	mainSprite->runAction(animate);
@@ -347,6 +365,10 @@ void Scene2::update(float delta)
 	rendtex->end();
 	rendtexSprite->setTexture(rendtex->getSprite()->getTexture());
 	rendtexSprite->setGLProgram(proPostProcess);*/
+	ProjectileManager::getInstance().Update(delta);
+	EnemyManager::getInstance().Update(delta);
+	PowerUpManager::getInstance().Update(delta);
+
 	player1->Update(delta);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
 		player1->Move(Player::Movement_Direction::Right);
@@ -404,7 +426,25 @@ void Scene2::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, Scene2::createScene(),Color3B(0,255,255)));
 		player1->Shoot();
 	}
-
+	if (keyCode == EventKeyboard::KeyCode::KEY_ALT)
+	{
+		float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
+		EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));
+		CCLOG(std::to_string(playingSize.height).c_str());
+	}
+	if (keyCode == EventKeyboard::KeyCode::KEY_CTRL)
+	{
+		WaveManager::getInstance().Run_next_wave();
+		WaveManager::getInstance().Init();
+	}
+	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_SHIFT)
+	{
+		/*powerUp = PowerUp::create("PowerUp");
+		powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1);
+		this->addChild(powerUp->get_Node(), 1);
+		powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
+		PowerUpManager::getInstance().CreatePowerUp("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1, Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
+	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)
 	{
 		SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);

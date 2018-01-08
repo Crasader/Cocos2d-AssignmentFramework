@@ -162,6 +162,11 @@ int Player::get_hp()
 	return hp;
 }
 
+void Player::set_hp(int hp)
+{
+	this->hp = hp;
+}
+
 Player* Player::create(string name)
 {
 	Player* temp = new Player();

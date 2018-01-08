@@ -2,7 +2,7 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "Player.h"
-#include "Enemy.h"
+#include "EnemyManager.h"
 #include "PowerUp.h"
 
 using namespace cocos2d;

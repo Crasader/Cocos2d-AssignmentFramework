@@ -36,6 +36,7 @@ public:
 	void Shoot();
 	void Set_moving_state(Moving_State mov_st);
 	int get_hp();
+	void set_hp(int hp);
 
 	Sprite* getSprite(void) { return sprite; }
 

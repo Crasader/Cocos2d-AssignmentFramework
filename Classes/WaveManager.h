@@ -2,15 +2,26 @@
 #define WAVE_MANAGER_H_
 //#include <json\json\json.h>
 #include <JSON\json\json.h>
-
+#include "Wave.h"
 class WaveManager
 {
 public:
+	static WaveManager& getInstance()
+	{
+		static WaveManager Instance;
+		return Instance;
+	}
+	WaveManager(const WaveManager&) = delete;
+	WaveManager& operator=(const WaveManager&) = delete;
+	
+	void Init();
+	void Update(float dt);
+	void Run_next_wave();
+
+	list<Wave*> Wave_List;
+private:
 	WaveManager();
 	~WaveManager();
-
-private:
-	
 };
 
 #endif

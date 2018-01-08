@@ -1,8 +1,8 @@
-
 #include "Enemy.h"
 
-
-Enemy::Enemy()
+Enemy::Enemy() 
+	: destroy(false),
+	hp(2)
 {
 
 }
@@ -26,13 +26,36 @@ void Enemy::Init(string sprite_filename)
 	movement_spd = 10.0f;
 
 
+
+	CCDirector::getInstance()->getRunningScene()->addChild(node);
+}
+
+void Enemy::Init(string sprite_filename, Vec2 position)
+{
+	node = Node::create();
+	node->setPosition(position);
+	node->setName(Name);
+	spriteNode = Node::create();
+	spriteNode->setName(Name + "_spriteNode");
+	node->addChild(spriteNode);
+	sprite = Sprite::create("Enemy/" + sprite_filename);
+	sprite->setName(Name + "_sprite");
+	spriteNode->addChild(sprite, 0);
+	movement_spd = 10.0f;
+
+
+
+	CCDirector::getInstance()->getRunningScene()->addChild(node);
 }
 
 
 void Enemy::Update(float dt)
 {
+	if (hp <= 0)
+		destroy = true;
+
 	auto moveEvent = MoveBy::create(0.f, Vec2(0, -1) * 1);
-	spriteNode->runAction(moveEvent);
+	node->runAction(moveEvent);
 }
 
 void Enemy::Set_Name(string name)
@@ -55,10 +78,25 @@ int Enemy::get_hp()
 	return hp;
 }
 
+void Enemy::get_hit(int damage)
+{
+	hp -= damage;
+	if (hp < 0)
+		hp = 0;
+}
+
 Enemy* Enemy::create(string name)
 {
 	Enemy* temp = new Enemy();
 	temp->Set_Name(name);
+	return temp;
+}
+
+Enemy* Enemy::create(string name, string sprite_filename, Vec2 position)
+{
+	Enemy* temp = new Enemy();
+	temp->Set_Name(name);
+	temp->Init(sprite_filename, position);
 	return temp;
 }
 
@@ -80,7 +118,10 @@ Animate* Enemy::Add_animation(string plist_filename, string animation__name)
 	return Animate::create(animation);
 }
 
-
+void Enemy::release()
+{
+	CCDirector::getInstance()->getRunningScene()->removeChild(node);
+}
 
 
 

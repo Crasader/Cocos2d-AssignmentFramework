@@ -23,13 +23,17 @@ public:
 		MULTISHOT,
 	}typeOfPowerUp;
 
-	void Init(string sprite_filename, TypesOfPowerUp types);
+	void Init(string sprite_filename, TypesOfPowerUp types, Player* player, Vec2 position);
 	void Update(float delta);
 	Node* get_Node();
 	Node* get_spriteNode();
 	void set_Position(float x, float y);
 	static PowerUp* create(string name);
+	static PowerUp* create(string sprite_filename, TypesOfPowerUp types, Player* player, Vec2 position);
+	void Collision();
+	void release();
 
+	bool destroy;
 private:
 	void Set_Name(string name);
 

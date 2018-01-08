@@ -2,7 +2,8 @@
 #define __Scene2_H__
 
 #include "Player.h"
-
+#include "EnemyManager.h"
+#include "PowerUp.h"
 using namespace cocos2d;
 
 class Scene2 : public cocos2d::Scene

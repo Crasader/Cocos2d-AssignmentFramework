@@ -57,6 +57,15 @@
     <ClCompile Include="..\Classes\WaveManager.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\EnemyManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CollisionManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PowerUpManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -96,6 +105,15 @@
       <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\WaveManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CollisionManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PowerUpManager.h">
       <Filter>src\Header</Filter>
     </ClInclude>
   </ItemGroup>

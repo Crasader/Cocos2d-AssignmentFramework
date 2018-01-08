@@ -37,11 +37,14 @@ public:
 	void Set_moving_state(Moving_State mov_st);
 	int get_hp();
 	void set_hp(int hp);
+	void get_hit(int damage);
+	void Collision();
 
 	Sprite* getSprite(void) { return sprite; }
 
 	static Player* create(string name);
 	
+	bool dead;
 private:
 	void Set_Name(string name);
 	Node* node;

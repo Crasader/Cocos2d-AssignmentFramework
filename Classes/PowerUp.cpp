@@ -17,7 +17,7 @@ void PowerUp::Init(string sprite_filename, TypesOfPowerUp types, Player* player,
 	spriteNode = Node::create();
 	spriteNode->setName(Name + "_spriteNode");
 	node->addChild(spriteNode);
-	sprite = Sprite::create(sprite_filename);
+	sprite = Sprite::create("PowerUp/" + sprite_filename);
 	sprite->setName(Name + "_sprite");
 	spriteNode->addChild(sprite, 0);
 	typeOfPowerUp = types;

@@ -23,6 +23,7 @@ public:
 	virtual Animate* Add_animation(string plist_filename, string animation__name);
 	virtual void Shoot();
 	virtual int get_hp();
+	virtual int get_damage();
 	virtual void get_hit(int damage);
 
 	static Enemy* create(string name);
@@ -40,7 +41,7 @@ private:
 	Node* spriteNode;
 
 	int hp;
-
+	int damage;
 };
 
 

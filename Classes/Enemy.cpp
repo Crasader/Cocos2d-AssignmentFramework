@@ -2,7 +2,8 @@
 
 Enemy::Enemy() 
 	: destroy(false),
-	hp(2)
+	hp(2),
+	damage(5)
 {
 
 }
@@ -76,6 +77,11 @@ void Enemy::Shoot()
 int Enemy::get_hp()
 {
 	return hp;
+}
+
+int Enemy::get_damage()
+{
+	return damage;
 }
 
 void Enemy::get_hit(int damage)

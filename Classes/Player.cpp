@@ -1,6 +1,7 @@
 #include "Player.h"
-
-Player::Player()
+#include "EnemyManager.h"
+Player::Player() :
+	dead(false)
 {
 }
 
@@ -57,6 +58,12 @@ void Player::Init(string sprite_filename)
 
 void Player::Update(float delta)
 {
+	Collision();
+	string t = "HP: " + std::to_string(hp);
+	CCLOG(t.c_str());
+
+	if (hp <= 0)
+		dead = true;
 	//for (int i = 0; i < ProjectileList.size(); i++)
 	//{
 	//	ProjectileList.at(i)->Update(delta);
@@ -165,6 +172,41 @@ int Player::get_hp()
 void Player::set_hp(int hp)
 {
 	this->hp = hp;
+}
+
+void Player::get_hit(int damage)
+{
+	hp -= damage;
+}
+
+void Player::Collision()
+{
+#define ENEMYLIST EnemyManager::getInstance().EnemyList
+
+	CCRect Player_rect = CCRectMake(
+		node->getPosition().x - (sprite->getContentSize().width * 0.5f),
+		node->getPosition().y - (sprite->getContentSize().height * 0.5f),
+		sprite->getContentSize().width,
+		sprite->getContentSize().height
+	);
+
+	for (int i = 0; i < ENEMYLIST.size(); ++i)
+	{
+		CCRect enemy_rect = CCRectMake(
+			ENEMYLIST.at(i)->get_Node()->getPosition().x - (ENEMYLIST.at(i)->getSprite()->getContentSize().width * 0.5f),
+			ENEMYLIST.at(i)->get_Node()->getPosition().y - (ENEMYLIST.at(i)->getSprite()->getContentSize().height * 0.5f),
+			ENEMYLIST.at(i)->getSprite()->getContentSize().width,
+			ENEMYLIST.at(i)->getSprite()->getContentSize().height
+		);
+
+		if (Player_rect.intersectsRect(enemy_rect))
+		{
+			//ENEMYLIST.at(i)->get_hit(damage);
+			get_hit(ENEMYLIST.at(i)->get_damage());
+			ENEMYLIST.at(i)->destroy = true;
+			break;
+		}
+	}
 }
 
 Player* Player::create(string name)

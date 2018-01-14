@@ -32,9 +32,9 @@ void PowerUpManager::Update(float dt)
 	}
 }
 
-void PowerUpManager::CreatePowerUp(string sprite_filename, PowerUp::TypesOfPowerUp types, Player* player, Vec2 position)
+void PowerUpManager::CreatePowerUp(string sprite_filename, PowerUp::TypesOfPowerUp types, Vec2 position)
 {
-	PowerUp* temp = PowerUp::create(sprite_filename, types, player, position);
+	PowerUp* temp = PowerUp::create(sprite_filename, types, position);
 	PowerUpList.push_back(temp);
 }
 

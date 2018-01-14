@@ -17,7 +17,7 @@ public:
 
 	void Init();
 	void Update(float dt);
-	void CreatePowerUp(string sprite_filename, PowerUp::TypesOfPowerUp types, Player* player, Vec2 position);
+	void CreatePowerUp(string sprite_filename, PowerUp::TypesOfPowerUp types, Vec2 position);
 
 	void Release();
 public:

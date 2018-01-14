@@ -528,10 +528,10 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		{
 		case 0:
 		default:
-			PowerUpManager::getInstance().CreatePowerUp("hp.png", PowerUp::TypesOfPowerUp::HEAL, player1,Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
+			PowerUpManager::getInstance().CreatePowerUp("hp.png", PowerUp::TypesOfPowerUp::HEAL,Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
 			break;
 		case 1:
-			PowerUpManager::getInstance().CreatePowerUp("shield.png", PowerUp::TypesOfPowerUp::SHIELD, player1, Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
+			PowerUpManager::getInstance().CreatePowerUp("shield.png", PowerUp::TypesOfPowerUp::SHIELD, Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
 			break;
 		}
 	}

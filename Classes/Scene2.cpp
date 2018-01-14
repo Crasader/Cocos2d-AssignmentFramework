@@ -444,7 +444,7 @@ void Scene2::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1);
 		this->addChild(powerUp->get_Node(), 1);
 		powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
-		PowerUpManager::getInstance().CreatePowerUp("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1, Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
+		PowerUpManager::getInstance().CreatePowerUp("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)
 	{

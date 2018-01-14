@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "EnemyManager.h"
+#include "PowerUpManager.h"
 Player::Player() :
 	dead(false)
 {
@@ -182,6 +183,7 @@ void Player::get_hit(int damage)
 void Player::Collision()
 {
 #define ENEMYLIST EnemyManager::getInstance().EnemyList
+#define POWERUPLIST PowerUpManager::getInstance().PowerUpList
 
 	CCRect Player_rect = CCRectMake(
 		node->getPosition().x - (sprite->getContentSize().width * 0.5f),
@@ -204,6 +206,37 @@ void Player::Collision()
 			//ENEMYLIST.at(i)->get_hit(damage);
 			get_hit(ENEMYLIST.at(i)->get_damage());
 			ENEMYLIST.at(i)->destroy = true;
+			break;
+		}
+	}
+	for (int i = 0; i < POWERUPLIST.size(); ++i)
+	{
+		CCRect powerup_rect = CCRectMake(
+			POWERUPLIST.at(i)->get_Node()->getPosition().x - (POWERUPLIST.at(i)->getSprite()->getContentSize().width * 0.5f),
+			POWERUPLIST.at(i)->get_Node()->getPosition().y - (POWERUPLIST.at(i)->getSprite()->getContentSize().height * 0.5f),
+			POWERUPLIST.at(i)->getSprite()->getContentSize().width,
+			POWERUPLIST.at(i)->getSprite()->getContentSize().height
+		);
+
+		if (Player_rect.intersectsRect(powerup_rect))
+		{
+			POWERUPLIST.at(i)->destroy = true;
+
+			switch (POWERUPLIST.at(i)->typeOfPowerUp)
+			{
+			case PowerUp::NOTHING:
+				break;
+			case PowerUp::HEAL:
+				set_hp(get_hp() + 5);
+				break;
+			case PowerUp::SHIELD:
+				break;
+			case PowerUp::MULTISHOT:
+				break;
+			default:
+				break;
+			}
+
 			break;
 		}
 	}

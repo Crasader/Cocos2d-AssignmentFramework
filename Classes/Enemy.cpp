@@ -51,7 +51,7 @@ void Enemy::Update(float dt)
 {
 	if (hp <= 0)
 	{
-		int random = (int)cocos2d::RandomHelper::random_int(0, 2);
+		int random = (int)cocos2d::RandomHelper::random_int(0, 3);
 
 		switch (random)
 		{
@@ -60,6 +60,9 @@ void Enemy::Update(float dt)
 			break;
 		case 1:
 			PowerUpManager::getInstance().CreatePowerUp("shield.png", PowerUp::TypesOfPowerUp::SHIELD, node->getPosition());
+			break;
+		case 2:
+			PowerUpManager::getInstance().CreatePowerUp("multishot.png", PowerUp::TypesOfPowerUp::MULTISHOT, node->getPosition());
 			break;
 		default:
 			break;

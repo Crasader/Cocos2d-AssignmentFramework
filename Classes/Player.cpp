@@ -54,7 +54,7 @@ void Player::Init(string sprite_filename)
 	//tilt_right = Add_animation("plane_right_spritesheet.plist", "plane_right");
 
 	hp = 100;
-
+	bulletMultiply = 1;
 }
 
 void Player::Update(float delta)
@@ -149,10 +149,22 @@ void Player::Move(Movement_Direction dir)
 
 void Player::Shoot()
 {
-	/*BaseProjectile* temp = BaseProjectile::create();
-	temp->Init("projectile1.png", Vec2(0.f, 4.f),node->getPosition());
-	ProjectileList.push_back(temp);*/
-	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
+	switch (bulletMultiply)
+	{
+	case 1:
+		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
+		break;
+	case 2:
+		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x - 10, node->getPosition().y));
+		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x + 10, node->getPosition().y));
+		break;
+	default:
+	case 3:
+		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
+		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x - 20, node->getPosition().y));
+		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x + 20, node->getPosition().y));
+		break;
+	}
 }
 
 void Player::Set_moving_state(Moving_State mov_st)
@@ -232,6 +244,7 @@ void Player::Collision()
 			case PowerUp::SHIELD:
 				break;
 			case PowerUp::MULTISHOT:
+				bulletMultiply++;
 				break;
 			default:
 				break;

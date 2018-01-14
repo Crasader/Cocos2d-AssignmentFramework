@@ -63,8 +63,8 @@ void Player::Init(string sprite_filename)
 void Player::Update(float delta)
 {
 	Collision();
-	string t = "HP: " + std::to_string(hp);
-	CCLOG(t.c_str());
+	string t = std::to_string(delta);//"HP: " + std::to_string(hp);
+	//CCLOG(t.c_str());
 
 	if (hp <= 0)
 		dead = true;

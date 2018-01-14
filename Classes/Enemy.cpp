@@ -1,6 +1,9 @@
 #include "Enemy.h"
 #include "PowerUpManager.h"
 #include "PlayerManager.h"
+
+#define SHOOTING_SPEED 2.f
+
 Enemy::Enemy() 
 	: destroy(false),
 	hp(2),
@@ -26,7 +29,7 @@ void Enemy::Init(string sprite_filename)
 	sprite->setName(Name + "_sprite");
 	spriteNode->addChild(sprite, 0);
 	movement_spd = 10.0f;
-
+	shoot_timer = 0.f;
 
 
 	CCDirector::getInstance()->getRunningScene()->addChild(node);
@@ -44,6 +47,7 @@ void Enemy::Init(string sprite_filename, Vec2 position)
 	sprite->setName(Name + "_sprite");
 	spriteNode->addChild(sprite, 0);
 	movement_spd = 10.0f;
+	shoot_timer = 0.f;
 	CCDirector::getInstance()->getRunningScene()->addChild(node);
 }
 
@@ -76,7 +80,14 @@ void Enemy::Update(float dt)
 	auto moveEvent = MoveBy::create(0.f, Vec2(0, -1) * 1);
 	node->runAction(moveEvent);
 
-	Shoot();
+	shoot_timer += dt;
+	//CCLOG(std::to_string(shoot_timer).c_str());
+	if (shoot_timer >= SHOOTING_SPEED)
+	{
+		Shoot();
+		shoot_timer = 0;
+	}
+	
 }
 
 void Enemy::Set_Name(string name)

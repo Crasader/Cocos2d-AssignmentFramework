@@ -17,7 +17,8 @@ void Wave::Init()
 	float tempDelay = 0;
 	float currEnemiesSpawned = 0;
 	int MaxEnemiesPerWave = 0;
-	float timeBtwnSpawn = 0;
+	float timeBtwnSpawn = 5.f;
+	finished = false;
 }
 
 void Wave::Run()
@@ -32,6 +33,11 @@ void Wave::Run()
 		}
 		List_of_enemy_info.pop_back();
 	}
+}
+
+void Wave::Update(float dt)
+{
+	RunWave(dt);
 }
 
 Wave* Wave::Create(int Enemy_Amount)
@@ -63,12 +69,12 @@ Wave* Wave::Create(int Enemy_Amount, Vec2 position)
 }
 
 
-void Wave::RunWave()
+void Wave::RunWave(float dt)
 {
 	
 	if (currEnemiesSpawned < MaxEnemiesPerWave)
 	{
-		//tempDelay += deltaTime;
+		tempDelay += dt;
 		if (tempDelay >= timeBtwnSpawn)
 		{
 			float random = (float)cocos2d::RandomHelper::random_int(0, (int)(SceneManager::getInstance().currScene_playingSize.width));
@@ -80,6 +86,10 @@ void Wave::RunWave()
 		}
 		 
 		currEnemiesSpawned++;
+	}
+	else
+	{
+		finished = true;
 	}
 
 }

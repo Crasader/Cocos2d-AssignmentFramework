@@ -20,7 +20,7 @@ public:
 	void Init();
 	void Update(float dt);
 	void Run_next_wave();
-	
+	void Add_wave(Wave* wave);
 
 	
 

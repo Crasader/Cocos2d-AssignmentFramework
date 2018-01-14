@@ -20,14 +20,17 @@ public:
 
 	void Init();
 	void Run();
+	void Update(float dt);
 
-	void RunWave();
+	void RunWave(float dt);
 	
 
 	vector<EnemyInfo> List_of_enemy_info;
 
 	static Wave* Create(int Enemy_Amount);
 	static Wave* Create(int Enemy_Amount, Vec2 position);
+
+	bool finished;
 private:
 	//int EnemyType;
 	int Enemy_Amount;

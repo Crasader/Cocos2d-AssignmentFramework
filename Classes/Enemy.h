@@ -44,6 +44,8 @@ private:
 
 	int hp;
 	int damage;
+	float shoot_timer;
+
 };
 
 

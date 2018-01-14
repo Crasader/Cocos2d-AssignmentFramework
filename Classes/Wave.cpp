@@ -69,7 +69,7 @@ void Wave::RunWave()
 		//tempDelay += deltaTime;
 		if (tempDelay >= timeBtwnSpawn)
 		{
-			float random = (float)cocos2d::RandomHelper::random_int(0.0f, (SceneManager::getInstance().currScene_playingSize.width));
+			float random = (float)cocos2d::RandomHelper::random_int(0, (int)(SceneManager::getInstance().currScene_playingSize.width));
 			//EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));
 			Create(2, Vec2(random, (SceneManager::getInstance().currScene_playingSize.height)));
 

@@ -34,6 +34,7 @@ bool Scene2::init()
 		return false;
 	}
 
+	SceneManager::getInstance().currScene_playingSize = playingSize;
 
 
 	//Creating a node container to store non-movable variables

@@ -34,8 +34,8 @@ bool HelloWorld::init()
         return false;
     }
 
-    
-
+	SceneManager::getInstance().currScene_playingSize = playingSize;
+	
 	//Creating a node container to store non-movable variables
 	auto nodeItems = Node::create();
 	nodeItems->setName("nodeItems");

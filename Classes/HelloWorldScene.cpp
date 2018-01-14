@@ -5,6 +5,7 @@
 #include "PowerUpManager.h"
 USING_NS_CC;
 
+using namespace cocos2d;
 // Because cocos2d-x requres createScene() to be static, we need to make other non-pointer members static
 std::map<cocos2d::EventKeyboard::KeyCode,
 	std::chrono::high_resolution_clock::time_point> HelloWorld::Key_map;
@@ -333,6 +334,10 @@ bool HelloWorld::init()
 	ProjectileManager::getInstance().Init();
 #endif // !PROJECTILE_MANAGER_INIT
 
+#ifndef ENEMY_PROJECTILE_MANAGER_INIT
+	EnemyProjectileManager::getInstance().Init();
+#endif // !PROJECTILE_MANAGER_INIT
+
 #ifndef ENEMY_MANAGER_INIT
 	EnemyManager::getInstance().Init();
 #endif // !ENEMY_MANAGER_INIT
@@ -440,12 +445,14 @@ void HelloWorld::update(float delta)
 	rendtexSprite->setTexture(rendtex->getSprite()->getTexture());
 	rendtexSprite->setGLProgram(proPostProcess);*/
 	ProjectileManager::getInstance().Update(delta);
+	EnemyProjectileManager::getInstance().Update(delta);
 	EnemyManager::getInstance().Update(delta);
 	PowerUpManager::getInstance().Update(delta);
 
 	player1->Update(delta);
 	//enemyInstance->Update(delta);
 	//powerUp->Update(delta);
+
 
 
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))

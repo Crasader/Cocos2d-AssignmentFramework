@@ -66,6 +66,12 @@
     <ClCompile Include="..\Classes\PowerUpManager.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\EnemyProjectileManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyBaseProjectile.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -114,6 +120,12 @@
       <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\PowerUpManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyProjectileManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyBaseProjectile.h">
       <Filter>src\Header</Filter>
     </ClInclude>
   </ItemGroup>

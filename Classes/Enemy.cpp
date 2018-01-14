@@ -69,6 +69,8 @@ void Enemy::Update(float dt)
 	}
 	auto moveEvent = MoveBy::create(0.f, Vec2(0, -1) * 1);
 	node->runAction(moveEvent);
+
+	Shoot();
 }
 
 void Enemy::Set_Name(string name)
@@ -83,7 +85,7 @@ void Enemy::set_Position(float x, float y)
 
 void Enemy::Shoot()
 {
-
+	EnemyProjectileManager::getInstance().CreateEnemyProjectile("projectile1.png", Vec2(0.f, -4.f), node->getPosition());
 }
 
 int Enemy::get_hp()

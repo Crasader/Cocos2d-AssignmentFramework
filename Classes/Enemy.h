@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include "cocos2d.h"
+#include "EnemyProjectileManager.h"
 
 using namespace std;
 using namespace cocos2d;

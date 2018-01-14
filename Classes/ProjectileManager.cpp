@@ -11,6 +11,8 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::Init()
 {
+	//ProjectileCreatePtr temp_func_ptr = &BaseProjectile::create();
+	//create_ptr_list.push_back(BaseProjectile::create());
 	CCLOG("ProjectileManager Init");
 }
 
@@ -65,6 +67,25 @@ void ProjectileManager::Update(float dt)
 		}
 	}*/
 
+}
+
+void ProjectileManager::CreateProjectile(int type)
+{
+	BaseProjectile* temp;
+	switch (type)
+	{
+	case 0:
+		temp = Projectile_45degree::create();
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	default:
+		break;
+	}
+	temp->Init();
+	ProjectileList.push_back(temp);
 }
 
 void ProjectileManager::CreateProjectile(string sprite_filename, Vec2 Direction_vector, Vec2 position)

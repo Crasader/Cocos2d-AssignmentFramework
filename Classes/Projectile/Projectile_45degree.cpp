@@ -12,6 +12,10 @@ Projectile_45degree::~Projectile_45degree()
 
 void Projectile_45degree::Init()
 {
+	destroy = false;
+	lifetime = 3.f;
+	damage = 1;
+	offset = Vec2::ZERO;
 	node = Node::create();
 	node->setPosition(PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition());
 	sprite = Sprite::create("Projectile/projectile1.png");
@@ -26,7 +30,7 @@ void Projectile_45degree::Init()
 void Projectile_45degree::Init_other_side()
 {
 	node = Node::create();
-	node->setPosition(PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition());
+	node->setPosition(PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition() + offset);
 	sprite = Sprite::create("Projectile/projectile1.png");
 	sprite->setName("BaseProjectile");
 	node->addChild(sprite);

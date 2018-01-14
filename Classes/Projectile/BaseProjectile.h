@@ -19,7 +19,7 @@ public:
 	virtual BaseProjectile* get_new_class_instance();
 	static BaseProjectile* create();
 	virtual void Collision();
-
+	virtual void set_offset(Vec2 offset);
 	virtual void release();
 public:
 	bool destroy;

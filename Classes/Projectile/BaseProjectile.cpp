@@ -1,10 +1,7 @@
 #include "Projectile\BaseProjectile.h"
 #include "EnemyManager.h"
 #include "PlayerManager.h"
-BaseProjectile::BaseProjectile() 
-	: destroy(false), 
-	lifetime(3.f), 
-	damage(1)
+BaseProjectile::BaseProjectile()
 {
 }
 
@@ -14,9 +11,13 @@ BaseProjectile::~BaseProjectile()
 
 void BaseProjectile::Init()
 {
+	destroy = false;
+	lifetime = 3.f;
+	damage = 1;
+	offset = Vec2::ZERO;
 	node = Node::create();
 	Player* temp_player = PlayerManager::getInstance().get_Player(0);
-	node->setPosition(temp_player->get_Node()->getPosition());
+	node->setPosition(temp_player->get_Node()->getPosition() + offset);
 	sprite = Sprite::create("Projectile/projectile1.png");
 	sprite->setName("BaseProjectile");
 	node->addChild(sprite);
@@ -110,6 +111,11 @@ void BaseProjectile::Collision()
 			break;
 		}
 	}
+}
+
+void BaseProjectile::set_offset(Vec2 offset)
+{
+	this->offset = offset;
 }
 
 void BaseProjectile::release()

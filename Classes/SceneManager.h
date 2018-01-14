@@ -1,6 +1,10 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
+#include "cocos2d.h"
+
+using namespace cocos2d;
+
 enum class SceneType
 {
 	NONE,
@@ -17,6 +21,7 @@ public:
 	void runSceneWithType(const SceneType sceneType);
 	void returnToPrevScene();
 
+	Size currScene_playingSize;
 private:
 	SceneType _prevSceneType;
 	SceneType _currSceneType;

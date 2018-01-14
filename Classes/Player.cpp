@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "EnemyManager.h"
 #include "PowerUpManager.h"
+#include "ShieldManager.h"
+
 Player::Player() :
 	dead(false)
 {
@@ -236,16 +238,17 @@ void Player::Collision()
 
 			switch (POWERUPLIST.at(i)->typeOfPowerUp)
 			{
-			case PowerUp::NOTHING:
-				break;
+			
 			case PowerUp::HEAL:
 				set_hp(get_hp() + 5);
 				break;
 			case PowerUp::SHIELD:
+				ShieldManager::getInstance().CreateShield("shield_activated.png", this);
 				break;
 			case PowerUp::MULTISHOT:
 				bulletMultiply++;
 				break;
+
 			default:
 				break;
 			}

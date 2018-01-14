@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "WaveManager.h"
 #include "PowerUpManager.h"
+#include "ShieldManager.h"
 USING_NS_CC;
 
 // Because cocos2d-x requres createScene() to be static, we need to make other non-pointer members static
@@ -344,7 +345,9 @@ bool HelloWorld::init()
 #ifndef POWERUP_MANAGER_INIT
 	PowerUpManager::getInstance().Init();
 #endif // !POWERUP_MANAGER_INIT
-
+#ifndef SHIELD_MANAGER_INIT
+	ShieldManager::getInstance().Init();
+#endif // !POWERUP_MANAGER_INIT
 
 
 	{
@@ -442,6 +445,7 @@ void HelloWorld::update(float delta)
 	ProjectileManager::getInstance().Update(delta);
 	EnemyManager::getInstance().Update(delta);
 	PowerUpManager::getInstance().Update(delta);
+	ShieldManager::getInstance().Update(delta);
 
 	player1->Update(delta);
 	//enemyInstance->Update(delta);

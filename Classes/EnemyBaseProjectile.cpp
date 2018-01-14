@@ -19,7 +19,7 @@ void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Ve
 	sprite = Sprite::create("Projectile/" + sprite_filename);
 	sprite->setName("EnemyBaseProjectile");
 	node->addChild(sprite);
-	movement_spd = 10.f;
+	movement_spd = 2.f;
 	Direction_Vector = Direction_vector;
 	CCDirector::getInstance()->getRunningScene()->addChild(node);
 	

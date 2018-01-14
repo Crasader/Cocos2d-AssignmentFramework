@@ -102,7 +102,7 @@ void Enemy::set_Position(float x, float y)
 
 void Enemy::Shoot()
 {
-	EnemyProjectileManager::getInstance().CreateEnemyProjectile("projectile1.png", Vec2(0.f, -4.f), node->getPosition());
+	EnemyProjectileManager::getInstance().CreateEnemyProjectile("enemy_projectile1.png", Vec2(0.f, -4.f), node->getPosition());
 }
 
 int Enemy::get_hp()

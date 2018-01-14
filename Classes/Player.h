@@ -61,6 +61,7 @@ private:
 	SpriteFrame* original_sprite;
 
 	int hp;
+	int bulletMultiply;
 };
 
 

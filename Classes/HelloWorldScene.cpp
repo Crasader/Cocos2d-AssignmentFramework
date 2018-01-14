@@ -3,6 +3,7 @@
 #include "SceneManager.h"
 #include "WaveManager.h"
 #include "PowerUpManager.h"
+#include "ShieldManager.h"
 USING_NS_CC;
 
 // Because cocos2d-x requres createScene() to be static, we need to make other non-pointer members static
@@ -344,7 +345,9 @@ bool HelloWorld::init()
 #ifndef POWERUP_MANAGER_INIT
 	PowerUpManager::getInstance().Init();
 #endif // !POWERUP_MANAGER_INIT
-
+#ifndef SHIELD_MANAGER_INIT
+	ShieldManager::getInstance().Init();
+#endif // !POWERUP_MANAGER_INIT
 
 
 	{
@@ -442,6 +445,7 @@ void HelloWorld::update(float delta)
 	ProjectileManager::getInstance().Update(delta);
 	EnemyManager::getInstance().Update(delta);
 	PowerUpManager::getInstance().Update(delta);
+	ShieldManager::getInstance().Update(delta);
 
 	player1->Update(delta);
 	//enemyInstance->Update(delta);
@@ -515,27 +519,6 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		WaveManager::getInstance().Run_next_wave();
 		WaveManager::getInstance().Init();
 	}
-	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_SHIFT)
-	{
-		/*powerUp = PowerUp::create("PowerUp");
-		powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1);
-		this->addChild(powerUp->get_Node(), 1);
-		powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
-
-		int random = (int)cocos2d::RandomHelper::random_int(0, 2);
-
-		switch (random)
-		{
-		case 0:
-		default:
-			PowerUpManager::getInstance().CreatePowerUp("hp.png", PowerUp::TypesOfPowerUp::HEAL, player1,Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
-			break;
-		case 1:
-			PowerUpManager::getInstance().CreatePowerUp("shield.png", PowerUp::TypesOfPowerUp::SHIELD, player1, Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
-			break;
-		}
-	}
-	
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)
 	{

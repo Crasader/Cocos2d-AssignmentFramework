@@ -1,5 +1,5 @@
 #include "Enemy.h"
-
+#include "PowerUpManager.h"
 Enemy::Enemy() 
 	: destroy(false),
 	hp(2),
@@ -43,9 +43,6 @@ void Enemy::Init(string sprite_filename, Vec2 position)
 	sprite->setName(Name + "_sprite");
 	spriteNode->addChild(sprite, 0);
 	movement_spd = 10.0f;
-
-
-
 	CCDirector::getInstance()->getRunningScene()->addChild(node);
 }
 
@@ -53,8 +50,26 @@ void Enemy::Init(string sprite_filename, Vec2 position)
 void Enemy::Update(float dt)
 {
 	if (hp <= 0)
-		destroy = true;
+	{
+		int random = (int)cocos2d::RandomHelper::random_int(0, 3);
 
+		switch (random)
+		{
+		case 0:
+			PowerUpManager::getInstance().CreatePowerUp("hp.png", PowerUp::TypesOfPowerUp::HEAL, node->getPosition());
+			break;
+		case 1:
+			PowerUpManager::getInstance().CreatePowerUp("shield.png", PowerUp::TypesOfPowerUp::SHIELD, node->getPosition());
+			break;
+		case 2:
+			PowerUpManager::getInstance().CreatePowerUp("multishot.png", PowerUp::TypesOfPowerUp::MULTISHOT, node->getPosition());
+			break;
+		default:
+			break;
+		}
+
+		destroy = true;
+	}
 	auto moveEvent = MoveBy::create(0.f, Vec2(0, -1) * 1);
 	node->runAction(moveEvent);
 }
@@ -88,7 +103,9 @@ void Enemy::get_hit(int damage)
 {
 	hp -= damage;
 	if (hp < 0)
+	{
 		hp = 0;
+	}
 }
 
 Enemy* Enemy::create(string name)

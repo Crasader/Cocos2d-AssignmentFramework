@@ -20,11 +20,14 @@ public:
 
 	void Init();
 	void Run();
+
+	void RunFirstWave(int numOfEnemies, float timeBtwnEnemySpawn);
 	
 
 	vector<EnemyInfo> List_of_enemy_info;
 
 	static Wave* Create(int Enemy_Amount);
+	static Wave* Create(int Enemy_Amount, Vec2 position);
 private:
 	//int EnemyType;
 	int Enemy_Amount;

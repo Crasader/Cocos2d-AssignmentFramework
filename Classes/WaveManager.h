@@ -3,6 +3,9 @@
 //#include <json\json\json.h>
 #include <JSON\json\json.h>
 #include "Wave.h"
+#include "EnemyManager.h"
+
+
 class WaveManager
 {
 public:
@@ -17,6 +20,9 @@ public:
 	void Init();
 	void Update(float dt);
 	void Run_next_wave();
+	
+
+	
 
 	list<Wave*> Wave_List;
 private:

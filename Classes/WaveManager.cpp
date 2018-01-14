@@ -1,5 +1,7 @@
 #include "WaveManager.h"
 
+using namespace cocos2d;
+
 WaveManager::WaveManager()
 {
 }
@@ -12,11 +14,13 @@ void WaveManager::Init()
 {
 	Wave* temp = Wave::Create(5);
 	Wave_List.push_back(temp);
+
+	
 }
 
 void WaveManager::Update(float dt)
 {
-
+	
 }
 
 void WaveManager::Run_next_wave()
@@ -26,3 +30,4 @@ void WaveManager::Run_next_wave()
 	Wave_List.pop_front();
 	delete temp;
 }
+

@@ -51,7 +51,7 @@ void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Pl
 	this->lifetime = lifetime;
 	CCDirector::getInstance()->getRunningScene()->addChild(node);
 
-	player = Player::create();
+	//PlayerManager::getInstance().get_Player(0)->get_Node()
 }
 
 
@@ -96,15 +96,15 @@ void EnemyBaseProjectile::Collision()
 
 	
 		CCRect enemy_rect = CCRectMake(
-			player->get_Node()->getPosition().x - (player->getSprite()->getContentSize().width * 0.5f),
-			player->get_Node()->getPosition().y - (player->getSprite()->getContentSize().height * 0.5f),
-			player->get_Node()->getContentSize().width,
-			player->get_Node()->getContentSize().height
+			PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition().x - (PlayerManager::getInstance().get_Player(0)->getSprite()->getContentSize().width * 0.5f),
+			PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition().y - (PlayerManager::getInstance().get_Player(0)->getSprite()->getContentSize().height * 0.5f),
+			PlayerManager::getInstance().get_Player(0)->get_Node()->getContentSize().width,
+			PlayerManager::getInstance().get_Player(0)->get_Node()->getContentSize().height
 		);
 
 		if (projectile_rect.intersectsRect(enemy_rect))
 		{
-			player->get_hit(damage);
+			PlayerManager::getInstance().get_Player(0)->get_hit(damage);
 			destroy = true;
 			//break;
 		}

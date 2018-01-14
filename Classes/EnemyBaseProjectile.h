@@ -2,7 +2,7 @@
 #define ENEMY_BASE_PROJECTILE_H_
 
 #include "cocos2d.h"
-#include "Player.h"
+#include "PlayerManager.h"
 
 using namespace std;
 using namespace cocos2d;

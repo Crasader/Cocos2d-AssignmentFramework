@@ -75,6 +75,14 @@
     <ClCompile Include="..\Classes\Projectile\BaseProjectile.cpp">
       <Filter>src\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\EnemyBaseProjectile.cpp" />
+    <ClCompile Include="..\Classes\EnemyProjectileManager.cpp" />
+    <ClCompile Include="..\Classes\ShieldManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Shield.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -130,6 +138,14 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Projectile\BaseProjectile.h">
       <Filter>src\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyBaseProjectile.h" />
+    <ClInclude Include="..\Classes\EnemyProjectileManager.h" />
+    <ClInclude Include="..\Classes\ShieldManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Shield.h">
+      <Filter>src\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

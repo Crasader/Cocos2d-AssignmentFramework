@@ -1,6 +1,8 @@
 #include "Wave.h"
 #include "EnemyManager.h"
 #include "SceneManager.h"
+#include <time.h>
+
 
 Wave::Wave()
 {
@@ -76,7 +78,7 @@ void Wave::RunWave()
 
 			tempDelay = 0;
 		}
-
+		 
 		currEnemiesSpawned++;
 	}
 

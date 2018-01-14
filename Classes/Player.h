@@ -62,6 +62,7 @@ private:
 
 	int hp;
 	int bulletMultiply;
+	int PowerLevel;
 };
 
 

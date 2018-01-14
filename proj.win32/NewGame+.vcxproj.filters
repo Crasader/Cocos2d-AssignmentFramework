@@ -75,6 +75,15 @@
     <ClCompile Include="..\Classes\Projectile\BaseProjectile.cpp">
       <Filter>src\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Shield.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ShieldManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Projectile\Projectile_tri_shot.cpp">
+      <Filter>src\Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -129,6 +138,15 @@
       <Filter>src\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Projectile\BaseProjectile.h">
+      <Filter>src\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Shield.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ShieldManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Projectile\Projectile_tri_shot.h">
       <Filter>src\Projectile</Filter>
     </ClInclude>
   </ItemGroup>

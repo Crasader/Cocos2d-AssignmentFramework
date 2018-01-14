@@ -25,6 +25,7 @@ public:
 	virtual int get_hp();
 	virtual int get_damage();
 	virtual void get_hit(int damage);
+	virtual void Collision();
 
 	static Enemy* create(string name);
 	static Enemy* create(string name, string sprite_filename, Vec2 position);

@@ -3,6 +3,7 @@
 
 #include "Projectile\BaseProjectile.h"
 #include "Projectile\Projectile_45degree.h"
+#include "Projectile\Projectile_tri_shot.h"
 //typedef BaseProjectile* (*ProjectileCreatePtr)();
 
 class ProjectileManager
@@ -17,6 +18,7 @@ public:
 	void Init();
 	void Update(float dt);
 	void CreateProjectile(int type);
+	void CreateProjectile(int type,Vec2 offset);
 	void CreateProjectile(string sprite_filename, Vec2 Direction_vector, Vec2 position);
 	void CreateProjectile(string sprite_filename, Vec2 Direction_vector, Vec2 position, float lifetime);
 	void AddProjectile(BaseProjectile* projectile);

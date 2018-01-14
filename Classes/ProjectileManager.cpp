@@ -75,11 +75,34 @@ void ProjectileManager::CreateProjectile(int type)
 	switch (type)
 	{
 	case 0:
-		temp = Projectile_45degree::create();
+		temp = BaseProjectile::create();
 		break;
 	case 1:
+		temp = Projectile_45degree::create();
 		break;
 	case 2:
+		temp = Projectile_tri_shot::create();
+		break;
+	default:
+		break;
+	}
+	temp->Init();
+	ProjectileList.push_back(temp);
+}
+
+void ProjectileManager::CreateProjectile(int type, Vec2 offset)
+{
+	BaseProjectile* temp;
+	switch (type)
+	{
+	case 0:
+		temp = BaseProjectile::create_with_offset(offset);
+		break;
+	case 1:
+		temp = Projectile_45degree::create_with_offset(offset);
+		break;
+	case 2:
+		temp = Projectile_tri_shot::create_with_offset(offset);
 		break;
 	default:
 		break;

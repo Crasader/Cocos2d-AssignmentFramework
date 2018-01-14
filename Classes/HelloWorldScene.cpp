@@ -127,7 +127,7 @@ bool HelloWorld::init()
 	}
 	//Add the sprite into the scene
 	spriteNode->addChild(mainSprite, 1);
-	this->addChild(spriteNode, 1);
+	//this->addChild(spriteNode, 1);
 
 	{
 		
@@ -506,7 +506,7 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	{
 		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, HelloWorld::createScene(),Color3B(0,255,255)));
 		player1->Shoot();		
-		CCLOG(std::to_string(ProjectileManager::getInstance().get_Number_of_Projectiles()).c_str());
+		//CCLOG(std::to_string(ProjectileManager::getInstance().get_Number_of_Projectiles()).c_str());
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_ALT)
 	{

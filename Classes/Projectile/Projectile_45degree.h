@@ -8,10 +8,11 @@ public:
 	Projectile_45degree();
 	~Projectile_45degree();
 
-	virtual void Init();
+	void Init();
 	void Init_other_side();
 	static BaseProjectile* create();
-private:
+	static BaseProjectile* create_with_offset(Vec2 offset);
+protected:
 	float angle;
 };
 

@@ -18,6 +18,7 @@ public:
 	virtual void set_Position(float x, float y);
 	virtual BaseProjectile* get_new_class_instance();
 	static BaseProjectile* create();
+	static BaseProjectile* create_with_offset(Vec2 offset);
 	virtual void Collision();
 	virtual void set_offset(Vec2 offset);
 	virtual void release();

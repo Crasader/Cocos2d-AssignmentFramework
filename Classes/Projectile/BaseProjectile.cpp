@@ -84,6 +84,13 @@ BaseProjectile* BaseProjectile::create()
 	return new BaseProjectile();
 }
 
+BaseProjectile* BaseProjectile::create_with_offset(Vec2 offset)
+{
+	BaseProjectile* temp = new BaseProjectile();
+	temp->set_offset( offset);
+	return temp;
+}
+
 void BaseProjectile::Collision()
 {
 #define ENEMYLIST EnemyManager::getInstance().EnemyList

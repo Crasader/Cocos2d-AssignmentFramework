@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "PowerUpManager.h"
+#include "PlayerManager.h"
 Enemy::Enemy() 
 	: destroy(false),
 	hp(2),
@@ -49,6 +50,8 @@ void Enemy::Init(string sprite_filename, Vec2 position)
 
 void Enemy::Update(float dt)
 {
+	Collision();
+
 	if (hp <= 0)
 	{
 		int random = (int)cocos2d::RandomHelper::random_int(0, 3);
@@ -105,6 +108,30 @@ void Enemy::get_hit(int damage)
 	if (hp < 0)
 	{
 		hp = 0;
+	}
+}
+
+void Enemy::Collision()
+{
+	CCRect Enemy_rect = CCRectMake(
+		node->getPosition().x - (sprite->getContentSize().width * 0.5f),
+		node->getPosition().y - (sprite->getContentSize().height * 0.5f),
+		sprite->getContentSize().width,
+		sprite->getContentSize().height
+	);
+#define PLAYER PlayerManager::getInstance().get_Player(0)
+#define PLAYER_NODE PLAYER->get_Node()
+	CCRect Player_rect = CCRectMake(
+		PLAYER_NODE->getPosition().x - (PLAYER->getSprite()->getContentSize().width * 0.5f),
+		PLAYER_NODE->getPosition().y - (PLAYER->getSprite()->getContentSize().height * 0.5f),
+		PLAYER->getSprite()->getContentSize().width,
+		PLAYER->getSprite()->getContentSize().height
+	);
+
+	if (Enemy_rect.intersectsRect(Player_rect))
+	{
+		PLAYER->get_hit(damage);
+		destroy = true;
 	}
 }
 

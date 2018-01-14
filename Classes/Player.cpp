@@ -2,7 +2,7 @@
 #include "EnemyManager.h"
 #include "PowerUpManager.h"
 #include "ShieldManager.h"
-
+#include "PlayerManager.h"
 Player::Player() :
 	dead(false)
 {
@@ -57,6 +57,7 @@ void Player::Init(string sprite_filename)
 
 	hp = 100;
 	bulletMultiply = 1;
+	PowerLevel = 0;
 }
 
 void Player::Update(float delta)
@@ -151,22 +152,29 @@ void Player::Move(Movement_Direction dir)
 
 void Player::Shoot()
 {
-	switch (bulletMultiply)
-	{
-	case 1:
-		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
-		break;
-	case 2:
-		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x - 10, node->getPosition().y));
-		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x + 10, node->getPosition().y));
-		break;
-	default:
-	case 3:
-		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
-		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x - 20, node->getPosition().y));
-		ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x + 20, node->getPosition().y));
-		break;
-	}
+	ProjectileManager::getInstance().CreateProjectile(PowerLevel);
+	return;
+	//switch (bulletMultiply)
+	//{
+	//case 1:
+	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel);
+	//	break;
+	//case 2:
+	//	/*ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x - 10, node->getPosition().y));
+	//	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x + 10, node->getPosition().y));*/
+	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel, Vec2(-200.f,0.f));
+	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel, Vec2(200.f, 0.f));
+	//	break;
+	//default:
+	//case 3:
+	//	/*ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
+	//	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x - 20, node->getPosition().y));
+	//	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x + 20, node->getPosition().y));*/
+	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel);
+	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel, Vec2(-50.f, 0.f));
+	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel, Vec2(50.f, 0.f));
+	//	break;
+	//}
 }
 
 void Player::Set_moving_state(Moving_State mov_st)
@@ -196,7 +204,7 @@ void Player::get_hit(int damage)
 
 void Player::Collision()
 {
-#define ENEMYLIST EnemyManager::getInstance().EnemyList
+//#define ENEMYLIST EnemyManager::getInstance().EnemyList
 #define POWERUPLIST PowerUpManager::getInstance().PowerUpList
 
 	CCRect Player_rect = CCRectMake(
@@ -206,23 +214,23 @@ void Player::Collision()
 		sprite->getContentSize().height
 	);
 
-	for (int i = 0; i < ENEMYLIST.size(); ++i)
-	{
-		CCRect enemy_rect = CCRectMake(
-			ENEMYLIST.at(i)->get_Node()->getPosition().x - (ENEMYLIST.at(i)->getSprite()->getContentSize().width * 0.5f),
-			ENEMYLIST.at(i)->get_Node()->getPosition().y - (ENEMYLIST.at(i)->getSprite()->getContentSize().height * 0.5f),
-			ENEMYLIST.at(i)->getSprite()->getContentSize().width,
-			ENEMYLIST.at(i)->getSprite()->getContentSize().height
-		);
+	//for (int i = 0; i < ENEMYLIST.size(); ++i)
+	//{
+	//	CCRect enemy_rect = CCRectMake(
+	//		ENEMYLIST.at(i)->get_Node()->getPosition().x - (ENEMYLIST.at(i)->getSprite()->getContentSize().width * 0.5f),
+	//		ENEMYLIST.at(i)->get_Node()->getPosition().y - (ENEMYLIST.at(i)->getSprite()->getContentSize().height * 0.5f),
+	//		ENEMYLIST.at(i)->getSprite()->getContentSize().width,
+	//		ENEMYLIST.at(i)->getSprite()->getContentSize().height
+	//	);
 
-		if (Player_rect.intersectsRect(enemy_rect))
-		{
-			//ENEMYLIST.at(i)->get_hit(damage);
-			get_hit(ENEMYLIST.at(i)->get_damage());
-			ENEMYLIST.at(i)->destroy = true;
-			break;
-		}
-	}
+	//	if (Player_rect.intersectsRect(enemy_rect))
+	//	{
+	//		//ENEMYLIST.at(i)->get_hit(damage);
+	//		get_hit(ENEMYLIST.at(i)->get_damage());
+	//		ENEMYLIST.at(i)->destroy = true;
+	//		break;
+	//	}
+	//}
 	for (int i = 0; i < POWERUPLIST.size(); ++i)
 	{
 		CCRect powerup_rect = CCRectMake(
@@ -247,6 +255,7 @@ void Player::Collision()
 				break;
 			case PowerUp::MULTISHOT:
 				bulletMultiply++;
+				PowerLevel++;
 				break;
 
 			default:
@@ -262,6 +271,7 @@ Player* Player::create(string name)
 {
 	Player* temp = new Player();
 	temp->Set_Name(name);
+	PlayerManager::getInstance().Add_Player(temp);
 	return temp;
 }
 

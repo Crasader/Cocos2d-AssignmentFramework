@@ -14,11 +14,12 @@ Wave::~Wave()
 
 void Wave::Init()
 {
-	float tempDelay = 0;
-	float currEnemiesSpawned = 0;
-	int MaxEnemiesPerWave = 0;
-	float timeBtwnSpawn = 5.f;
+	tempDelay = 0;
+	currEnemiesSpawned = 0;
+	MaxEnemiesPerWave = 15;
+	timeBtwnSpawn = 5.f;
 	finished = false;
+	currEnemiesKilled = 0;
 }
 
 void Wave::Run()
@@ -38,6 +39,10 @@ void Wave::Run()
 void Wave::Update(float dt)
 {
 	RunWave(dt);
+	if (currEnemiesKilled >= MaxEnemiesPerWave)
+	{
+		finished = true;
+	}
 }
 
 Wave* Wave::Create(int Enemy_Amount)
@@ -77,15 +82,18 @@ void Wave::RunWave(float dt)
 		tempDelay += dt;
 		if (tempDelay >= timeBtwnSpawn)
 		{
-			float random = (float)cocos2d::RandomHelper::random_int(0, (int)(SceneManager::getInstance().currScene_playingSize.width));
-			//EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));
-			Create(2, Vec2(random, (SceneManager::getInstance().currScene_playingSize.height)));
-
-
+			int num_to_spawn = RandomHelper::random_int(1, 6);
+			for (int i = 0; i < num_to_spawn; ++i)
+			{
+				float random = (float)cocos2d::RandomHelper::random_int(0, (int)(SceneManager::getInstance().currScene_playingSize.width));
+				EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, SceneManager::getInstance().currScene_playingSize.height));
+				Create(1, Vec2(random, (SceneManager::getInstance().currScene_playingSize.height)));
+				++currEnemiesSpawned;
+			}
 			tempDelay = 0;
 		}
 		 
-		currEnemiesSpawned++;
+		
 	}
 	else
 	{

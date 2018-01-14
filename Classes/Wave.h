@@ -30,12 +30,14 @@ public:
 	static Wave* Create(int Enemy_Amount);
 	static Wave* Create(int Enemy_Amount, Vec2 position);
 
-	bool finished;
+	bool finished; 
+	float currEnemiesKilled;
 private:
 	//int EnemyType;
 	int Enemy_Amount;
 	float tempDelay;
 	float currEnemiesSpawned;
+	
 	int MaxEnemiesPerWave;
 	float timeBtwnSpawn;
 

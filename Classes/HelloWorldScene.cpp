@@ -452,7 +452,7 @@ void HelloWorld::update(float delta)
 	EnemyManager::getInstance().Update(delta);
 	PowerUpManager::getInstance().Update(delta);
 	ShieldManager::getInstance().Update(delta);
-
+	WaveManager::getInstance().Update(delta);
 	player1->Update(delta);
 	//enemyInstance->Update(delta);
 	//powerUp->Update(delta);
@@ -523,8 +523,9 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_CTRL)
 	{
+		//WaveManager::getInstance().Add_wave(0);
 		WaveManager::getInstance().Run_next_wave();
-		WaveManager::getInstance().Init();
+		WaveManager::getInstance().Add_wave(0);
 	}
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)

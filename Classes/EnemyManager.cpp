@@ -1,5 +1,5 @@
 #include "EnemyManager.h"
-
+#include "WaveManager.h"
 EnemyManager::EnemyManager()
 {
 	CCLOG("EnemyManager singleton created");
@@ -24,6 +24,8 @@ void EnemyManager::Update(float dt)
 			it = EnemyList.erase(it);
 			t->release();
 			delete t;
+			if (WaveManager::getInstance().Wave_List.size() != 0)
+				++WaveManager::getInstance().get_current_wave()->currEnemiesKilled;
 		}
 		else
 		{

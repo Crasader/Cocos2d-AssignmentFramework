@@ -12,7 +12,8 @@ WaveManager::~WaveManager()
 
 void WaveManager::Init()
 {
-	Wave* temp = Wave::Create(5);
+	Wave* temp = Wave::Create(RandomHelper::random_int(1, 8));//5);
+	temp->Init();
 	Wave_List.push_back(temp);
 
 	
@@ -45,3 +46,26 @@ void WaveManager::Add_wave(Wave* wave)
 	Wave_List.push_back(wave);
 }
 
+void WaveManager::Add_wave(int index)
+{
+	switch (index)
+	{
+	case 0:
+	{
+		Wave* temp = Wave::Create(RandomHelper::random_int(1, 8));
+		temp->Init();
+		Wave_List.push_back(temp);
+	}		
+		break;
+	default:
+		break;
+	}
+	
+}
+
+Wave* WaveManager::get_current_wave()
+{
+	if (Wave_List.size() == 0)
+		return NULL;
+	return Wave_List.front();
+}

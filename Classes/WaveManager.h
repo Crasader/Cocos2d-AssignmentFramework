@@ -21,8 +21,8 @@ public:
 	void Update(float dt);
 	void Run_next_wave();
 	void Add_wave(Wave* wave);
-
-	
+	void Add_wave(int index);
+	Wave* get_current_wave();
 
 	list<Wave*> Wave_List;
 private:

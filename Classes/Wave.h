@@ -21,7 +21,7 @@ public:
 	void Init();
 	void Run();
 
-	void RunFirstWave(int numOfEnemies, float timeBtwnEnemySpawn);
+	void RunWave();
 	
 
 	vector<EnemyInfo> List_of_enemy_info;
@@ -31,6 +31,10 @@ public:
 private:
 	//int EnemyType;
 	int Enemy_Amount;
+	float tempDelay;
+	float currEnemiesSpawned;
+	int MaxEnemiesPerWave;
+	float timeBtwnSpawn;
 
 };
 

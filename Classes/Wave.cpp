@@ -1,5 +1,7 @@
 #include "Wave.h"
 #include "EnemyManager.h"
+#include "SceneManager.h"
+
 Wave::Wave()
 {
 }
@@ -10,7 +12,10 @@ Wave::~Wave()
 
 void Wave::Init()
 {
-
+	float tempDelay = 0;
+	float currEnemiesSpawned = 0;
+	int MaxEnemiesPerWave = 0;
+	float timeBtwnSpawn = 0;
 }
 
 void Wave::Run()
@@ -56,19 +61,17 @@ Wave* Wave::Create(int Enemy_Amount, Vec2 position)
 }
 
 
-void Wave::RunFirstWave(int numOfEnemies, float timeBtwnSpawn)
+void Wave::RunWave()
 {
-	float tempDelay = 0;
-	float currEnemiesSpawned = 0;
-
-	if (currEnemiesSpawned < numOfEnemies)
+	
+	if (currEnemiesSpawned < MaxEnemiesPerWave)
 	{
 		//tempDelay += deltaTime;
 		if (tempDelay >= timeBtwnSpawn)
 		{
-			float random = (float)cocos2d::RandomHelper::random_float(0, (int)playingSize.width);
+			float random = (float)cocos2d::RandomHelper::random_int(0.0f, (SceneManager::getInstance().currScene_playingSize.width));
 			//EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));
-			Create(2, Vec2(random, playingSize.height));
+			Create(2, Vec2(random, (SceneManager::getInstance().currScene_playingSize.height)));
 
 
 			tempDelay = 0;

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "EnemyManager.h"
+#include "PlayerManager.h"
 Player::Player() :
 	dead(false)
 {
@@ -11,6 +12,7 @@ Player::~Player()
 
 void Player::Init(string sprite_filename)
 {
+	PlayerManager::getInstance().Add_Player(this);
 	node = Node::create();
 	node->setName(Name);
 	spriteNode = Node::create();
@@ -151,7 +153,8 @@ void Player::Shoot()
 	/*BaseProjectile* temp = BaseProjectile::create();
 	temp->Init("projectile1.png", Vec2(0.f, 4.f),node->getPosition());
 	ProjectileList.push_back(temp);*/
-	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
+	//ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
+	ProjectileManager::getInstance().CreateProjectile(0);
 }
 
 void Player::Set_moving_state(Moving_State mov_st)

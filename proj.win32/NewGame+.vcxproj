@@ -150,15 +150,17 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AnimationManager.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\BaseProjectile.cpp" />
     <ClCompile Include="..\Classes\CollisionManager.cpp" />
     <ClCompile Include="..\Classes\Enemy.cpp" />
     <ClCompile Include="..\Classes\EnemyManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
+    <ClCompile Include="..\Classes\PlayerManager.cpp" />
     <ClCompile Include="..\Classes\PowerUp.cpp" />
     <ClCompile Include="..\Classes\PowerUpManager.cpp" />
     <ClCompile Include="..\Classes\ProjectileManager.cpp" />
+    <ClCompile Include="..\Classes\Projectile\BaseProjectile.cpp" />
+    <ClCompile Include="..\Classes\Projectile\Projectile_45degree.cpp" />
     <ClCompile Include="..\Classes\Scene2.cpp" />
     <ClCompile Include="..\Classes\SceneManager.cpp" />
     <ClCompile Include="..\Classes\Wave.cpp" />
@@ -168,15 +170,17 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AnimationManager.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
-    <ClInclude Include="..\Classes\BaseProjectile.h" />
     <ClInclude Include="..\Classes\CollisionManager.h" />
     <ClInclude Include="..\Classes\Enemy.h" />
     <ClInclude Include="..\Classes\EnemyManager.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\PlayerManager.h" />
     <ClInclude Include="..\Classes\PowerUp.h" />
     <ClInclude Include="..\Classes\PowerUpManager.h" />
     <ClInclude Include="..\Classes\ProjectileManager.h" />
+    <ClInclude Include="..\Classes\Projectile\BaseProjectile.h" />
+    <ClInclude Include="..\Classes\Projectile\Projectile_45degree.h" />
     <ClInclude Include="..\Classes\Scene2.h" />
     <ClInclude Include="..\Classes\SceneManager.h" />
     <ClInclude Include="..\Classes\Wave.h" />

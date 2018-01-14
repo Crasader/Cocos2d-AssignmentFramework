@@ -1,6 +1,6 @@
-#include "BaseProjectile.h"
+#include "Projectile\BaseProjectile.h"
 #include "EnemyManager.h"
-
+#include "PlayerManager.h"
 BaseProjectile::BaseProjectile() 
 	: destroy(false), 
 	lifetime(3.f), 
@@ -10,6 +10,19 @@ BaseProjectile::BaseProjectile()
 
 BaseProjectile::~BaseProjectile()
 {
+}
+
+void BaseProjectile::Init()
+{
+	node = Node::create();
+	Player* temp_player = PlayerManager::getInstance().get_Player(0);
+	node->setPosition(temp_player->get_Node()->getPosition());
+	sprite = Sprite::create("Projectile/projectile1.png");
+	sprite->setName("BaseProjectile");
+	node->addChild(sprite);
+	movement_spd = 10.f;
+	Direction_Vector = Vec2(0,1);
+	CCDirector::getInstance()->getRunningScene()->addChild(node);
 }
 
 void BaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Vec2 position)
@@ -58,6 +71,11 @@ Node* BaseProjectile::get_Node()
 void BaseProjectile::set_Position(float x, float y)
 {
 	node->setPosition(x, y);
+}
+
+BaseProjectile* BaseProjectile::get_new_class_instance()
+{
+	return new BaseProjectile();
 }
 
 BaseProjectile* BaseProjectile::create()

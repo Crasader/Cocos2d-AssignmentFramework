@@ -1,7 +1,9 @@
 #ifndef PROJECTILE_MANAGER_H_
 #define PROJECTILE_MANAGER_H_
 
-#include "BaseProjectile.h"
+#include "Projectile\BaseProjectile.h"
+#include "Projectile\Projectile_45degree.h"
+//typedef BaseProjectile* (*ProjectileCreatePtr)();
 
 class ProjectileManager
 {
@@ -14,6 +16,7 @@ public:
 
 	void Init();
 	void Update(float dt);
+	void CreateProjectile(int type);
 	void CreateProjectile(string sprite_filename, Vec2 Direction_vector, Vec2 position);
 	void CreateProjectile(string sprite_filename, Vec2 Direction_vector, Vec2 position, float lifetime);
 	void AddProjectile(BaseProjectile* projectile);
@@ -25,6 +28,8 @@ public:
 
 	ProjectileManager(const ProjectileManager&) = delete;
 	ProjectileManager& operator=(const ProjectileManager&) = delete;
+public:	
+	//vector<function<BaseProjectile*()>> create_ptr_list;
 private:
 	ProjectileManager();
 	~ProjectileManager();

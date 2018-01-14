@@ -16,15 +16,15 @@
     <Filter Include="src\cpp">
       <UniqueIdentifier>{d083bddb-9153-4d77-a245-072c2a618016}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Projectile">
+      <UniqueIdentifier>{1c5317cb-8ae8-4152-ae26-679f2eecf916}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BaseProjectile.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
@@ -66,15 +66,21 @@
     <ClCompile Include="..\Classes\PowerUpManager.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PlayerManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Projectile\Projectile_45degree.cpp">
+      <Filter>src\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Projectile\BaseProjectile.cpp">
+      <Filter>src\Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BaseProjectile.h">
       <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
@@ -115,6 +121,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\PowerUpManager.h">
       <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Projectile\Projectile_45degree.h">
+      <Filter>src\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Projectile\BaseProjectile.h">
+      <Filter>src\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -63,6 +63,8 @@ private:
 	int hp;
 	int bulletMultiply;
 	int PowerLevel;
+
+	float shooting_timer;
 };
 
 

@@ -3,6 +3,9 @@
 #include "PowerUpManager.h"
 #include "ShieldManager.h"
 #include "PlayerManager.h"
+
+#define SHOOTING_SPEED 0.3f
+#define MAX_POWER 2
 Player::Player() :
 	dead(false)
 {
@@ -58,6 +61,7 @@ void Player::Init(string sprite_filename)
 	hp = 100;
 	bulletMultiply = 1;
 	PowerLevel = 0;
+	shooting_timer = 0;
 }
 
 void Player::Update(float delta)
@@ -68,6 +72,12 @@ void Player::Update(float delta)
 
 	if (hp <= 0)
 		dead = true;
+
+	if (shooting_timer < SHOOTING_SPEED)
+	{
+		shooting_timer += delta;
+	}
+
 	//for (int i = 0; i < ProjectileList.size(); i++)
 	//{
 	//	ProjectileList.at(i)->Update(delta);
@@ -152,7 +162,12 @@ void Player::Move(Movement_Direction dir)
 
 void Player::Shoot()
 {
-	ProjectileManager::getInstance().CreateProjectile(PowerLevel);
+	if (shooting_timer >= SHOOTING_SPEED)
+	{
+		ProjectileManager::getInstance().CreateProjectile(PowerLevel);
+		shooting_timer = 0;
+	}
+		
 	return;
 	//switch (bulletMultiply)
 	//{
@@ -255,7 +270,8 @@ void Player::Collision()
 				break;
 			case PowerUp::MULTISHOT:
 				bulletMultiply++;
-				PowerLevel++;
+				if (PowerLevel < MAX_POWER)
+					++PowerLevel;
 				break;
 
 			default:

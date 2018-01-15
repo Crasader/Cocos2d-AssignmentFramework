@@ -58,24 +58,7 @@ void Enemy::Update(float dt)
 
 	if (hp <= 0)
 	{
-		int random = (int)cocos2d::RandomHelper::random_int(0, 3);
-
-		switch (random)
-		{
-		case 0:
-			PowerUpManager::getInstance().CreatePowerUp("hp.png", PowerUp::TypesOfPowerUp::HEAL, node->getPosition());
-			break;
-		case 1:
-			PowerUpManager::getInstance().CreatePowerUp("shield.png", PowerUp::TypesOfPowerUp::SHIELD, node->getPosition());
-			break;
-		case 2:
-			PowerUpManager::getInstance().CreatePowerUp("multishot.png", PowerUp::TypesOfPowerUp::MULTISHOT, node->getPosition());
-			break;
-		default:
-			break;
-		}
-
-		destroy = true;
+		Death();
 	}
 	auto moveEvent = MoveBy::create(0.f, Vec2(0, -1) * 1);
 	node->runAction(moveEvent);
@@ -145,7 +128,34 @@ void Enemy::Collision()
 	{
 		PLAYER->get_hit(damage);
 		destroy = true;
+		hp = 0;
 	}
+}
+
+void Enemy::Death()
+{
+	int random = (int)cocos2d::RandomHelper::random_int(0, 3);
+	int random2 = (int)cocos2d::RandomHelper::random_int(0, 100);
+	if (random2 < 30.f)
+	{
+		switch (random)
+		{
+		case 0:
+			PowerUpManager::getInstance().CreatePowerUp("hp.png", PowerUp::TypesOfPowerUp::HEAL, node->getPosition());
+			break;
+		case 1:
+			PowerUpManager::getInstance().CreatePowerUp("shield.png", PowerUp::TypesOfPowerUp::SHIELD, node->getPosition());
+			break;
+		case 2:
+			PowerUpManager::getInstance().CreatePowerUp("multishot.png", PowerUp::TypesOfPowerUp::MULTISHOT, node->getPosition());
+			break;
+		default:
+			break;
+		}
+	}
+
+
+	destroy = true;
 }
 
 Enemy* Enemy::create(string name)

@@ -4,7 +4,7 @@
 #include "Projectile\BaseProjectile.h"
 #include "Projectile\Projectile_45degree.h"
 #include "Projectile\Projectile_tri_shot.h"
-//typedef BaseProjectile* (*ProjectileCreatePtr)();
+typedef BaseProjectile* (*ProjectileCreatePtr)();
 
 class ProjectileManager
 {
@@ -14,7 +14,7 @@ public:
 		static ProjectileManager Instance;
 		return Instance;
 	}
-
+	static void Add_Create_Functions();
 	void Init();
 	void Update(float dt);
 	void CreateProjectile(int type);
@@ -31,7 +31,7 @@ public:
 	ProjectileManager(const ProjectileManager&) = delete;
 	ProjectileManager& operator=(const ProjectileManager&) = delete;
 public:	
-	//vector<function<BaseProjectile*()>> create_ptr_list;
+	static vector<ProjectileCreatePtr> create_ptr_list;
 private:
 	ProjectileManager();
 	~ProjectileManager();

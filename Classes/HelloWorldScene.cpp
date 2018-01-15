@@ -468,6 +468,8 @@ void HelloWorld::update(float delta)
 		player1->Move(Player::Movement_Direction::Up);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_DOWN_ARROW))
 		player1->Move(Player::Movement_Direction::Down);
+	if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
+		player1->Shoot();
 
 
 	auto bgScrolling1 = MoveBy::create(0.f, Vec2(0.f, -50.f*delta));

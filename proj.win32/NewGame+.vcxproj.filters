@@ -84,6 +84,12 @@
     <ClCompile Include="..\Classes\Projectile\Projectile_tri_shot.cpp">
       <Filter>src\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\EnemyBaseProjectile.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EnemyProjectileManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -148,6 +154,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Projectile\Projectile_tri_shot.h">
       <Filter>src\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyBaseProjectile.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EnemyProjectileManager.h">
+      <Filter>src\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

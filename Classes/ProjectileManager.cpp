@@ -9,10 +9,19 @@ ProjectileManager::~ProjectileManager()
 {
 }
 
+void ProjectileManager::Add_Create_Functions()
+{
+	create_ptr_list.push_back(BaseProjectile::create);
+	create_ptr_list.push_back(Projectile_45degree::create);
+	create_ptr_list.push_back(Projectile_tri_shot::create);
+
+}
+
 void ProjectileManager::Init()
 {
 	//ProjectileCreatePtr temp_func_ptr = &BaseProjectile::create();
 	//create_ptr_list.push_back(BaseProjectile::create());
+	Add_Create_Functions();
 	CCLOG("ProjectileManager Init");
 }
 
@@ -84,6 +93,7 @@ void ProjectileManager::CreateProjectile(int type)
 		temp = Projectile_tri_shot::create();
 		break;
 	default:
+		temp = BaseProjectile::create();
 		break;
 	}
 	temp->Init();

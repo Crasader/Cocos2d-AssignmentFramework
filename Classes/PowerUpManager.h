@@ -2,8 +2,8 @@
 #define POWERUP_MANAGER_H_
 
 #include "PowerUp.h"
-
-class PowerUpManager
+#include "GenericManager.h"
+class PowerUpManager : GenericManager
 {
 public:
 	static PowerUpManager& getInstance()

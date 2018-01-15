@@ -2,8 +2,8 @@
 #define ENEMY_PROJECTILE_MANAGER_H_
 
 #include "EnemyBaseProjectile.h"
-
-class EnemyProjectileManager
+#include "GenericManager.h"
+class EnemyProjectileManager : GenericManager
 {
 public:
 	static EnemyProjectileManager& getInstance()

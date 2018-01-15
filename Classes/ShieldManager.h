@@ -2,8 +2,9 @@
 #define SHIELD_MANAGER_H_
 
 #include "Shield.h"
+#include "GenericManager.h"
 
-class ShieldManager
+class ShieldManager : GenericManager
 {
 public:
 	static ShieldManager& getInstance()

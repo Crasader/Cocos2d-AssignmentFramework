@@ -1,8 +1,9 @@
 #include "ProjectileManager.h"
-
+#include "MasterManager.h"
+vector<ProjectileCreatePtr> ProjectileManager::create_ptr_list;
 ProjectileManager::ProjectileManager()
 {
-	CCLOG("ProjectileManager singleton created");
+	//MasterManager::getInstance().Add_Init_Function(ProjectileManager::Init);
 }
 
 ProjectileManager::~ProjectileManager()
@@ -22,7 +23,6 @@ void ProjectileManager::Init()
 	//ProjectileCreatePtr temp_func_ptr = &BaseProjectile::create();
 	//create_ptr_list.push_back(BaseProjectile::create());
 	Add_Create_Functions();
-	CCLOG("ProjectileManager Init");
 }
 
 void ProjectileManager::Update(float dt)

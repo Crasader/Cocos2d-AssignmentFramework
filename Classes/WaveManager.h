@@ -4,9 +4,8 @@
 #include <JSON\json\json.h>
 #include "Wave.h"
 #include "EnemyManager.h"
-
-
-class WaveManager
+#include "GenericManager.h"
+class WaveManager : GenericManager
 {
 public:
 	static WaveManager& getInstance()

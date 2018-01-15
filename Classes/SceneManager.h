@@ -2,6 +2,7 @@
 #define SCENEMANAGER_H
 
 #include "cocos2d.h"
+#include "GenericManager.h"
 
 using namespace cocos2d;
 
@@ -13,7 +14,7 @@ enum class SceneType
 };
 
 
-class SceneManager
+class SceneManager : GenericManager
 {
 public:
 	static SceneManager& getInstance();

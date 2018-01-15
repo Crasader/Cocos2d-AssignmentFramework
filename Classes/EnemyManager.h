@@ -1,7 +1,8 @@
 #ifndef ENEMY_MANAGER_H_
 #define ENEMY_MANAGER_H_
 #include "Enemy.h"
-class EnemyManager
+#include "GenericManager.h"
+class EnemyManager : GenericManager
 {
 public:
 	static EnemyManager& getInstance()

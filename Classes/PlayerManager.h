@@ -2,9 +2,10 @@
 #define PLAYER_MANAGER_H_
 #include "cocos2d.h"
 #include "Player.h"
+#include "GenericManager.h"
 using namespace cocos2d;
 using namespace std;
-class PlayerManager
+class PlayerManager : GenericManager
 {
 public:
 	static PlayerManager& getInstance()

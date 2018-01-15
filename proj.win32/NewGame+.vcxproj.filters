@@ -90,6 +90,12 @@
     <ClCompile Include="..\Classes\EnemyProjectileManager.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MasterManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GenericManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -159,6 +165,12 @@
       <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\EnemyProjectileManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MasterManager.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GenericManager.h">
       <Filter>src\Header</Filter>
     </ClInclude>
   </ItemGroup>

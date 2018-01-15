@@ -4,9 +4,10 @@
 #include "Projectile\BaseProjectile.h"
 #include "Projectile\Projectile_45degree.h"
 #include "Projectile\Projectile_tri_shot.h"
+#include "GenericManager.h"
 typedef BaseProjectile* (*ProjectileCreatePtr)();
 
-class ProjectileManager
+class ProjectileManager : GenericManager
 {
 public:
 	static ProjectileManager& getInstance()
@@ -15,7 +16,7 @@ public:
 		return Instance;
 	}
 	static void Add_Create_Functions();
-	void Init();
+	virtual void Init();
 	void Update(float dt);
 	void CreateProjectile(int type);
 	void CreateProjectile(int type,Vec2 offset);

@@ -155,7 +155,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\EnemyBaseProjectile.cpp" />
     <ClCompile Include="..\Classes\EnemyManager.cpp" />
     <ClCompile Include="..\Classes\EnemyProjectileManager.cpp" />
+    <ClCompile Include="..\Classes\GenericManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\MasterManager.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\PlayerManager.cpp" />
     <ClCompile Include="..\Classes\PowerUp.cpp" />
@@ -180,7 +182,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\EnemyBaseProjectile.h" />
     <ClInclude Include="..\Classes\EnemyManager.h" />
     <ClInclude Include="..\Classes\EnemyProjectileManager.h" />
+    <ClInclude Include="..\Classes\GenericManager.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\MasterManager.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\PlayerManager.h" />
     <ClInclude Include="..\Classes\PowerUp.h" />

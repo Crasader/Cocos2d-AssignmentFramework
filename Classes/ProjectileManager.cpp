@@ -3,7 +3,18 @@
 vector<ProjectileCreatePtr> ProjectileManager::create_ptr_list;
 ProjectileManager::ProjectileManager()
 {
+	//template <class T>
+	/*updatefunctionpointer temp = [&](float dt) {
+		T->Update();
+	};*/
 	//MasterManager::getInstance().Add_Init_Function(ProjectileManager::Init);
+	ProjectileManager* instance = this;
+	MasterManager::getInstance().Add_Init_Function([&instance]() {
+		instance->Init();
+	});
+	MasterManager::getInstance().Add_Update_Function([&instance](float dt) {
+		instance->Update(dt);
+	});
 }
 
 ProjectileManager::~ProjectileManager()
@@ -12,6 +23,7 @@ ProjectileManager::~ProjectileManager()
 
 void ProjectileManager::Add_Create_Functions()
 {
+	//ProjectileCreatePtr* temp_ptr = std::bind(&BaseProjectile::create, std::cref());
 	create_ptr_list.push_back(BaseProjectile::create);
 	create_ptr_list.push_back(Projectile_45degree::create);
 	create_ptr_list.push_back(Projectile_tri_shot::create);

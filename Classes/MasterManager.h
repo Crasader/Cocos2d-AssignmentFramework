@@ -6,8 +6,10 @@
 using namespace std;
 using namespace cocos2d;
 
-typedef void (GenericManager::*updatefunctionpointer)(float);
-typedef void (GenericManager::*Initfunctionpointer)();
+typedef std::function<void(float)> updatefunctionpointer;//void (GenericManager::* updatefunctionpointer)(float);
+typedef std::function<void()> Initfunctionpointer;//void (GenericManager::* Initfunctionpointer)();
+
+
 class MasterManager
 {
 public:
@@ -20,8 +22,10 @@ public:
 	MasterManager& operator=(const MasterManager&) = delete;
 	void Init();
 	void Update(float dt);
-	void Add_Init_Function(Initfunctionpointer i_fp);
-	void Add_Update_Function(updatefunctionpointer u_fp);
+	//template <class T>
+	void Add_Init_Function(Initfunctionpointer t);//T *target, string classname);
+	//template <class T>
+	void Add_Update_Function(updatefunctionpointer t);//T *target, string classname);
 
 
 	

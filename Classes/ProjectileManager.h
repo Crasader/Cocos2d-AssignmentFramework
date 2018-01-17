@@ -5,7 +5,7 @@
 #include "Projectile\Projectile_45degree.h"
 #include "Projectile\Projectile_tri_shot.h"
 #include "GenericManager.h"
-typedef BaseProjectile* (*ProjectileCreatePtr)();
+typedef std::function<BaseProjectile*()> ProjectileCreatePtr;//BaseProjectile* (*ProjectileCreatePtr)();
 
 class ProjectileManager : GenericManager
 {
@@ -17,7 +17,7 @@ public:
 	}
 	static void Add_Create_Functions();
 	virtual void Init();
-	void Update(float dt);
+	virtual void Update(float dt);
 	void CreateProjectile(int type);
 	void CreateProjectile(int type,Vec2 offset);
 	void CreateProjectile(string sprite_filename, Vec2 Direction_vector, Vec2 position);

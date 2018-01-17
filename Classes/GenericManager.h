@@ -4,9 +4,9 @@
 class GenericManager
 {
 public:
-	static ProjectileManager& getInstance()
+	static GenericManager& getInstance()
 	{
-		static ProjectileManager Instance;
+		static GenericManager Instance;
 		return Instance;
 	}
 	virtual void Init();

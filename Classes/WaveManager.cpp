@@ -1,9 +1,11 @@
 #include "WaveManager.h"
-
+#include "MasterManager.h"
 using namespace cocos2d;
 
 WaveManager::WaveManager()
 {
+	MASTERMANAGER_CALLBACK_INIT_FUNC(WaveManager, Init)
+	MASTERMANAGER_CALLBACK_UPDATE_FUNC(WaveManager, Update)
 }
 
 WaveManager::~WaveManager()

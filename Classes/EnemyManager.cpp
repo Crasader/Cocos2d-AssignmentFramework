@@ -1,7 +1,10 @@
 #include "EnemyManager.h"
 #include "WaveManager.h"
+#include "MasterManager.h"
 EnemyManager::EnemyManager()
 {
+	MASTERMANAGER_CALLBACK_INIT_FUNC(EnemyManager, Init)
+	MASTERMANAGER_CALLBACK_UPDATE_FUNC(EnemyManager, Update)
 	CCLOG("EnemyManager singleton created");
 }
 

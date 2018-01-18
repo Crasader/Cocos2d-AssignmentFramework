@@ -1,7 +1,9 @@
 #include "ShieldManager.h"
-
+#include "MasterManager.h"
 ShieldManager::ShieldManager()
 {
+	MASTERMANAGER_CALLBACK_INIT_FUNC(ShieldManager, Init)
+	MASTERMANAGER_CALLBACK_UPDATE_FUNC(ShieldManager, Update)
 }
 
 ShieldManager::~ShieldManager()

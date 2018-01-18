@@ -21,9 +21,11 @@ public:
 	MasterManager(const MasterManager&) = delete;
 	MasterManager& operator=(const MasterManager&) = delete;
 	void Init();
-	void Update(float dt);
+	void update(float dt);
 	//template <class T>
-	void Add_Init_Function(Initfunctionpointer t);//T *target, string classname);
+	void Add_Init_Function(Initfunctionpointer t);
+	/*template <class T>
+	void Add_Init_Function(T* instance);*/
 	//template <class T>
 	void Add_Update_Function(updatefunctionpointer t);//T *target, string classname);
 

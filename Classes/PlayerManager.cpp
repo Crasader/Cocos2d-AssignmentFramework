@@ -1,7 +1,9 @@
 #include "PlayerManager.h"
-
+#include "MasterManager.h"
 PlayerManager::PlayerManager()
 {
+	//MASTERMANAGER_CALLBACK_INIT_FUNC(ProjectileManager, Init)
+	//MASTERMANAGER_CALLBACK_UPDATE_FUNC(ProjectileManager, Update)
 }
 
 PlayerManager::~PlayerManager()

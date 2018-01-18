@@ -1,7 +1,9 @@
 #include "EnemyProjectileManager.h"
-
+#include "MasterManager.h"
 EnemyProjectileManager::EnemyProjectileManager()
 {
+	MASTERMANAGER_CALLBACK_INIT_FUNC(EnemyProjectileManager, Init)
+	MASTERMANAGER_CALLBACK_UPDATE_FUNC(EnemyProjectileManager, Update)
 	CCLOG("EnemyProjectileManager singleton created");
 }
 

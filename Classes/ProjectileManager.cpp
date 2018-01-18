@@ -3,18 +3,16 @@
 vector<ProjectileCreatePtr> ProjectileManager::create_ptr_list;
 ProjectileManager::ProjectileManager()
 {
-	//template <class T>
-	/*updatefunctionpointer temp = [&](float dt) {
-		T->Update();
-	};*/
-	//MasterManager::getInstance().Add_Init_Function(ProjectileManager::Init);
-	ProjectileManager* instance = this;
+	/*ProjectileManager* instance = this;
 	MasterManager::getInstance().Add_Init_Function([&instance]() {
 		instance->Init();
 	});
 	MasterManager::getInstance().Add_Update_Function([&instance](float dt) {
 		instance->Update(dt);
-	});
+	});*/
+	//MASTERMANAGER_CALLBACK_INIT_UPDATE_FUNC(ProjectileManager)
+	MASTERMANAGER_CALLBACK_INIT_FUNC(ProjectileManager, Init)
+	MASTERMANAGER_CALLBACK_UPDATE_FUNC(ProjectileManager, Update)
 }
 
 ProjectileManager::~ProjectileManager()
@@ -35,6 +33,8 @@ void ProjectileManager::Init()
 	//ProjectileCreatePtr temp_func_ptr = &BaseProjectile::create();
 	//create_ptr_list.push_back(BaseProjectile::create());
 	Add_Create_Functions();
+
+	CCLOG("ProjectileManager");
 }
 
 void ProjectileManager::Update(float dt)

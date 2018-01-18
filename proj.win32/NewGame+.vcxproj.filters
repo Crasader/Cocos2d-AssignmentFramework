@@ -19,6 +19,9 @@
     <Filter Include="src\Projectile">
       <UniqueIdentifier>{1c5317cb-8ae8-4152-ae26-679f2eecf916}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\InputManager">
+      <UniqueIdentifier>{ada97f4d-3681-468b-a62a-c8f9ccf88415}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -96,6 +99,9 @@
     <ClCompile Include="..\Classes\GenericManager.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GenericScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -172,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GenericManager.h">
       <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ManagerMacro.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GenericScene.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #ifndef GENERIC_MANAGER_H_
 #define GENERIC_MANAGER_H_
-
+#include "ManagerMacro.h"
 class GenericManager
 {
 public:

@@ -1,7 +1,9 @@
 #include "PowerUpManager.h"
-
+#include "MasterManager.h"
 PowerUpManager::PowerUpManager()
 {
+	MASTERMANAGER_CALLBACK_INIT_FUNC(PowerUpManager, Init)
+	MASTERMANAGER_CALLBACK_UPDATE_FUNC(PowerUpManager, Update)
 }
 
 PowerUpManager::~PowerUpManager()

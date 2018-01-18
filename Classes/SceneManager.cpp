@@ -1,7 +1,7 @@
 #include "SceneManager.h"
 #include "HelloWorldScene.h"
 #include "Scene2.h"
-
+#include "MasterManager.h"
 using namespace cocos2d;
 
 SceneManager& SceneManager::getInstance()
@@ -14,7 +14,8 @@ SceneManager::SceneManager() :
 	_prevSceneType(SceneType::SCENE1),
 	_currSceneType(SceneType::SCENE1)
 {
-
+	//MASTERMANAGER_CALLBACK_INIT_FUNC(SceneManager, Init)
+	//MASTERMANAGER_CALLBACK_UPDATE_FUNC(SceneManager, Update)
 }
 
 SceneManager::~SceneManager()

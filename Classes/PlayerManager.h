@@ -15,16 +15,15 @@ public:
 	}
 	PlayerManager(const PlayerManager&) = delete;
 	PlayerManager& operator=(const PlayerManager&) = delete;
-	PlayerManager();
-	~PlayerManager();
+	
 	void Add_Player(Player* player);
 	void Remove_Player(Player* player);
 	Player* get_Player(int index);
 
 	vector<Player*> List_of_players;
-
 private:
-
+	PlayerManager();
+	~PlayerManager();
 };
 
 

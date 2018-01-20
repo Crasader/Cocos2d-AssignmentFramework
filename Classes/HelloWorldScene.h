@@ -1,13 +1,13 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
-#include "Player.h"
-#include "EnemyManager.h"
-#include "PowerUp.h"
-
+//#include "Player.h"
+//#include "EnemyManager.h"
+//#include "PowerUp.h"
+#include "GenericScene.h"
 using namespace cocos2d;
 
-class HelloWorld : public cocos2d::Scene
+class HelloWorld : GenericScene//GenericScene//public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -33,17 +33,16 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 private:
-	GLProgram* proPostProcess;
-	RenderTexture* rendtex;
-	Sprite* rendtexSprite;
-
+	//GLProgram* proPostProcess;
+	//RenderTexture* rendtex;
+	//Sprite* rendtexSprite;
+	//Size visibleSize = Director::getInstance()->getVisibleSize();
+	//Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	//Size playingSize = Size(visibleSize.width, visibleSize.height - (visibleSize.height / 8));
 	static std::map<cocos2d::EventKeyboard::KeyCode,
 		std::chrono::high_resolution_clock::time_point> Key_map;
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	Size playingSize = Size(visibleSize.width, visibleSize.height - (visibleSize.height / 8));
+	
 
 	Player* player1;
 	PowerUp* powerUp;

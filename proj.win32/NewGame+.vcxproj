@@ -158,6 +158,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\GenericManager.cpp" />
     <ClCompile Include="..\Classes\GenericScene.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\InputManager\InputManager.cpp" />
     <ClCompile Include="..\Classes\MasterManager.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\PlayerManager.cpp" />
@@ -185,7 +186,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\EnemyProjectileManager.h" />
     <ClInclude Include="..\Classes\GenericManager.h" />
     <ClInclude Include="..\Classes\GenericScene.h" />
+    <ClInclude Include="..\Classes\GlobalDeclarations.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\InputManager\InputManager.h" />
     <ClInclude Include="..\Classes\ManagerMacro.h" />
     <ClInclude Include="..\Classes\MasterManager.h" />
     <ClInclude Include="..\Classes\Player.h" />

@@ -10,9 +10,9 @@ SceneManager& SceneManager::getInstance()
 	return instance;
 }
 
-SceneManager::SceneManager() :
+SceneManager::SceneManager() /*:
 	_prevSceneType(SceneType::SCENE1),
-	_currSceneType(SceneType::SCENE1)
+	_currSceneType(SceneType::SCENE1)*/
 {
 	//MASTERMANAGER_CALLBACK_INIT_FUNC(SceneManager, Init)
 	//MASTERMANAGER_CALLBACK_UPDATE_FUNC(SceneManager, Update)
@@ -23,45 +23,79 @@ SceneManager::~SceneManager()
 
 }
 
-void SceneManager::runSceneWithType(const SceneType sceneType)
+GenericScene* SceneManager::get_current_scene()
 {
-	Scene* sceneToRun = nullptr;
-
-	switch (sceneType)
-	{
-	case SceneType::SCENE1:
-		sceneToRun = HelloWorld::createScene();
-		break;
-	case SceneType::SCENE2:
-		sceneToRun = Scene2::createScene();
-		break;
-	default:
-		sceneToRun = HelloWorld::createScene();
-		break;
-	}
-
-	SceneType oldSceneType = _currSceneType;
-	_currSceneType = sceneType;
-	sceneToRun->setTag(static_cast<int>(sceneType));
-
-	if (sceneToRun == nullptr)
-	{
-		_currSceneType = oldSceneType;
-		return;
-	}
-
-	_prevSceneType = oldSceneType;
-	if (CCDirector::getInstance()->getRunningScene() == nullptr)
-	{
-		CCDirector::getInstance()->runWithScene(sceneToRun);
-	}
-	else
-	{
-		CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, sceneToRun));
-	}
+	return m_curr_scene;
 }
 
-void SceneManager::returnToPrevScene()
+bool SceneManager::set_current_scene(string scene_name)
 {
-	this->runSceneWithType(_prevSceneType);
+	m_curr_scene = m_Scene_Map.find(scene_name)->second;
+	if (m_curr_scene)
+		return true;
+	return false;
+	
 }
+
+void SceneManager::Add_Scene(GenericScene* scene, string scene_name)
+{
+	m_Scene_Map.insert(pair<string, GenericScene*>(scene_name, scene));
+}
+
+void SceneManager::Change_Scene(string scene_name)
+{
+	//delete scene stuff here if needed
+	m_curr_scene->On_Change_Scene(true);
+	GenericScene* scene = m_Scene_Map.find(scene_name)->second;
+	//scene stuff here
+	CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, scene->createScene()));
+}
+
+void SceneManager::Run_Scene(string scene_name)
+{
+	GenericScene* scene = m_Scene_Map.find(scene_name)->second;
+	CCDirector::getInstance()->runWithScene(scene->createScene());
+}
+
+//void SceneManager::runSceneWithType(const SceneType sceneType)
+//{
+//	Scene* sceneToRun = nullptr;
+//
+//	switch (sceneType)
+//	{
+//	case SceneType::SCENE1:
+//		sceneToRun = HelloWorld::createScene();
+//		break;
+//	case SceneType::SCENE2:
+//		sceneToRun = Scene2::createScene();
+//		break;
+//	default:
+//		sceneToRun = HelloWorld::createScene();
+//		break;
+//	}
+//
+//	SceneType oldSceneType = _currSceneType;
+//	_currSceneType = sceneType;
+//	sceneToRun->setTag(static_cast<int>(sceneType));
+//
+//	if (sceneToRun == nullptr)
+//	{
+//		_currSceneType = oldSceneType;
+//		return;
+//	}
+//
+//	_prevSceneType = oldSceneType;
+//	if (CCDirector::getInstance()->getRunningScene() == nullptr)
+//	{
+//		CCDirector::getInstance()->runWithScene(sceneToRun);
+//	}
+//	else
+//	{
+//		CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, sceneToRun));
+//	}
+//}
+//
+//void SceneManager::returnToPrevScene()
+//{
+//	this->runSceneWithType(_prevSceneType);
+//}

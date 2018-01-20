@@ -1,9 +1,19 @@
-#include "CollisionManager.h"
+#include "InputManager.h"
 
-CollisionManager::CollisionManager()
+InputManager::InputManager()
 {
 }
 
-CollisionManager::~CollisionManager()
+InputManager::~InputManager()
 {
+}
+
+void InputManager::Init()
+{
+
+}
+
+void InputManager::Update(float dt)
+{
+
 }

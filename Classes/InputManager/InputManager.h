@@ -1,24 +1,24 @@
-#ifndef COLLISION_MANAGER_H_
-#define COLLISION_MANAGER_H_
+#ifndef INPUT_MANAGER_H_
+#define INPUT_MANAGER_H_
 
-class CollisionManager
+class InputManager
 {
 public:
-	static CollisionManager& getInstance()
+	static InputManager& getInstance()
 	{
-		static CollisionManager Instance;
+		static InputManager Instance;
 		return Instance;
 	}
-	CollisionManager(const CollisionManager&) = delete;
-	CollisionManager& operator=(const CollisionManager&) = delete;
+	InputManager(const InputManager&) = delete;
+	InputManager& operator=(const InputManager&) = delete;
 
 	void Init();
 	void Update(float dt);
 
 
 private:
-	CollisionManager();
-	~CollisionManager();
+	InputManager();
+	~InputManager();
 };
 
 

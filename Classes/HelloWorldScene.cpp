@@ -532,7 +532,7 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)
 	{
-		SceneManager::getInstance().runSceneWithType(SceneType::SCENE2);
+		//SceneManager::getInstance().Run_Scene("scene2");//nSceneWithType(SceneType::SCENE2);
 	}
 
 }

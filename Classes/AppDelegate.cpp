@@ -104,7 +104,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // run
     //director->runWithScene(scene);
 
-	SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);
+	//SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);
+
 
     return true;
 }

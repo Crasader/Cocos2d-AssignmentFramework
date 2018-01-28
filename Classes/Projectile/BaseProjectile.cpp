@@ -25,7 +25,7 @@ void BaseProjectile::Init()
 
 
 	Player* temp_player = PlayerManager::getInstance().get_Player(0);
-	node->setPosition(temp_player->get_Node()->getPosition() + offset);
+	node->setPosition(Vec2(temp_player->get_Node()->getPosition()));//getPosition() + offset);
 	
 	
 }

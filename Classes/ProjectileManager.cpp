@@ -1,5 +1,6 @@
 #include "ProjectileManager.h"
 #include "MasterManager.h"
+#include "PlayerManager.h"
 vector<ProjectileCreatePtr> ProjectileManager::create_ptr_list;
 ProjectileManager::ProjectileManager()
 {
@@ -95,6 +96,7 @@ void ProjectileManager::Update(float dt)
 void ProjectileManager::CreateProjectile(int type)
 {
 	BaseProjectile* temp;
+	Player* p_player = PlayerManager::getInstance().get_Player(0);
 	switch (type)
 	{
 	case 0:
@@ -110,6 +112,7 @@ void ProjectileManager::CreateProjectile(int type)
 		temp = BaseProjectile::create();
 		break;
 	}
+	
 	temp->Init();
 	ProjectileList.push_back(temp);
 }

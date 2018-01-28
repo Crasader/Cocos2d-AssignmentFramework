@@ -19,7 +19,16 @@ Scene* HelloWorld::createScene()
 	return scene;
 }
 
-cocos2d::Scene* HelloWorld::_createScene()
+Scene* HelloWorld::_createScene()
+{
+	auto scene_Node = Scene::createWithPhysics();
+	auto layer = HelloWorld::create();
+	layer->set_SceneNode(scene_Node);
+	scene_Node->addChild(layer);
+	return layer;
+}
+
+Scene* HelloWorld::_createScene_withSceneNode()
 {
 	auto scene_Node = Scene::createWithPhysics();
 	auto layer = HelloWorld::create();

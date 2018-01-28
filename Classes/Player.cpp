@@ -287,7 +287,7 @@ Player* Player::create(string name)
 {
 	Player* temp = new Player();
 	temp->Set_Name(name);
-	PlayerManager::getInstance().Add_Player(temp);
+	//PlayerManager::getInstance().Add_Player(temp);
 	return temp;
 }
 

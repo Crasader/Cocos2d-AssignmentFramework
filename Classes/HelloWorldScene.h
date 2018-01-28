@@ -53,6 +53,8 @@ private:
 
 	Enemy* enemyInstance;
 
+	bool runWave;
+	bool isStarted;
 
 	Node* bgNode;
 	float bgX, bgY, bg2X, bg2Y;

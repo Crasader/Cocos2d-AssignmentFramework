@@ -16,8 +16,8 @@ void Wave::Init()
 {
 	tempDelay = 0;
 	currEnemiesSpawned = 0;
-	MaxEnemiesPerWave = 15;
-	timeBtwnSpawn = 5.f;
+	MaxEnemiesPerWave = 100;
+	timeBtwnSpawn = 3.f;
 	finished = false;
 	currEnemiesKilled = 0;
 }

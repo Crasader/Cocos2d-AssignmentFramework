@@ -68,7 +68,8 @@ bool HelloWorld::init()
 	//int count = visibleSize.width - (sprite->getContentSize().height);
 	//int count = std::ceil(visibleSize.width / sprite->getContentSize().width);
 
-
+	isStarted = false;
+	runWave = false;
 
 	bgNode = Node::create();
 	bgNode->setName("bg Node Main");
@@ -528,8 +529,20 @@ void HelloWorld::update(float delta)
 		player1->Move(Player::Movement_Direction::Down);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
 	{
+		if (!runWave)
+		{
+			isStarted = true;
+		}
 		removeChild(bgMenu);
 		player1->Shoot();
+	}
+
+	if (isStarted)
+	{
+		WaveManager::getInstance().Run_next_wave();
+		WaveManager::getInstance().Add_wave(0);
+		runWave = true;
+		isStarted = false;
 	}
 
 

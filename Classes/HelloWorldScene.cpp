@@ -95,14 +95,26 @@ bool HelloWorld::init()
 
 	this->addChild(bgNode, 0);
 
-	auto hpbar_frame = Sprite::create("fullbar.jpg");
+	auto hpbar_frame = Sprite::create("emptybar.jpg");
 	hpbar_frame->setAnchorPoint(Vec2::ZERO);
-	float hppos_x = getContentSize().width * 0.01f;
-	float hppos_y = getContentSize().height * 0.01f;
-	hpbar_frame->setPosition(Vec2(hppos_x, hppos_y));
+	float hpFramepos_x = getContentSize().width * 0.01f;
+	float hpFramepos_y = getContentSize().height * 0.01f;
+	hpbar_frame->setPosition(Vec2(hpFramepos_x, hpFramepos_y));
 	hpbar_frame->setName("hpFrame");
 
 	this->addChild(hpbar_frame, 2);
+
+	hpbar_main = Sprite::create("fullbar.jpg");
+	hpbar_main->setAnchorPoint(Vec2::ZERO);
+	float hppos_x = getContentSize().width * 0.01f;
+	float hppos_y = getContentSize().height * 0.01f;
+	hpbar_main->setPosition(Vec2(hppos_x, hppos_y));
+	hpbar_main->setScaleY(1.0f);
+	hpbar_main->setName("hpFull");
+
+	this->addChild(hpbar_main, 2);
+
+	
 
 
 	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
@@ -475,7 +487,7 @@ void HelloWorld::update(float delta)
 	player1->Update(delta);
 	//enemyInstance->Update(delta);
 	//powerUp->Update(delta);
-
+	hpbar_main->setScaleY(player1->get_hp() * 0.01f);
 
 
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))

@@ -32,6 +32,8 @@ public:
 	virtual void update(float delta);
 	virtual Scene* get_SceneNode();
 
+	cocos2d::Sprite *hpbar_main;
+
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 private:

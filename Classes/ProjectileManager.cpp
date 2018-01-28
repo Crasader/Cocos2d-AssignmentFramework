@@ -13,6 +13,8 @@ ProjectileManager::ProjectileManager()
 	//MASTERMANAGER_CALLBACK_INIT_UPDATE_FUNC(ProjectileManager)
 	MASTERMANAGER_CALLBACK_INIT_FUNC(ProjectileManager, Init)
 	MASTERMANAGER_CALLBACK_UPDATE_FUNC(ProjectileManager, Update)
+
+	CCLOG("projectile manager constructor");
 }
 
 ProjectileManager::~ProjectileManager()

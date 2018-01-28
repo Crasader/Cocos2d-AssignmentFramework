@@ -2,13 +2,13 @@
 #include "HelloWorldScene.h"
 #include "Scene2.h"
 #include "MasterManager.h"
-using namespace cocos2d;
+using namespace cocos2d;/*
 
 SceneManager& SceneManager::getInstance()
 {
 	static SceneManager instance;
 	return instance;
-}
+}*/
 
 SceneManager::SceneManager() /*:
 	_prevSceneType(SceneType::SCENE1),
@@ -23,19 +23,34 @@ SceneManager::~SceneManager()
 
 }
 
+void SceneManager::Init()
+{
+	HelloWorld* temp = HelloWorld::create();
+	Add_Scene((GenericScene*)temp, "HelloWorld");
+}
+
+void SceneManager::Update(float dt)
+{
+
+}
+
 GenericScene* SceneManager::get_current_scene()
 {
 	return m_curr_scene;
 }
 
-bool SceneManager::set_current_scene(string scene_name)
-{
-	m_curr_scene = m_Scene_Map.find(scene_name)->second;
-	if (m_curr_scene)
-		return true;
-	return false;
-	
-}
+//bool SceneManager::set_current_scene(string scene_name)
+//{
+//	m_curr_scene = m_Scene_Map.find(scene_name)->second;
+//	if (m_curr_scene)
+//		return true;
+//	return false;	
+//}
+
+//void SceneManager::Add_Scene(GenericScene* scene, string scene_name)
+//{
+//	m_Scene_Map.insert(pair<string, GenericScene*>(scene_name, scene));
+//}
 
 void SceneManager::Add_Scene(GenericScene* scene, string scene_name)
 {
@@ -47,14 +62,16 @@ void SceneManager::Change_Scene(string scene_name)
 	//delete scene stuff here if needed
 	m_curr_scene->On_Change_Scene(true);
 	GenericScene* scene = m_Scene_Map.find(scene_name)->second;
+	m_curr_scene = dynamic_cast<GenericScene*>(scene->_createScene());
 	//scene stuff here
-	CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, scene->createScene()));
+	CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, dynamic_cast<Scene*>(m_curr_scene)));
 }
 
 void SceneManager::Run_Scene(string scene_name)
 {
 	GenericScene* scene = m_Scene_Map.find(scene_name)->second;
-	CCDirector::getInstance()->runWithScene(scene->createScene());
+	m_curr_scene = dynamic_cast<GenericScene*>(scene->_createScene());//dynamic_cast<GenericScene*>(scene->createScene());
+	CCDirector::getInstance()->runWithScene(m_curr_scene->get_SceneNode());
 }
 
 //void SceneManager::runSceneWithType(const SceneType sceneType)

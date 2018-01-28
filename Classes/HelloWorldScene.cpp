@@ -19,6 +19,15 @@ Scene* HelloWorld::createScene()
 	return scene;
 }
 
+cocos2d::Scene* HelloWorld::_createScene()
+{
+	auto scene_Node = Scene::createWithPhysics();
+	auto layer = HelloWorld::create();
+	layer->set_SceneNode(scene_Node);
+	scene_Node->addChild(layer);
+	return layer;
+}
+
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
 {
@@ -31,7 +40,7 @@ bool HelloWorld::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Scene::init() )
+    if ( !GenericScene::init() )
     {
         return false;
     }
@@ -331,28 +340,28 @@ bool HelloWorld::init()
 	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
 #endif 
 
-#ifndef PROJECTILE_MANAGER_INIT
-	ProjectileManager::getInstance().Init();
-#endif // !PROJECTILE_MANAGER_INIT
-
-#ifndef ENEMY_PROJECTILE_MANAGER_INIT
-	EnemyProjectileManager::getInstance().Init();
-#endif // !PROJECTILE_MANAGER_INIT
-
-#ifndef ENEMY_MANAGER_INIT
-	EnemyManager::getInstance().Init();
-#endif // !ENEMY_MANAGER_INIT
-
-#ifndef WAVE_MANAGER_INIT
-	WaveManager::getInstance().Init();
-#endif // WAVE_MANAGER_INIT
-
-#ifndef POWERUP_MANAGER_INIT
-	PowerUpManager::getInstance().Init();
-#endif // !POWERUP_MANAGER_INIT
-#ifndef SHIELD_MANAGER_INIT
-	ShieldManager::getInstance().Init();
-#endif // !POWERUP_MANAGER_INIT
+//#ifndef PROJECTILE_MANAGER_INIT
+//	ProjectileManager::getInstance().Init();
+//#endif // !PROJECTILE_MANAGER_INIT
+//
+//#ifndef ENEMY_PROJECTILE_MANAGER_INIT
+//	EnemyProjectileManager::getInstance().Init();
+//#endif // !PROJECTILE_MANAGER_INIT
+//
+//#ifndef ENEMY_MANAGER_INIT
+//	EnemyManager::getInstance().Init();
+//#endif // !ENEMY_MANAGER_INIT
+//
+//#ifndef WAVE_MANAGER_INIT
+//	WaveManager::getInstance().Init();
+//#endif // WAVE_MANAGER_INIT
+//
+//#ifndef POWERUP_MANAGER_INIT
+//	PowerUpManager::getInstance().Init();
+//#endif // !POWERUP_MANAGER_INIT
+//#ifndef SHIELD_MANAGER_INIT
+//	ShieldManager::getInstance().Init();
+//#endif // !POWERUP_MANAGER_INIT
 
 
 	{
@@ -442,17 +451,18 @@ bool HelloWorld::init()
 
 void HelloWorld::update(float delta) 
 {
+	GenericScene::update(delta);
 	/*rendtex->beginWithClear(0.f, 0.f, 0.f, 0.f);
 	this->visit();
 	rendtex->end();
 	rendtexSprite->setTexture(rendtex->getSprite()->getTexture());
 	rendtexSprite->setGLProgram(proPostProcess);*/
-	ProjectileManager::getInstance().Update(delta);
+	/*ProjectileManager::getInstance().Update(delta);
 	EnemyProjectileManager::getInstance().Update(delta);
 	EnemyManager::getInstance().Update(delta);
 	PowerUpManager::getInstance().Update(delta);
 	ShieldManager::getInstance().Update(delta);
-	WaveManager::getInstance().Update(delta);
+	WaveManager::getInstance().Update(delta);*/
 	player1->Update(delta);
 	//enemyInstance->Update(delta);
 	//powerUp->Update(delta);
@@ -487,6 +497,11 @@ void HelloWorld::update(float delta)
 	{
 		this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->setPosition(0, bgSize.y);
 	}
+}
+
+Scene* HelloWorld::get_SceneNode()
+{
+	return sceneNode;
 }
 
 void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)

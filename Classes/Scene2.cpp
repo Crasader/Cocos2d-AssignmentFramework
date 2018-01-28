@@ -448,7 +448,7 @@ void Scene2::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)
 	{
-		SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);
+		//SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);
 	}
 
 }

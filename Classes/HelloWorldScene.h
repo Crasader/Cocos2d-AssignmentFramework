@@ -7,11 +7,11 @@
 #include "GenericScene.h"
 using namespace cocos2d;
 
-class HelloWorld : GenericScene//GenericScene//public cocos2d::Scene
+class HelloWorld : GenericScene
 {
 public:
     static cocos2d::Scene* createScene();
-
+	virtual cocos2d::Scene* _createScene();
     virtual bool init();
     
     // a selector callback
@@ -28,7 +28,8 @@ public:
 	virtual void onMouseDown(Event*);
 	virtual void onMouseScroll(Event*);
     
-	void update(float delta);
+	virtual void update(float delta);
+	virtual Scene* get_SceneNode();
 
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);

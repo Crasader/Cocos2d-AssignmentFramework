@@ -13,13 +13,7 @@ typedef std::function<void()> Initfunctionpointer;//void (GenericManager::* Init
 class MasterManager
 {
 public:
-	static MasterManager& getInstance()
-	{
-		static MasterManager Instance;
-		return Instance;
-	}
-	MasterManager(const MasterManager&) = delete;
-	MasterManager& operator=(const MasterManager&) = delete;
+	SINGLETON_CLASS(MasterManager)
 	void Init();
 	void update(float dt);
 	//template <class T>

@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "SceneManager.h"
-
+#include "MasterManager.h"
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
 
@@ -103,10 +103,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     //director->runWithScene(scene);
-
 	//SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);
-
-
+	//MasterManager::getInstance().Init();
+	SceneManager::getInstance().Init();
+	SceneManager::getInstance().Run_Scene("HelloWorld");
+	MasterManager::getInstance().Init();
     return true;
 }
 

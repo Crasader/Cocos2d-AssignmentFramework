@@ -1,24 +1,27 @@
 #ifndef INPUT_MANAGER_H_
 #define INPUT_MANAGER_H_
 #include "cocos2d.h"
-
+#include "GenericManager.h"
 using namespace cocos2d;
 
-class InputManager
+class InputManager : GenericManager
 {
 public:
-	static InputManager& getInstance()
-	{
-		static InputManager Instance;
-		return Instance;
-	}
-	InputManager(const InputManager&) = delete;
-	InputManager& operator=(const InputManager&) = delete;
+	SINGLETON_CLASS(InputManager)
 
-	void Init();
-	void Update(float dt);
+	virtual void Init();
+	virtual void Update(float dt);
 
+	void onKeyPressed(EventKeyboard::KeyCode, Event*);
+	void onKeyReleased(EventKeyboard::KeyCode, Event*);
+	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
 
+	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode, bool seconds);
+
+	void onMouseMove(Event*);
+	void onMouseUp(Event*);
+	void onMouseDown(Event*);
+	void onMouseScroll(Event*);
 private:
 	InputManager();
 	~InputManager();

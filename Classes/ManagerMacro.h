@@ -15,6 +15,7 @@
 	MasterManager::getInstance().Add_Update_Function([&instance](float dt) {\
 		instance->FUNC(dt);\
 	});\
+	CCLOG("Update function added");\
 }
 
 #define MASTERMANAGER_CALLBACK_INIT_FUNC(CLASS,FUNC)\
@@ -23,6 +24,7 @@
 	MasterManager::getInstance().Add_Init_Function([&instance]() {\
 		instance->FUNC();\
 	});\
+	CCLOG("Init function added");\
 }
 
 #endif

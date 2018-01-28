@@ -3,7 +3,6 @@
 #include "PowerUpManager.h"
 #include "ShieldManager.h"
 #include "PlayerManager.h"
-
 #define SHOOTING_SPEED 0.3f
 #define MAX_POWER 2
 Player::Player() :
@@ -17,6 +16,7 @@ Player::~Player()
 
 void Player::Init(string sprite_filename)
 {
+	PlayerManager::getInstance().Add_Player(this);
 	node = Node::create();
 	node->setName(Name);
 	spriteNode = Node::create();

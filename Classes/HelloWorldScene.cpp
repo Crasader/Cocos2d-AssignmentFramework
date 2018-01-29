@@ -117,16 +117,17 @@ bool HelloWorld::init()
 
 	
 
-	//auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "font/arial.ttf", 16);
-	//auto menuLayer = Menu::create();
-	////*auto menuItem = MenuItemImage::create("bgMenu.png", "bgMenu.png",
-	//	CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));*/
-	////menuTitle->setPosition(Vec2(10, 10));
-	////menuTitle->setName("menuTitle");
-	//this->addChild(menuLayer);
-	//menuLayer->addChild(menuTitle);
-
-
+	auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "fonts/arial.ttf", 46);
+	
+	auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
+		CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+	menuItem->setPosition(10, 10);
+	menuTitle->setPosition(Vec2(10, 10));
+	menuTitle->setName("menuTitle");
+	auto menuLayer = Menu::create(menuItem, NULL);
+	
+	this->addChild(menuLayer,999);
+	this->addChild(menuTitle,999);
 
 	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
 	powerup_frame->setAnchorPoint(Vec2::ZERO);

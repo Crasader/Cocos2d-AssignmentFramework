@@ -12,7 +12,7 @@
 #define MASTERMANAGER_CALLBACK_UPDATE_FUNC(CLASS,FUNC)\
 {\
 	CLASS* instance = this;\
-	MasterManager::getInstance().Add_Update_Function([&](float dt) {\
+	MasterManager::getInstance().Add_Update_Function([](float dt) {\
 		CLASS::getInstance().FUNC(dt);\
 	});\
 	CCLOG("Update function added");\

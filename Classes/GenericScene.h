@@ -8,7 +8,7 @@ class GenericScene : public cocos2d::Scene
 {
 public:
 	static cocos2d::Scene* createScene();
-	virtual cocos2d::Scene* _createScene();
+	//virtual cocos2d::Scene* _createScene();
 	// implement the "static create()" method manually
 	CREATE_FUNC(GenericScene);
 	virtual bool init();

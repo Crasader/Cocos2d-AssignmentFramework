@@ -27,6 +27,7 @@ void SceneManager::Init()
 {
 	HelloWorld* temp = (HelloWorld*)HelloWorld::_createScene_withSceneNode();
 	Add_Scene((GenericScene*)temp, "HelloWorld");
+
 }
 
 void SceneManager::Update(float dt)
@@ -62,9 +63,9 @@ void SceneManager::Change_Scene(string scene_name)
 	//delete scene stuff here if needed
 	m_curr_scene->On_Change_Scene(true);
 	GenericScene* scene = m_Scene_Map.find(scene_name)->second;
-	m_curr_scene = dynamic_cast<GenericScene*>(scene->_createScene());
+	m_curr_scene = scene;
 	//scene stuff here
-	CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, dynamic_cast<Scene*>(m_curr_scene)));
+	CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, scene->get_SceneNode()));
 }
 
 void SceneManager::Run_Scene(string scene_name)

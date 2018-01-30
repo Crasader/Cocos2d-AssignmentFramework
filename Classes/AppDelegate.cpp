@@ -107,7 +107,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//MasterManager::getInstance().Init();
 	SceneManager::getInstance().Init();
 	SceneManager::getInstance().Run_Scene("HelloWorld");
-	MasterManager::getInstance().Init();
+	//MasterManager::getInstance().Init();
     return true;
 }
 

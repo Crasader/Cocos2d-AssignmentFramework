@@ -17,7 +17,7 @@ public:
 	void Update(float dt);
 	void CreateShield(string sprite_filename, Player* player);
 
-	std::vector<Shield*> ProjectileList;
+	std::vector<Shield*> ShieldList;
 
 	void Release();
 

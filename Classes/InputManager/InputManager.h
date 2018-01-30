@@ -6,6 +6,7 @@ using namespace cocos2d;
 
 class InputManager : GenericManager
 {
+	typedef std::function<void()> fp;
 public:
 	SINGLETON_CLASS(InputManager)
 
@@ -22,6 +23,11 @@ public:
 	void onMouseUp(Event*);
 	void onMouseDown(Event*);
 	void onMouseScroll(Event*);
+
+public:
+	//vector<fp> m_onKeyPress_EventMap;
+	//vector<fp> m_onKeyRelease_EventListMap;
+	//vector<fp> m_onKeyHold_EventListMap;
 private:
 	InputManager();
 	~InputManager();

@@ -21,9 +21,8 @@ public:
 	void Init();
 	void Run();
 	void Update(float dt);
-
 	void RunWave(float dt);
-	
+	void Release();
 
 	vector<EnemyInfo> List_of_enemy_info;
 

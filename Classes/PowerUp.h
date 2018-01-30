@@ -24,6 +24,7 @@ public:
 
 	void Init(string sprite_filename, TypesOfPowerUp types, Vec2 position);
 	void Update(float delta);
+	void Collision();
 	Node* get_Node();
 	Node* get_spriteNode();
 	virtual Sprite* getSprite(void) { return sprite; }

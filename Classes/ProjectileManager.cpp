@@ -15,6 +15,9 @@ ProjectileManager::ProjectileManager()
 	MASTERMANAGER_CALLBACK_INIT_FUNC(ProjectileManager, Init)
 	MASTERMANAGER_CALLBACK_UPDATE_FUNC(ProjectileManager, Update)
 
+	create_ptr_list.push_back(BaseProjectile::create);
+	create_ptr_list.push_back(Projectile_45degree::create);
+	create_ptr_list.push_back(Projectile_tri_shot::create);
 	CCLOG("projectile manager constructor");
 }
 
@@ -22,20 +25,13 @@ ProjectileManager::~ProjectileManager()
 {
 }
 
-void ProjectileManager::Add_Create_Functions()
-{
-	//ProjectileCreatePtr* temp_ptr = std::bind(&BaseProjectile::create, std::cref());
-	create_ptr_list.push_back(BaseProjectile::create);
-	create_ptr_list.push_back(Projectile_45degree::create);
-	create_ptr_list.push_back(Projectile_tri_shot::create);
-
-}
 
 void ProjectileManager::Init()
 {
 	//ProjectileCreatePtr temp_func_ptr = &BaseProjectile::create();
 	//create_ptr_list.push_back(BaseProjectile::create());
-	Add_Create_Functions();
+	if (ProjectileList.size() > 0)
+		Release();
 
 	CCLOG("ProjectileManager");
 }

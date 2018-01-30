@@ -11,7 +11,7 @@ class HelloWorld : GenericScene
 {
 public:
     static cocos2d::Scene* createScene();
-	virtual cocos2d::Scene* _createScene();
+	//virtual cocos2d::Scene* _createScene();
 	static cocos2d::Scene* _createScene_withSceneNode();
     virtual bool init();
     

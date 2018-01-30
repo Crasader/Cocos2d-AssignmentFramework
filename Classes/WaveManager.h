@@ -22,6 +22,8 @@ public:
 	void Add_wave(Wave* wave);
 	void Add_wave(int index);
 	Wave* get_current_wave();
+	void Release();
+
 
 	list<Wave*> Wave_List;
 private:

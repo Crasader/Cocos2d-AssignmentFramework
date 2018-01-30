@@ -14,10 +14,12 @@ WaveManager::~WaveManager()
 
 void WaveManager::Init()
 {
+	if (Wave_List.size() > 0)
+		Release();
+
 	Wave* temp = Wave::Create(RandomHelper::random_int(1, 8));//5);
 	temp->Init();
 	Wave_List.push_back(temp);
-
 	
 }
 
@@ -70,4 +72,15 @@ Wave* WaveManager::get_current_wave()
 	if (Wave_List.size() == 0)
 		return NULL;
 	return Wave_List.front();
+}
+
+void WaveManager::Release()
+{
+	while (Wave_List.size() > 0)
+	{
+		Wave* temp = Wave_List.back();
+		temp->Release();
+		Wave_List.pop_back();
+		delete temp;
+	}
 }

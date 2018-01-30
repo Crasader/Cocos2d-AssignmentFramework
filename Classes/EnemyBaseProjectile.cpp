@@ -1,9 +1,9 @@
 #include "EnemyBaseProjectile.h"
-
+#include "SceneManager.h"
 
 EnemyBaseProjectile::EnemyBaseProjectile()
 	: destroy(false),
-	lifetime(3.f),
+	lifetime(30.f),
 	damage(1)
 {
 }
@@ -21,7 +21,7 @@ void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Ve
 	node->addChild(sprite);
 	movement_spd = 2.f;
 	Direction_Vector = Direction_vector;
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 	
 	
 }
@@ -36,7 +36,7 @@ void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Ve
 	movement_spd = 5.f;
 	Direction_Vector = Direction_vector;
 	this->lifetime = lifetime;
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 }
 
 void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Player player, Vec2 position, float lifetime)
@@ -49,7 +49,7 @@ void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Pl
 	movement_spd = 5.f;
 	Direction_Vector = Direction_vector;
 	this->lifetime = lifetime;
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 
 	//PlayerManager::getInstance().get_Player(0)->get_Node()
 }
@@ -113,5 +113,5 @@ void EnemyBaseProjectile::Collision()
 
 void EnemyBaseProjectile::release()
 {
-	CCDirector::getInstance()->getRunningScene()->removeChild(node);
+	SceneManager::getInstance().get_current_scene()->removeChild(node);
 }

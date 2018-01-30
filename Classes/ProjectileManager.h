@@ -15,7 +15,6 @@ public:
 		static ProjectileManager Instance;
 		return Instance;
 	}
-	static void Add_Create_Functions();
 	virtual void Init();
 	virtual void Update(float dt);
 	void CreateProjectile(int type);

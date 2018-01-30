@@ -101,3 +101,9 @@ void Wave::RunWave(float dt)
 	}
 
 }
+
+void Wave::Release()
+{
+	if (List_of_enemy_info.size() > 0)
+		List_of_enemy_info.clear();
+}

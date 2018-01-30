@@ -13,6 +13,10 @@ EnemyProjectileManager::~EnemyProjectileManager()
 
 void EnemyProjectileManager::Init()
 {
+	if (ProjectileList.size() > 0)
+	{
+		Release();
+	}
 	CCLOG("EnemyProjectileManager Init");
 }
 

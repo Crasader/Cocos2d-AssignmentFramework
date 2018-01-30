@@ -12,17 +12,19 @@ ShieldManager::~ShieldManager()
 
 void ShieldManager::Init()
 {
+	if (ShieldList.size() > 0)
+		Release();
 }
 
 void ShieldManager::Update(float dt)
 {
-	for (vector<Shield*>::iterator it = ProjectileList.begin(); it != ProjectileList.end();)
+	for (vector<Shield*>::iterator it = ShieldList.begin(); it != ShieldList.end();)
 	{
 		(*it)->Update(dt);
 		if ((*it)->destroy)
 		{
 			Shield* t = *it;
-			it = ProjectileList.erase(it);
+			it = ShieldList.erase(it);
 			t->release();
 			delete t;
 		}
@@ -37,16 +39,16 @@ void ShieldManager::CreateShield(string sprite_filename, Player* player)
 {
 	Shield* temp = new Shield();
 	temp->Init(sprite_filename, player);
-	ProjectileList.push_back(temp);
+	ShieldList.push_back(temp);
 }
 
 void ShieldManager::Release()
 {
-	while (ProjectileList.size() > 0)
+	while (ShieldList.size() > 0)
 	{
-		Shield* projectile = ProjectileList.back();
-		projectile->release();
-		ProjectileList.pop_back();
-		delete projectile;
+		Shield* shield = ShieldList.back();
+		shield->release();
+		ShieldList.pop_back();
+		delete shield;
 	}
 }

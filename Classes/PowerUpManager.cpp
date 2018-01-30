@@ -12,7 +12,12 @@ PowerUpManager::~PowerUpManager()
 
 void PowerUpManager::Init()
 {
+	if (PowerUpList.size() > 0)
+	{
+		Release();
+	}
 
+	CCLOG("Powerup Manager Init");
 }
 
 void PowerUpManager::Update(float dt)
@@ -42,5 +47,11 @@ void PowerUpManager::CreatePowerUp(string sprite_filename, PowerUp::TypesOfPower
 
 void PowerUpManager::Release()
 {
-
+	while (PowerUpList.size() > 0)
+	{
+		PowerUp* temp = PowerUpList.back();
+		temp->release();
+		PowerUpList.pop_back();
+		delete temp;
+	}
 }

@@ -68,7 +68,8 @@ bool HelloWorld::init()
 	//int count = visibleSize.width - (sprite->getContentSize().height);
 	//int count = std::ceil(visibleSize.width / sprite->getContentSize().width);
 
-
+	isStarted = false;
+	runWave = false;
 
 	bgNode = Node::create();
 	bgNode->setName("bg Node Main");
@@ -95,15 +96,38 @@ bool HelloWorld::init()
 
 	this->addChild(bgNode, 0);
 
-	auto hpbar_frame = Sprite::create("fullbar.jpg");
+	auto hpbar_frame = Sprite::create("emptybar.jpg");
 	hpbar_frame->setAnchorPoint(Vec2::ZERO);
-	float hppos_x = getContentSize().width * 0.01f;
-	float hppos_y = getContentSize().height * 0.01f;
-	hpbar_frame->setPosition(Vec2(hppos_x, hppos_y));
+	float hpFramepos_x = getContentSize().width * 0.01f;
+	float hpFramepos_y = getContentSize().height * 0.01f;
+	hpbar_frame->setPosition(Vec2(hpFramepos_x, hpFramepos_y));
 	hpbar_frame->setName("hpFrame");
 
 	this->addChild(hpbar_frame, 2);
 
+	hpbar_main = Sprite::create("fullbar.jpg");
+	hpbar_main->setAnchorPoint(Vec2::ZERO);
+	float hppos_x = getContentSize().width * 0.01f;
+	float hppos_y = getContentSize().height * 0.01f;
+	hpbar_main->setPosition(Vec2(hppos_x, hppos_y));
+	hpbar_main->setScaleY(1.0f);
+	hpbar_main->setName("hpFull");
+
+	this->addChild(hpbar_main, 2);
+
+	
+
+	auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "fonts/arial.ttf", 46);
+	
+	auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
+		CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+	menuItem->setPosition(10, 10);
+	menuTitle->setPosition(Vec2(10, 10));
+	menuTitle->setName("menuTitle");
+	auto menuLayer = Menu::create(menuItem, NULL);
+	
+	this->addChild(menuLayer,999);
+	this->addChild(menuTitle,999);
 
 	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
 	powerup_frame->setAnchorPoint(Vec2::ZERO);
@@ -113,6 +137,21 @@ bool HelloWorld::init()
 	powerup_frame->setName("pwrupFrame");
 
 	this->addChild(powerup_frame, 2);
+
+
+	bgMenu = Sprite::create("bgMenuTemp.png");
+	//bgNode->setAnchorPoint(Vec2::ZERO);
+	bgMenu->setAnchorPoint(Vec2::ZERO);
+	//bgSize.setPoint(bgMenu->getContentSize().width, bgMenu->getContentSize().height);
+	float bgMenuX = 0;
+	float bgMenuY = 0;
+	bgMenu->setPosition(Vec2(bgMenuX, bgMenuY));
+	//bgX += bgMenu->getContentSize().width;
+	bgMenu->setName("MenuBg");
+
+
+	this->addChild(bgMenu, 10);
+
 
 	//int count = visibleSize.width - (sprite->getContentSize().height);
 	//int bgcount = std::ceil(visibleSize.width / bg->getContentSize().width);
@@ -476,6 +515,8 @@ void HelloWorld::update(float delta)
 	//enemyInstance->Update(delta);
 	//powerUp->Update(delta);
 
+	if(player1->get_hp() >=0)
+		hpbar_main->setScaleY(player1->get_hp() * 0.01f);
 
 
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
@@ -488,7 +529,22 @@ void HelloWorld::update(float delta)
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_DOWN_ARROW))
 		player1->Move(Player::Movement_Direction::Down);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
+	{
+		if (!runWave)
+		{
+			isStarted = true;
+		}
+		removeChild(bgMenu);
 		player1->Shoot();
+	}
+
+	if (isStarted)
+	{
+		WaveManager::getInstance().Run_next_wave();
+		WaveManager::getInstance().Add_wave(0);
+		runWave = true;
+		isStarted = false;
+	}
 
 
 	auto bgScrolling1 = MoveBy::create(0.f, Vec2(0.f, -50.f*delta));

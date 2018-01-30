@@ -32,6 +32,8 @@ public:
 	virtual void update(float delta);
 	virtual Scene* get_SceneNode();
 
+	cocos2d::Sprite *hpbar_main;
+	
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 private:
@@ -44,13 +46,15 @@ private:
 	static std::map<cocos2d::EventKeyboard::KeyCode,
 		std::chrono::high_resolution_clock::time_point> Key_map;
 
-	
+	cocos2d::Sprite *bgMenu;
 
 	Player* player1;
 	PowerUp* powerUp;
 
 	Enemy* enemyInstance;
 
+	bool runWave;
+	bool isStarted;
 
 	Node* bgNode;
 	float bgX, bgY, bg2X, bg2Y;

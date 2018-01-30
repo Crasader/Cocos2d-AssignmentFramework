@@ -7,18 +7,16 @@ using namespace cocos2d;
 using namespace std;
 class PlayerManager : GenericManager
 {
-public:
-	static PlayerManager& getInstance()
-	{
-		static PlayerManager Instance;
-		return Instance;
-	}
-	PlayerManager(const PlayerManager&) = delete;
-	PlayerManager& operator=(const PlayerManager&) = delete;
 	
+public:
+	SINGLETON_CLASS(PlayerManager)
+	virtual void Init();
+	virtual void Update(float dt);
 	void Add_Player(Player* player);
 	void Remove_Player(Player* player);
+	void Remove_All_Players();
 	Player* get_Player(int index);
+	Player* createPlayer();
 
 	vector<Player*> List_of_players;
 private:

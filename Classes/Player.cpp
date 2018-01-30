@@ -3,10 +3,14 @@
 #include "PowerUpManager.h"
 #include "ShieldManager.h"
 #include "PlayerManager.h"
+#include "SceneManager.h"
+//#ifndef SDKBOX
+#include "InputManager\InputManager.h"
 #define SHOOTING_SPEED 0.3f
 #define MAX_POWER 2
 Player::Player() :
-	dead(false)
+	dead(false),
+	m_Max_Power(2)
 {
 }
 
@@ -22,8 +26,11 @@ void Player::Init(string sprite_filename)
 	spriteNode = Node::create();
 	spriteNode->setName(Name + "_spriteNode");
 	node->addChild(spriteNode);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
+	
 	sprite = Sprite::create("Player/" + sprite_filename);
 	sprite->setName(Name + "_sprite");
+	sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
 	spriteNode->addChild(sprite, 0);
 	movement_spd = 10.0f;
 	moving_state = Moving_State::Idle;
@@ -69,25 +76,13 @@ void Player::Update(float delta)
 	Collision();
 	string t = std::to_string(delta);//"HP: " + std::to_string(hp);
 	//CCLOG(t.c_str());
-
-	if (hp <= 0)
-		dead = true;
-
 	if (shooting_timer < SHOOTING_SPEED)
 	{
 		shooting_timer += delta;
 	}
 
-	//for (int i = 0; i < ProjectileList.size(); i++)
-	//{
-	//	ProjectileList.at(i)->Update(delta);
-	//	/*if (ProjectileList.at(i)->destroy)
-	//	{
-	//		BaseProjectile* temp = ProjectileList.at(i);
-	//		delete temp;
-	//		--i;
-	//	}*/
-	//}
+	if (InputManager::getInstance().isKeyPressed(cocos2d::EventKeyboard::KeyCode::KEY_SPACE))
+		Shoot();
 }
 
 Node* Player::get_Node()
@@ -169,27 +164,6 @@ void Player::Shoot()
 	}
 		
 	return;
-	//switch (bulletMultiply)
-	//{
-	//case 1:
-	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel);
-	//	break;
-	//case 2:
-	//	/*ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x - 10, node->getPosition().y));
-	//	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x + 10, node->getPosition().y));*/
-	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel, Vec2(-200.f,0.f));
-	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel, Vec2(200.f, 0.f));
-	//	break;
-	//default:
-	//case 3:
-	//	/*ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), node->getPosition());
-	//	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x - 20, node->getPosition().y));
-	//	ProjectileManager::getInstance().CreateProjectile("projectile1.png", Vec2(0.f, 4.f), Vec2(node->getPosition().x + 20, node->getPosition().y));*/
-	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel);
-	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel, Vec2(-50.f, 0.f));
-	//	ProjectileManager::getInstance().CreateProjectile(PowerLevel, Vec2(50.f, 0.f));
-	//	break;
-	//}
 }
 
 void Player::Set_moving_state(Moving_State mov_st)
@@ -210,11 +184,15 @@ int Player::get_hp()
 void Player::set_hp(int hp)
 {
 	this->hp = hp;
+	if (hp <= 0)
+		dead = true;
 }
 
 void Player::get_hit(int damage)
 {
 	hp -= damage;
+	if (hp <= 0)
+		dead = true;
 }
 
 void Player::Collision()
@@ -257,7 +235,7 @@ void Player::Collision()
 
 		if (Player_rect.intersectsRect(powerup_rect))
 		{
-			POWERUPLIST.at(i)->destroy = true;
+			/*POWERUPLIST.at(i)->destroy = true;
 
 			switch (POWERUPLIST.at(i)->typeOfPowerUp)
 			{
@@ -278,9 +256,14 @@ void Player::Collision()
 				break;
 			}
 
-			break;
+			break;*/
 		}
 	}
+}
+
+void Player::Exit()
+{
+	SceneManager::getInstance().get_current_scene()->removeChild(node);
 }
 
 Player* Player::create(string name)

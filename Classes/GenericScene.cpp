@@ -9,14 +9,14 @@ Scene* GenericScene::createScene()
 	return scene;
 }
 
-cocos2d::Scene* GenericScene::_createScene()
-{
-	auto scene_Node = Scene::createWithPhysics();
-	auto layer = create();
-	layer->set_SceneNode(scene_Node);
-	scene_Node->addChild(layer);
-	return layer;
-}
+//cocos2d::Scene* GenericScene::_createScene()
+//{
+//	auto scene_Node = Scene::createWithPhysics();
+//	auto layer = create();
+//	layer->set_SceneNode(scene_Node);
+//	scene_Node->addChild(layer);
+//	return layer;
+//}
 
 bool GenericScene::init()
 {
@@ -34,6 +34,9 @@ bool GenericScene::init_Generic_only()
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 	playingSize = Size(visibleSize.width, visibleSize.height - (visibleSize.height / 8));
+
+	//MasterManager::getInstance().Init();
+
 	for each (void(*fp) () in List_of_Init_func)
 	{
 		fp();

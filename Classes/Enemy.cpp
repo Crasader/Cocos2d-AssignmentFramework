@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "PowerUpManager.h"
 #include "PlayerManager.h"
-
+#include "SceneManager.h"
 #define SHOOTING_SPEED 2.f
 
 Enemy::Enemy() 
@@ -31,8 +31,7 @@ void Enemy::Init(string sprite_filename)
 	movement_spd = 10.0f;
 	shoot_timer = 0.f;
 
-
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 }
 
 void Enemy::Init(string sprite_filename, Vec2 position)
@@ -48,7 +47,7 @@ void Enemy::Init(string sprite_filename, Vec2 position)
 	spriteNode->addChild(sprite, 0);
 	movement_spd = 10.0f;
 	shoot_timer = 0.f;
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 }
 
 
@@ -85,7 +84,11 @@ void Enemy::set_Position(float x, float y)
 
 void Enemy::Shoot()
 {
-	EnemyProjectileManager::getInstance().CreateEnemyProjectile("enemy_projectile1.png", Vec2(0.f, -4.f), node->getPosition());
+	Vec2 temp = PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition();
+	temp -= node->getPosition();
+	temp.normalize();
+	EnemyProjectileManager::getInstance().CreateEnemyProjectile("enemy_projectile1.png", temp, node->getPosition());
+	
 }
 
 int Enemy::get_hp()
@@ -193,7 +196,7 @@ Animate* Enemy::Add_animation(string plist_filename, string animation__name)
 
 void Enemy::release()
 {
-	CCDirector::getInstance()->getRunningScene()->removeChild(node);
+	SceneManager::getInstance().get_current_scene()->removeChild(node);
 }
 
 

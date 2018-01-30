@@ -39,11 +39,14 @@ public:
 	void set_hp(int hp);
 	void get_hit(int damage);
 	void Collision();
+	void Exit();
 
 	Sprite* getSprite(void) { return sprite; }
 
 	static Player* create(string name);
 	
+	const int m_Max_Power;
+	int PowerLevel;
 	bool dead;
 private:
 	void Set_Name(string name);
@@ -55,14 +58,13 @@ private:
 	Vector<SpriteFrame*> animFrames_tilt_left;
 	Vector<SpriteFrame*> animFrames_tilt_right;
 	Vector<SpriteFrame*> animFrames_idle;
-	std::vector<BaseProjectile*> ProjectileList;
 	Moving_State moving_state;
 	Animate* idle_anim;
 	SpriteFrame* original_sprite;
 
 	int hp;
 	int bulletMultiply;
-	int PowerLevel;
+	
 
 	float shooting_timer;
 };

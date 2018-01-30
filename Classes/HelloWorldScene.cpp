@@ -4,6 +4,7 @@
 #include "WaveManager.h"
 #include "PowerUpManager.h"
 #include "ShieldManager.h"
+#include "PlayerManager.h"
 USING_NS_CC;
 
 using namespace cocos2d;
@@ -19,14 +20,14 @@ Scene* HelloWorld::createScene()
 	return scene;
 }
 
-Scene* HelloWorld::_createScene()
-{
-	auto scene_Node = Scene::createWithPhysics();
-	auto layer = HelloWorld::create();
-	layer->set_SceneNode(scene_Node);
-	scene_Node->addChild(layer);
-	return layer;
-}
+//Scene* HelloWorld::_createScene()
+//{
+//	auto scene_Node = Scene::createWithPhysics();
+//	auto layer = HelloWorld::create();
+//	layer->set_SceneNode(scene_Node);
+//	scene_Node->addChild(layer);
+//	return layer;
+//}
 
 Scene* HelloWorld::_createScene_withSceneNode()
 {
@@ -365,10 +366,10 @@ bool HelloWorld::init()
 #endif
 
 #ifndef PLAYER_INIT
-	player1 = Player::create("Player1");
-	player1->Init("Plane_Idle.png");
-	this->addChild(player1->get_Node(),1);
-	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
+	/*PlayerManager::getInstance().get_Player(0) = Player::create("Player1");
+	PlayerManager::getInstance().get_Player(0)->Init("Plane_Idle.png");
+	this->addChild(PlayerManager::getInstance().get_Player(0)->get_Node(),1);
+	PlayerManager::getInstance().get_Player(0)->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);*/
 #endif
 
 #ifndef ENEMY_INIT
@@ -383,7 +384,7 @@ bool HelloWorld::init()
 
 #ifndef POWERUP_INIT
 	/*powerUp = PowerUp::create("PowerUp");
-	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1);
+	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, PlayerManager::getInstance().get_Player(0));
 	this->addChild(powerUp->get_Node(), 1);
 	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
 #endif 
@@ -505,29 +506,21 @@ void HelloWorld::update(float delta)
 	rendtex->end();
 	rendtexSprite->setTexture(rendtex->getSprite()->getTexture());
 	rendtexSprite->setGLProgram(proPostProcess);*/
-	/*ProjectileManager::getInstance().Update(delta);
-	EnemyProjectileManager::getInstance().Update(delta);
-	EnemyManager::getInstance().Update(delta);
-	PowerUpManager::getInstance().Update(delta);
-	ShieldManager::getInstance().Update(delta);
-	WaveManager::getInstance().Update(delta);*/
-	player1->Update(delta);
-	//enemyInstance->Update(delta);
-	//powerUp->Update(delta);
+	
 
-	if(player1->get_hp() >=0)
-		hpbar_main->setScaleY(player1->get_hp() * 0.01f);
+	if(PlayerManager::getInstance().get_Player(0)->get_hp() >=0)
+		hpbar_main->setScaleY(PlayerManager::getInstance().get_Player(0)->get_hp() * 0.01f);
 
 
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
-		player1->Move(Player::Movement_Direction::Right);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Right);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_LEFT_ARROW))
-		player1->Move(Player::Movement_Direction::Left);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Left);
 
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_UP_ARROW))
-		player1->Move(Player::Movement_Direction::Up);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Up);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_DOWN_ARROW))
-		player1->Move(Player::Movement_Direction::Down);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Down);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
 	{
 		if (!runWave)
@@ -535,7 +528,7 @@ void HelloWorld::update(float delta)
 			isStarted = true;
 		}
 		removeChild(bgMenu);
-		player1->Shoot();
+		PlayerManager::getInstance().get_Player(0)->Shoot();
 	}
 
 	if (isStarted)
@@ -577,24 +570,24 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
 	/*if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
 	{
-		player1->Move(Player::Movement_Direction::Right);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Right);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 	{
-		player1->Move(Player::Movement_Direction::Left);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Left);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW)
 	{
-		player1->Move(Player::Movement_Direction::Up);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Up);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW)
 	{
-		player1->Move(Player::Movement_Direction::Down);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Down);
 	}*/
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 	{
 		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, HelloWorld::createScene(),Color3B(0,255,255)));
-		player1->Shoot();		
+		//PlayerManager::getInstance().get_Player(0)->Shoot();		
 		//CCLOG(std::to_string(ProjectileManager::getInstance().get_Number_of_Projectiles()).c_str());
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_ALT)
@@ -622,11 +615,11 @@ void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	Key_map.erase(keyCode);
 	if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
 	{
-		player1->Set_moving_state(Player::Moving_State::Idle);
+		PlayerManager::getInstance().get_Player(0)->Set_moving_state(Player::Moving_State::Idle);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 	{
-		player1->Set_moving_state(Player::Moving_State::Idle);
+		PlayerManager::getInstance().get_Player(0)->Set_moving_state(Player::Moving_State::Idle);
 	}
 }
 

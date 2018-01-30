@@ -14,7 +14,7 @@
 //vector<Initfunctionpointer> MasterManager::Init_list;
 
 
-MasterManager::MasterManager()
+MasterManager::MasterManager() : SingletonsCreated(false)
 {
 	//Init();
 	CCLOG("Master manager constructor");
@@ -28,26 +28,37 @@ MasterManager::~MasterManager()
 
 void MasterManager::Init()
 {
-	//Create all singletons
-	SceneManager::getInstance();
-	//AnimationManager::getInstance();
-	CollisionManager::getInstance();
-	EnemyManager::getInstance();
-	EnemyProjectileManager::getInstance();
-	PlayerManager::getInstance();
-	PowerUpManager::getInstance();
-	ProjectileManager::getInstance();
-	ShieldManager::getInstance();
-	WaveManager::getInstance();
+	if (!SingletonsCreated)
+	{
+		//Create all singletons
+		SceneManager::getInstance();
+		//AnimationManager::getInstance();
+		CollisionManager::getInstance();
+		EnemyManager::getInstance();
+		EnemyProjectileManager::getInstance();
+		PlayerManager::getInstance();
+		PowerUpManager::getInstance();
+		ProjectileManager::getInstance();
+		ShieldManager::getInstance();
+		WaveManager::getInstance();
 
-	int test = 0;
-	SceneManager::getInstance().get_current_scene()->Add_Init_Function([]() {
+		SingletonsCreated = true;
+	}
+
+	/*SceneManager::getInstance().get_current_scene()->Add_Init_Function([]() {
 		vector<Initfunctionpointer>::iterator it = MasterManager::getInstance().Init_list.begin();
 		for (; it != MasterManager::getInstance().Init_list.end(); ++it)
 		{
 			(*it)();
 		}
-	});
+	});	
+	*/
+
+	vector<Initfunctionpointer>::iterator it = MasterManager::getInstance().Init_list.begin();
+	for (; it != MasterManager::getInstance().Init_list.end(); ++it)
+	{
+		(*it)();
+	}
 
 	SceneManager::getInstance().get_current_scene()->Add_Update_Function([](float dt) {
 		vector<updatefunctionpointer>::iterator it = MasterManager::getInstance().Update_list.begin();
@@ -56,7 +67,7 @@ void MasterManager::Init()
 			(*it)(dt);
 		}
 	});
-	
+
 	CCLOG("MasterManager Init");
 }
 

@@ -32,6 +32,7 @@ private:
 	MasterManager();
 	~MasterManager();
 	
+	bool SingletonsCreated;
 };
 
 

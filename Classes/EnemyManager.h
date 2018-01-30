@@ -5,14 +5,7 @@
 class EnemyManager : GenericManager
 {
 public:
-	static EnemyManager& getInstance()
-	{
-		static EnemyManager Instance;
-		return Instance;
-	}
-	EnemyManager(const EnemyManager&) = delete;
-	EnemyManager& operator=(const EnemyManager&) = delete;
-
+	SINGLETON_CLASS(EnemyManager)
 
 	void Init();
 	void Update(float dt);

@@ -4,7 +4,7 @@
 #include "GenericManager.h"
 using namespace cocos2d;
 
-class InputManager : GenericManager
+class InputManager
 {
 	typedef std::function<void()> fp;
 public:
@@ -13,16 +13,16 @@ public:
 	virtual void Init();
 	virtual void Update(float dt);
 
-	void onKeyPressed(EventKeyboard::KeyCode, Event*);
-	void onKeyReleased(EventKeyboard::KeyCode, Event*);
-	bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
+	virtual void onKeyPressed(EventKeyboard::KeyCode, Event*);
+	virtual void onKeyReleased(EventKeyboard::KeyCode, Event*);
+	virtual bool isKeyPressed(cocos2d::EventKeyboard::KeyCode);
 
 	double keyPressedDuration(cocos2d::EventKeyboard::KeyCode, bool seconds);
 
-	void onMouseMove(Event*);
-	void onMouseUp(Event*);
-	void onMouseDown(Event*);
-	void onMouseScroll(Event*);
+	virtual void onMouseMove(Event*);
+	virtual void onMouseUp(Event*);
+	virtual void onMouseDown(Event*);
+	virtual void onMouseScroll(Event*);
 
 public:
 	//vector<fp> m_onKeyPress_EventMap;

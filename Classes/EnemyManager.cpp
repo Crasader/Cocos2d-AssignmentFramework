@@ -14,6 +14,8 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Init()
 {
+	if (EnemyList.size() > 0)
+		Release();
 	CCLOG("EnemyManager Init");
 }
 void EnemyManager::Update(float dt)

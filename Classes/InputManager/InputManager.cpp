@@ -1,12 +1,13 @@
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "MasterManager.h"
+
 InputManager::InputManager()
 {
 	MASTERMANAGER_CALLBACK_INIT_FUNC(InputManager, Init)
-		MASTERMANAGER_CALLBACK_UPDATE_FUNC(InputManager, Update)
+	MASTERMANAGER_CALLBACK_UPDATE_FUNC(InputManager, Update)
 
-		CCLOG("Input Manager Init");
+	CCLOG("Input Manager Init");
 }
 
 InputManager::~InputManager()
@@ -15,37 +16,48 @@ InputManager::~InputManager()
 
 void InputManager::Init()
 {
+	Key_map.clear();
+
+	//SceneManager::getInstance().get_current_scene()->addChild(this);
+
 	auto k_listener = EventListenerKeyboard::create();
-	k_listener->onKeyPressed = CC_CALLBACK_2(InputManager::onKeyPressed, this);
-	k_listener->onKeyReleased = CC_CALLBACK_2(InputManager::onKeyReleased, this);
+	//k_listener->onKeyPressed = CC_CALLBACK_2(InputManager::onKeyPressed, this);
+	//k_listener->onKeyReleased = CC_CALLBACK_2(InputManager::onKeyReleased, this);
+	k_listener->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event* event) {
+		InputManager::getInstance().onKeyPressed(keyCode, event);
+	};
+	k_listener->onKeyReleased = [](EventKeyboard::KeyCode keyCode, Event* event) {
+		InputManager::getInstance().onKeyReleased(keyCode, event);
+	};
 	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(k_listener, SceneManager::getInstance().get_current_scene());
 
-	auto m_listener = EventListenerMouse::create();
-	m_listener->onMouseMove = CC_CALLBACK_1(InputManager::onMouseMove, this);
-	m_listener->onMouseUp = CC_CALLBACK_1(InputManager::onMouseUp, this);
-	m_listener->onMouseDown = CC_CALLBACK_1(InputManager::onMouseDown, this);
-	m_listener->onMouseScroll = CC_CALLBACK_1(InputManager::onMouseScroll, this);
-	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_listener, SceneManager::getInstance().get_current_scene());
+	//auto m_listener = EventListenerMouse::create();
+	//m_listener->onMouseMove = CC_CALLBACK_1(InputManager::onMouseMove, this);
+	//m_listener->onMouseUp = CC_CALLBACK_1(InputManager::onMouseUp, this);
+	//m_listener->onMouseDown = CC_CALLBACK_1(InputManager::onMouseDown, this);
+	//m_listener->onMouseScroll = CC_CALLBACK_1(InputManager::onMouseScroll, this);
+	//SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_listener, SceneManager::getInstance().get_current_scene());
 
-	auto t_listener = EventListenerTouchOneByOne::create();
-	t_listener->onTouchBegan = [](Touch* touch, Event* event) {
-		//type your code for the callback function here
-		return true;
-	};
-	t_listener->onTouchMoved = [](Touch* touch, Event* event) {
-		//type your code for the callback function here
-		return true;
-	};
-	t_listener->onTouchEnded = [](Touch* touch, Event* event) {
-		//type your code for the callback function here
-		return true;
-	};
-	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(t_listener, SceneManager::getInstance().get_current_scene());
+	//auto t_listener = EventListenerTouchOneByOne::create();
+	//t_listener->onTouchBegan = [](Touch* touch, Event* event) {
+	//	//type your code for the callback function here
+	//	return true;
+	//};
+	//t_listener->onTouchMoved = [](Touch* touch, Event* event) {
+	//	//type your code for the callback function here
+	//	return true;
+	//};
+	//t_listener->onTouchEnded = [](Touch* touch, Event* event) {
+	//	//type your code for the callback function here
+	//	return true;
+	//};
+	//SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(t_listener, this);
 }
 
 void InputManager::Update(float dt)
 {
-
+ 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_BACK_SLASH))
+		int test = 0;
 }
 
 void InputManager::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)

@@ -4,8 +4,8 @@
 #include "MasterManager.h"
 using namespace cocos2d;
 
-#define ADDSCENE(SCENECLASS)\
-Add_Scene("HelloWorld", []()-> GenericScene* {\
+#define ADDSCENE(SCENECLASS,SCENENAME)\
+Add_Scene(SCENENAME, []()-> GenericScene* {\
 return (GenericScene*)SCENECLASS::_createScene_withSceneNode();\
 });
 /*
@@ -38,7 +38,8 @@ void SceneManager::Init()
 		return (GenericScene*)HelloWorld::_createScene_withSceneNode();
 	});*/
 
-	ADDSCENE(HelloWorld)
+	ADDSCENE(HelloWorld,"HelloWorld")
+	ADDSCENE(Scene2,"Scene2")
 }
 
 void SceneManager::Update(float dt)

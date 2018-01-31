@@ -3,18 +3,39 @@
 #include "SceneManager.h"
 #include "WaveManager.h"
 #include "PowerUpManager.h"
+#include "ShieldManager.h"
+#include "PlayerManager.h"
 USING_NS_CC;
 
+using namespace cocos2d;
 // Because cocos2d-x requres createScene() to be static, we need to make other non-pointer members static
 std::map<cocos2d::EventKeyboard::KeyCode,
 	std::chrono::high_resolution_clock::time_point> Scene2::Key_map;
 
 Scene* Scene2::createScene()
 {
-	auto scene = Scene::create();
+	auto scene = Scene::createWithPhysics();
 	auto layer = Scene2::create();
-	scene->addChild(layer, 0, 999);
+	scene->addChild(layer);
 	return scene;
+}
+
+//Scene* Scene2::_createScene()
+//{
+//	auto scene_Node = Scene::createWithPhysics();
+//	auto layer = Scene2::create();
+//	layer->set_SceneNode(scene_Node);
+//	scene_Node->addChild(layer);
+//	return layer;
+//}
+
+Scene* Scene2::_createScene_withSceneNode()
+{
+	auto scene_Node = Scene::createWithPhysics();
+	auto layer = Scene2::create();
+	layer->set_SceneNode(scene_Node);
+	scene_Node->addChild(layer);
+	return layer;
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -29,13 +50,12 @@ bool Scene2::init()
 {
 	//////////////////////////////
 	// 1. super init first
-	if (!Scene::init())
+	if (!GenericScene::init())
 	{
 		return false;
 	}
 
 	SceneManager::getInstance().currScene_playingSize = playingSize;
-
 
 	//Creating a node container to store non-movable variables
 	auto nodeItems = Node::create();
@@ -49,7 +69,8 @@ bool Scene2::init()
 	//int count = visibleSize.width - (sprite->getContentSize().height);
 	//int count = std::ceil(visibleSize.width / sprite->getContentSize().width);
 
-
+	isStarted = false;
+	runWave = false;
 
 	bgNode = Node::create();
 	bgNode->setName("bg Node Main");
@@ -76,6 +97,62 @@ bool Scene2::init()
 
 	this->addChild(bgNode, 0);
 
+	auto hpbar_frame = Sprite::create("emptybar.jpg");
+	hpbar_frame->setAnchorPoint(Vec2::ZERO);
+	float hpFramepos_x = getContentSize().width * 0.01f;
+	float hpFramepos_y = getContentSize().height * 0.01f;
+	hpbar_frame->setPosition(Vec2(hpFramepos_x, hpFramepos_y));
+	hpbar_frame->setName("hpFrame");
+
+	this->addChild(hpbar_frame, 2);
+
+	hpbar_main = Sprite::create("fullbar.jpg");
+	hpbar_main->setAnchorPoint(Vec2::ZERO);
+	float hppos_x = getContentSize().width * 0.01f;
+	float hppos_y = getContentSize().height * 0.01f;
+	hpbar_main->setPosition(Vec2(hppos_x, hppos_y));
+	hpbar_main->setScaleY(1.0f);
+	hpbar_main->setName("hpFull");
+
+	this->addChild(hpbar_main, 2);
+
+
+
+	auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "fonts/arial.ttf", 46);
+
+	auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
+		CC_CALLBACK_1(Scene2::menuCloseCallback, this));
+	menuItem->setPosition(10, 10);
+	menuTitle->setPosition(Vec2(10, 10));
+	menuTitle->setName("menuTitle");
+	auto menuLayer = Menu::create(menuItem, NULL);
+
+	this->addChild(menuLayer, 999);
+	this->addChild(menuTitle, 999);
+
+	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
+	powerup_frame->setAnchorPoint(Vec2::ZERO);
+	float PUpos_x = getContentSize().width * 0.85f;
+	float PUpos_y = getContentSize().height * 0.005f;
+	powerup_frame->setPosition(Vec2(PUpos_x, PUpos_y));
+	powerup_frame->setName("pwrupFrame");
+
+	this->addChild(powerup_frame, 2);
+
+
+	bgMenu = Sprite::create("bgMenuTemp.png");
+	//bgNode->setAnchorPoint(Vec2::ZERO);
+	bgMenu->setAnchorPoint(Vec2::ZERO);
+	//bgSize.setPoint(bgMenu->getContentSize().width, bgMenu->getContentSize().height);
+	float bgMenuX = 0;
+	float bgMenuY = 0;
+	bgMenu->setPosition(Vec2(bgMenuX, bgMenuY));
+	//bgX += bgMenu->getContentSize().width;
+	bgMenu->setName("MenuBg");
+
+
+	this->addChild(bgMenu, 10);
+
 
 	//int count = visibleSize.width - (sprite->getContentSize().height);
 	//int bgcount = std::ceil(visibleSize.width / bg->getContentSize().width);
@@ -99,12 +176,43 @@ bool Scene2::init()
 	spriteNode->setName("spriteNode");
 	//Load Sprite
 	auto mainSprite = Sprite::create("Blue_Front1.png");
-	mainSprite->setAnchorPoint(Vec2(0, 0));
-	mainSprite->setPosition(100, (visibleSize.height - playingSize.height));
+	//mainSprite->setAnchorPoint(Vec2(0, 0));
+	mainSprite->setPosition(300, (visibleSize.height - playingSize.height * 0.5f));
 	mainSprite->setName("mainSprite");
+	{
+		auto physicsbody = PhysicsBody::createBox(Size(mainSprite->getContentSize().width, mainSprite->getContentSize().height), PhysicsMaterial(0.01f, 1.0f, 0.0f));
+		//physicsbody->setDynamic(false);
+		mainSprite->addComponent(physicsbody);
+	}
 	//Add the sprite into the scene
 	spriteNode->addChild(mainSprite, 1);
-	this->addChild(spriteNode, 1);
+	//this->addChild(spriteNode, 1);
+
+	{
+
+		//auto testbox = Sprite::create("ZigzagForest_Square.png");
+		//testbox->setName("testbox");
+		//testbox->setPosition(Vec2(mainSprite->getPosition().x,mainSprite->getPosition().y - testbox->getContentSize().height * 1.5f));
+
+		//auto physicsbody = PhysicsBody::createBox(Size(testbox->getContentSize().width, testbox->getContentSize().height), PhysicsMaterial(0.1f, 1.0f, 0.0f));
+		//physicsbody->setDynamic(false);
+		//testbox->addComponent(physicsbody);
+
+		//this->addChild(testbox, 1);
+
+		//for (int i = 0; i < visibleSize.width / testbox->getContentSize().width; ++i)
+		//{
+		//	auto platformbox = Sprite::create("ZigzagForest_Square.png");
+		//	platformbox->setName("platformbox_no" + i );
+		//	platformbox->setPosition(Vec2(i * testbox->getContentSize().width, testbox->getPosition().y));
+		//	auto m_physicsbody = PhysicsBody::createBox(Size(platformbox->getContentSize().width, platformbox->getContentSize().height), PhysicsMaterial(0.1f, 1.0f, 0.0f));
+		//	m_physicsbody->setDynamic(false);
+		//	platformbox->addComponent(m_physicsbody);
+
+		//	this->addChild(platformbox, 1);
+		//}
+	}
+
 
 	//Movement
 	//auto moveEvent = MoveBy::create(5, Vec2(200, 0));
@@ -113,6 +221,7 @@ bool Scene2::init()
 	//auto delaySequence = Sequence::create(delay, delay->clone(), nullptr);
 	//auto sequence = Sequence::create(moveEvent, moveEvent->reverse(), delaySequence, nullptr);
 	//mainSprite->runAction(sequence);
+
 
 #ifndef KEYBOARD_EVENT_INIT
 	auto listener = EventListenerKeyboard::create();
@@ -178,6 +287,7 @@ bool Scene2::init()
 		{
 			sprintf(str, "Blue_Back%d.png", i);
 			SpriteFrame* frame = cache->getSpriteFrameByName(str);
+			frame->setAnchorPoint(Vec2::ZERO);
 			animFrames.pushBack(frame);
 		}
 	}
@@ -256,32 +366,63 @@ bool Scene2::init()
 #endif
 
 #ifndef PLAYER_INIT
-	player1 = Player::create("Player1");
-	player1->Init("Plane_Idle.png");
-	this->addChild(player1->get_Node(), 1);
-	player1->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);
+	/*PlayerManager::getInstance().get_Player(0) = Player::create("Player1");
+	PlayerManager::getInstance().get_Player(0)->Init("Plane_Idle.png");
+	this->addChild(PlayerManager::getInstance().get_Player(0)->get_Node(),1);
+	PlayerManager::getInstance().get_Player(0)->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);*/
+#endif
+
+#ifndef ENEMY_INIT
+	//enemyInstance = Enemy::create("Enemy1");
+	//enemyInstance->Init("Enemy_Idle.png");
+	//this->addChild(enemyInstance->get_Node(), 1);
+	////float random = rand() % (int)(playingSize.width);
+	//float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
+	//enemyInstance->set_Position(random, playingSize.height);
+
+#endif
+
+#ifndef POWERUP_INIT
+	/*powerUp = PowerUp::create("PowerUp");
+	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, PlayerManager::getInstance().get_Player(0));
+	this->addChild(powerUp->get_Node(), 1);
+	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
 #endif 
 
-#ifndef PROJECTILE_MANAGER_INIT
-	ProjectileManager::getInstance().Init();
-#endif // !PROJECTILE_MANAGER_INIT
+	//#ifndef PROJECTILE_MANAGER_INIT
+	//	ProjectileManager::getInstance().Init();
+	//#endif // !PROJECTILE_MANAGER_INIT
+	//
+	//#ifndef ENEMY_PROJECTILE_MANAGER_INIT
+	//	EnemyProjectileManager::getInstance().Init();
+	//#endif // !PROJECTILE_MANAGER_INIT
+	//
+	//#ifndef ENEMY_MANAGER_INIT
+	//	EnemyManager::getInstance().Init();
+	//#endif // !ENEMY_MANAGER_INIT
+	//
+	//#ifndef WAVE_MANAGER_INIT
+	//	WaveManager::getInstance().Init();
+	//#endif // WAVE_MANAGER_INIT
+	//
+	//#ifndef POWERUP_MANAGER_INIT
+	//	PowerUpManager::getInstance().Init();
+	//#endif // !POWERUP_MANAGER_INIT
+	//#ifndef SHIELD_MANAGER_INIT
+	//	ShieldManager::getInstance().Init();
+	//#endif // !POWERUP_MANAGER_INIT
 
-#ifndef ENEMY_MANAGER_INIT
-	EnemyManager::getInstance().Init();
-#endif // !ENEMY_MANAGER_INIT
 
-#ifndef WAVE_MANAGER_INIT
-	WaveManager::getInstance().Init();
-#endif // WAVE_MANAGER_INIT
+	{
+		/*float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
+		EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));*/
+	}
 
-#ifndef POWERUP_MANAGER_INIT
-	PowerUpManager::getInstance().Init();
-#endif // !POWERUP_MANAGER_INIT
 
 
 	//mainSprite->runAction(RepeatForever::create(animIdle));
 	mainSprite->runAction(animate);
-	this->removeChild(spriteNode);
+	//this->removeChild(spriteNode);
 #ifdef COMMENTS
 	/////////////////////////////
 	// 2. add a menu item with "X" image, which is clicked to quit the program
@@ -354,36 +495,53 @@ bool Scene2::init()
 										//activate update feature per frame
 	this->scheduleUpdate();
 
-
-
 	return true;
 }
 
 void Scene2::update(float delta)
 {
+	GenericScene::update(delta);
 	/*rendtex->beginWithClear(0.f, 0.f, 0.f, 0.f);
 	this->visit();
 	rendtex->end();
 	rendtexSprite->setTexture(rendtex->getSprite()->getTexture());
 	rendtexSprite->setGLProgram(proPostProcess);*/
-	ProjectileManager::getInstance().Update(delta);
-	EnemyManager::getInstance().Update(delta);
-	PowerUpManager::getInstance().Update(delta);
 
-	player1->Update(delta);
+
+	if (PlayerManager::getInstance().get_Player(0)->get_hp() >= 0)
+		hpbar_main->setScaleY(PlayerManager::getInstance().get_Player(0)->get_hp() * 0.01f);
+
+
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
-		player1->Move(Player::Movement_Direction::Right);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Right);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_LEFT_ARROW))
-		player1->Move(Player::Movement_Direction::Left);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Left);
 
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_UP_ARROW))
-		player1->Move(Player::Movement_Direction::Up);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Up);
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_DOWN_ARROW))
-		player1->Move(Player::Movement_Direction::Down);
+		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Down);
+	if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
+	{
+		if (!runWave)
+		{
+			isStarted = true;
+		}
+		removeChild(bgMenu);
+		PlayerManager::getInstance().get_Player(0)->Shoot();
+	}
+
+	if (isStarted)
+	{
+		WaveManager::getInstance().Run_next_wave();
+		WaveManager::getInstance().Add_wave(0);
+		runWave = true;
+		isStarted = false;
+	}
 
 
-	auto bgScrolling1 = MoveBy::create(0.f, Vec2(0.f, -250.f*delta));
-	auto bgScrolling2 = MoveBy::create(0.f, Vec2(0.f, -250.f*delta));
+	auto bgScrolling1 = MoveBy::create(0.f, Vec2(0.f, -50.f*delta));
+	auto bgScrolling2 = MoveBy::create(0.f, Vec2(0.f, -50.f*delta));
 	//auto bgResetHigher = MoveBy::create(0.f, Vec2(0.f, playingSize.height *2.5));
 	auto tempbg = this->getChildByName("bg Node Main")->getChildByName("FirstBackground");
 	tempbg->runAction(bgScrolling1);
@@ -397,7 +555,11 @@ void Scene2::update(float delta)
 	{
 		this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->setPosition(0, bgSize.y);
 	}
+}
 
+Scene* Scene2::get_SceneNode()
+{
+	return sceneNode;
 }
 
 void Scene2::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
@@ -408,24 +570,25 @@ void Scene2::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
 	/*if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
 	{
-	player1->Move(Player::Movement_Direction::Right);
+	PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Right);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 	{
-	player1->Move(Player::Movement_Direction::Left);
+	PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Left);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW)
 	{
-	player1->Move(Player::Movement_Direction::Up);
+	PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Up);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW)
 	{
-	player1->Move(Player::Movement_Direction::Down);
+	PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Down);
 	}*/
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 	{
 		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, Scene2::createScene(),Color3B(0,255,255)));
-		player1->Shoot();
+		//PlayerManager::getInstance().get_Player(0)->Shoot();		
+		//CCLOG(std::to_string(ProjectileManager::getInstance().get_Number_of_Projectiles()).c_str());
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_ALT)
 	{
@@ -435,20 +598,14 @@ void Scene2::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_CTRL)
 	{
+		//WaveManager::getInstance().Add_wave(0);
 		WaveManager::getInstance().Run_next_wave();
-		WaveManager::getInstance().Init();
+		WaveManager::getInstance().Add_wave(0);
 	}
-	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_SHIFT)
-	{
-		/*powerUp = PowerUp::create("PowerUp");
-		powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, player1);
-		this->addChild(powerUp->get_Node(), 1);
-		powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
-		PowerUpManager::getInstance().CreatePowerUp("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, Vec2(playingSize.width * 0.5f, playingSize.height * 0.8f));
-	}
+
 	if (keyCode == EventKeyboard::KeyCode::KEY_1)
 	{
-		//SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);
+		//SceneManager::getInstance().Run_Scene("scene2");//nSceneWithType(SceneType::SCENE2);
 	}
 
 }
@@ -458,11 +615,11 @@ void Scene2::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	Key_map.erase(keyCode);
 	if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
 	{
-		player1->Set_moving_state(Player::Moving_State::Idle);
+		PlayerManager::getInstance().get_Player(0)->Set_moving_state(Player::Moving_State::Idle);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
 	{
-		player1->Set_moving_state(Player::Moving_State::Idle);
+		PlayerManager::getInstance().get_Player(0)->Set_moving_state(Player::Moving_State::Idle);
 	}
 }
 
@@ -540,5 +697,3 @@ void Scene2::menuCloseCallback(Ref* pSender)
 
 
 }
-
-

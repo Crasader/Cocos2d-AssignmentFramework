@@ -16,11 +16,33 @@ Player::Player() :
 
 Player::~Player()
 {
+	while (animFrames_tilt_left.size() > 0)
+	{
+		SpriteFrame* frame = animFrames_tilt_left.back();
+		frame->release();
+		animFrames_tilt_left.popBack();
+		//delete frame;
+	}
+	while (animFrames_tilt_right.size() > 0)
+	{
+		SpriteFrame* frame = animFrames_tilt_right.back();
+		frame->release();
+		animFrames_tilt_right.popBack();
+		//delete frame;
+	}
+	if (animFrames_idle.size() > 0)
+	{
+		SpriteFrame* frame = animFrames_idle.back();
+		frame->release();
+		animFrames_idle.popBack();
+		//delete frame;
+	}
+	
 }
 
 void Player::Init(string sprite_filename)
 {
-	PlayerManager::getInstance().Add_Player(this);
+	//PlayerManager::getInstance().Add_Player(this);
 	node = Node::create();
 	node->setName(Name);
 	spriteNode = Node::create();

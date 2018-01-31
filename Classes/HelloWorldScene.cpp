@@ -5,9 +5,9 @@
 #include "PowerUpManager.h"
 #include "ShieldManager.h"
 #include "PlayerManager.h"
+#include "InputManager\InputManager.h"
 USING_NS_CC;
 
-using namespace cocos2d;
 // Because cocos2d-x requres createScene() to be static, we need to make other non-pointer members static
 std::map<cocos2d::EventKeyboard::KeyCode,
 	std::chrono::high_resolution_clock::time_point> HelloWorld::Key_map;
@@ -528,7 +528,7 @@ void HelloWorld::update(float delta)
 			isStarted = true;
 		}
 		removeChild(bgMenu);
-		PlayerManager::getInstance().get_Player(0)->Shoot();
+		//PlayerManager::getInstance().get_Player(0)->Shoot();
 	}
 
 	if (isStarted)
@@ -555,6 +555,9 @@ void HelloWorld::update(float delta)
 	{
 		this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->setPosition(0, bgSize.y);
 	}
+
+	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_BACKSPACE))
+		SceneManager::getInstance().Change_Scene("Scene2");
 }
 
 Scene* HelloWorld::get_SceneNode()
@@ -568,27 +571,10 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		Key_map[keyCode] = std::chrono::high_resolution_clock::now();
 	}
 
-	/*if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
-	{
-		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Right);
-	}
-	if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)
-	{
-		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Left);
-	}
-	if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW)
-	{
-		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Up);
-	}
-	if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW)
-	{
-		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Down);
-	}*/
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 	{
 		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, HelloWorld::createScene(),Color3B(0,255,255)));
 		//PlayerManager::getInstance().get_Player(0)->Shoot();		
-		//CCLOG(std::to_string(ProjectileManager::getInstance().get_Number_of_Projectiles()).c_str());
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_ALT)
 	{

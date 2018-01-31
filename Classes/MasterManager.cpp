@@ -10,6 +10,7 @@
 #include "ProjectileManager.h"
 #include "ShieldManager.h"
 #include "WaveManager.h"
+#include "InputManager\InputManager.h"
 //vector<updatefunctionpointer> MasterManager::Update_list;
 //vector<Initfunctionpointer> MasterManager::Init_list;
 
@@ -41,6 +42,7 @@ void MasterManager::Init()
 		ProjectileManager::getInstance();
 		ShieldManager::getInstance();
 		WaveManager::getInstance();
+		InputManager::getInstance();
 
 		SingletonsCreated = true;
 	}
@@ -88,7 +90,7 @@ void MasterManager::Add_Init_Function(Initfunctionpointer t)
 	});*/
 
 	Init_list.push_back(t);
-	CCLOG("Init function added");
+	CCLOG("Init function received");
 }
 //template <class T>
 void MasterManager::Add_Update_Function(updatefunctionpointer t)
@@ -99,5 +101,5 @@ void MasterManager::Add_Update_Function(updatefunctionpointer t)
 		target::Update(dt);
 	});*/
 	Update_list.push_back(t);
-	CCLOG("Update function added");
+	CCLOG("Update function received");
 }

@@ -22,6 +22,9 @@
     <Filter Include="src\InputManager">
       <UniqueIdentifier>{ada97f4d-3681-468b-a62a-c8f9ccf88415}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\MenuManager">
+      <UniqueIdentifier>{68952fc7-254b-4d83-82be-cf2e21492511}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\InputManager\InputManager.cpp">
       <Filter>src\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuManager.cpp">
+      <Filter>src\MenuManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\InputManager\InputManager.h">
       <Filter>src\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuManager.h">
+      <Filter>src\MenuManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

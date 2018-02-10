@@ -21,6 +21,8 @@ public:
 	virtual void Exit();
 	virtual Scene* get_SceneNode();
 	virtual void set_SceneNode(Scene* scenenode);
+
+	Menu *m_MenuLayer;
 protected:
 	bool m_initialzed = false;
 	vector<void(*) ()> List_of_Init_func;

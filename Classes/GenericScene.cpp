@@ -35,6 +35,9 @@ bool GenericScene::init_Generic_only()
 	origin = Director::getInstance()->getVisibleOrigin();
 	playingSize = Size(visibleSize.width, visibleSize.height - (visibleSize.height / 8));
 
+	m_MenuLayer = Menu::create();
+
+	this->addChild(m_MenuLayer);
 	//MasterManager::getInstance().Init();
 
 	for each (void(*fp) () in List_of_Init_func)

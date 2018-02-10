@@ -33,6 +33,8 @@ public:
 	virtual Scene* get_SceneNode();
 
 	cocos2d::Sprite *hpbar_main;
+
+	
 	
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
@@ -60,6 +62,8 @@ private:
 	float bgX, bgY, bg2X, bg2Y;
 
 	Vec2 bgSize;
+
+	
 };
 
 #endif // __HELLOWORLD_SCENE_H__

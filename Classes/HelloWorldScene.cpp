@@ -48,7 +48,11 @@ static void problemLoading(const char* filename)
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {
-    //////////////////////////////
+	
+	
+    
+
+	//////////////////////////////
     // 1. super init first
     if ( !GenericScene::init() )
     {
@@ -57,6 +61,7 @@ bool HelloWorld::init()
 
 	SceneManager::getInstance().currScene_playingSize = playingSize;
 	
+
 	//Creating a node container to store non-movable variables
 	auto nodeItems = Node::create();
 	nodeItems->setName("nodeItems");

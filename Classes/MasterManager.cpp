@@ -10,6 +10,7 @@
 #include "ProjectileManager.h"
 #include "ShieldManager.h"
 #include "WaveManager.h"
+#include "MenuManager.h"
 #include "InputManager\InputManager.h"
 //vector<updatefunctionpointer> MasterManager::Update_list;
 //vector<Initfunctionpointer> MasterManager::Init_list;
@@ -43,6 +44,7 @@ void MasterManager::Init()
 		ShieldManager::getInstance();
 		WaveManager::getInstance();
 		InputManager::getInstance();
+		MenuManager::getInstance();
 
 		SingletonsCreated = true;
 	}

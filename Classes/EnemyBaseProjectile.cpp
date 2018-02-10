@@ -1,6 +1,7 @@
 #include "EnemyBaseProjectile.h"
 #include "SceneManager.h"
-
+#include "PlayerManager.h"
+#include "InputManager\InputManager.h"
 EnemyBaseProjectile::EnemyBaseProjectile()
 	: destroy(false),
 	lifetime(30.f),
@@ -85,26 +86,30 @@ EnemyBaseProjectile* EnemyBaseProjectile::create()
 
 void EnemyBaseProjectile::Collision()
 {
-//#define PLAYERHIT Player::getInstance().get_Node()
-
 	CCRect projectile_rect = CCRectMake(
 		node->getPosition().x - (sprite->getContentSize().width * 0.5f),
 		node->getPosition().y - (sprite->getContentSize().height * 0.5f),
 		sprite->getContentSize().width,
 		sprite->getContentSize().height
 	);
-
-	
-		CCRect enemy_rect = CCRectMake(
-			PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition().x - (PlayerManager::getInstance().get_Player(0)->getSprite()->getContentSize().width * 0.5f),
-			PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition().y - (PlayerManager::getInstance().get_Player(0)->getSprite()->getContentSize().height * 0.5f),
-			PlayerManager::getInstance().get_Player(0)->get_Node()->getContentSize().width,
-			PlayerManager::getInstance().get_Player(0)->get_Node()->getContentSize().height
+	Player* PLAYER0 = PlayerManager::getInstance().get_Player(0);
+	/*CCRect enemy_rect = CCRectMake(
+			PLAYER0->get_Node()->getPosition().x - (PLAYER0->getSprite()->getContentSize().width * 0.5f),
+			PLAYER0->get_Node()->getPosition().y - (PLAYER0->getSprite()->getContentSize().height * 0.5f),
+			PLAYER0->getSprite()->getContentSize().width,
+			PLAYER0->getSprite()->getContentSize().height
+		);*/
+	//make it hit player more accurately
+	CCRect enemy_rect = CCRectMake(
+		PLAYER0->get_Node()->getPosition().x /*- (PLAYER0->getSprite()->getContentSize().width * 0.5f)*/,
+		PLAYER0->get_Node()->getPosition().y /*- (PLAYER0->getSprite()->getContentSize().height * 0.5f)*/,
+		0.1f,
+		0.1f
 		);
 
 		if (projectile_rect.intersectsRect(enemy_rect))
 		{
-			PlayerManager::getInstance().get_Player(0)->get_hit(damage);
+			PLAYER0->get_hit(damage);
 			destroy = true;
 			//break;
 		}

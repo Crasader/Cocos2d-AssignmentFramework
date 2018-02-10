@@ -31,27 +31,6 @@ void InputManager::Init()
 	};
 	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(k_listener, SceneManager::getInstance().get_current_scene());
 
-	//auto m_listener = EventListenerMouse::create();
-	//m_listener->onMouseMove = CC_CALLBACK_1(InputManager::onMouseMove, this);
-	//m_listener->onMouseUp = CC_CALLBACK_1(InputManager::onMouseUp, this);
-	//m_listener->onMouseDown = CC_CALLBACK_1(InputManager::onMouseDown, this);
-	//m_listener->onMouseScroll = CC_CALLBACK_1(InputManager::onMouseScroll, this);
-	//SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_listener, SceneManager::getInstance().get_current_scene());
-
-	//auto t_listener = EventListenerTouchOneByOne::create();
-	//t_listener->onTouchBegan = [](Touch* touch, Event* event) {
-	//	//type your code for the callback function here
-	//	return true;
-	//};
-	//t_listener->onTouchMoved = [](Touch* touch, Event* event) {
-	//	//type your code for the callback function here
-	//	return true;
-	//};
-	//t_listener->onTouchEnded = [](Touch* touch, Event* event) {
-	//	//type your code for the callback function here
-	//	return true;
-	//};
-	//SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(t_listener, this);
 }
 
 void InputManager::Update(float dt)

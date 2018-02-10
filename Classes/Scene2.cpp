@@ -365,61 +365,6 @@ bool Scene2::init()
 	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
 #endif
 
-#ifndef PLAYER_INIT
-	/*PlayerManager::getInstance().get_Player(0) = Player::create("Player1");
-	PlayerManager::getInstance().get_Player(0)->Init("Plane_Idle.png");
-	this->addChild(PlayerManager::getInstance().get_Player(0)->get_Node(),1);
-	PlayerManager::getInstance().get_Player(0)->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);*/
-#endif
-
-#ifndef ENEMY_INIT
-	//enemyInstance = Enemy::create("Enemy1");
-	//enemyInstance->Init("Enemy_Idle.png");
-	//this->addChild(enemyInstance->get_Node(), 1);
-	////float random = rand() % (int)(playingSize.width);
-	//float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
-	//enemyInstance->set_Position(random, playingSize.height);
-
-#endif
-
-#ifndef POWERUP_INIT
-	/*powerUp = PowerUp::create("PowerUp");
-	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, PlayerManager::getInstance().get_Player(0));
-	this->addChild(powerUp->get_Node(), 1);
-	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
-#endif 
-
-	//#ifndef PROJECTILE_MANAGER_INIT
-	//	ProjectileManager::getInstance().Init();
-	//#endif // !PROJECTILE_MANAGER_INIT
-	//
-	//#ifndef ENEMY_PROJECTILE_MANAGER_INIT
-	//	EnemyProjectileManager::getInstance().Init();
-	//#endif // !PROJECTILE_MANAGER_INIT
-	//
-	//#ifndef ENEMY_MANAGER_INIT
-	//	EnemyManager::getInstance().Init();
-	//#endif // !ENEMY_MANAGER_INIT
-	//
-	//#ifndef WAVE_MANAGER_INIT
-	//	WaveManager::getInstance().Init();
-	//#endif // WAVE_MANAGER_INIT
-	//
-	//#ifndef POWERUP_MANAGER_INIT
-	//	PowerUpManager::getInstance().Init();
-	//#endif // !POWERUP_MANAGER_INIT
-	//#ifndef SHIELD_MANAGER_INIT
-	//	ShieldManager::getInstance().Init();
-	//#endif // !POWERUP_MANAGER_INIT
-
-
-	{
-		/*float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
-		EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));*/
-	}
-
-
-
 	//mainSprite->runAction(RepeatForever::create(animIdle));
 	mainSprite->runAction(animate);
 	//this->removeChild(spriteNode);

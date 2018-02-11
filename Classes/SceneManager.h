@@ -5,14 +5,6 @@
 #include "GenericManager.h"
 #include "GenericScene.h"
 using namespace cocos2d;
-//
-//enum class SceneType
-//{
-//	NONE,
-//	SCENE1,
-//	SCENE2
-//};
-
 
 class SceneManager : GenericManager
 {
@@ -44,7 +36,5 @@ private:
 	vector<GenericScene*> Running_scene_list;
 	GenericScene* m_curr_scene;
 };
-
-
 
 #endif // SCENEMANAGER_H

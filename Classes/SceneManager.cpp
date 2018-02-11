@@ -83,16 +83,6 @@ void SceneManager::Add_Scene(string scene_name, Scene* (*fp)())
 
 void SceneManager::Change_Scene(string scene_name)
 {
-	////delete scene stuff here if needed
-	//m_curr_scene->On_Change_Scene(true);
-	//GenericScene* scene = m_Scene_Map_Create.find(scene_name)->second();
-	//m_curr_scene = scene;
-	////scene stuff here
-	//CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, scene->get_SceneNode()));
-	//currScene_playingSize = m_curr_scene->get_playingSize();
-
-	//MasterManager::getInstance().Init();
-
 
 	m_curr_scene->On_Change_Scene(true);
 	for (int i = 0; i < m_SceneInfoList.size(); ++i)

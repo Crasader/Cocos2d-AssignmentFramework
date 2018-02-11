@@ -25,6 +25,9 @@
     <Filter Include="src\MenuManager">
       <UniqueIdentifier>{68952fc7-254b-4d83-82be-cf2e21492511}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\cpp\MenuScene">
+      <UniqueIdentifier>{7c437707-5f12-4123-9fa1-bf8523dc1e03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MenuManager.cpp">
       <Filter>src\MenuManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src\cpp\MenuScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MenuManager.h">
       <Filter>src\MenuManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\cpp\MenuScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

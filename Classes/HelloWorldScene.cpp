@@ -59,7 +59,7 @@ bool HelloWorld::init()
         return false;
     }
 
-	SceneManager::getInstance().currScene_playingSize = playingSize;
+	SceneManager::getInstance().currScene_playingSize = visibleSize;
 	
 
 	//Creating a node container to store non-movable variables
@@ -128,12 +128,13 @@ bool HelloWorld::init()
 	auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
 		CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
 	menuItem->setPosition(10, 10);
-	menuTitle->setPosition(Vec2(10, 10));
+	menuTitle->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
 	menuTitle->setName("menuTitle");
+	menuTitle->setAnchorPoint(Vec2(0.5f,0.5f));
 	auto menuLayer = Menu::create(menuItem, NULL);
 	
-	this->addChild(menuLayer,999);
-	this->addChild(menuTitle,999);
+	//this->addChild(menuLayer,99);
+	this->addChild(menuTitle,39);
 
 	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
 	powerup_frame->setAnchorPoint(Vec2::ZERO);
@@ -142,7 +143,7 @@ bool HelloWorld::init()
 	powerup_frame->setPosition(Vec2(PUpos_x, PUpos_y));
 	powerup_frame->setName("pwrupFrame");
 
-	this->addChild(powerup_frame, 2);
+	//this->addChild(powerup_frame, 2);
 
 
 	bgMenu = Sprite::create("bgMenuTemp.png");

@@ -36,8 +36,8 @@ bool GenericScene::init_Generic_only()
 	playingSize = Size(visibleSize.width, visibleSize.height - (visibleSize.height / 8));
 
 	m_MenuLayer = Menu::create();
-
-	this->addChild(m_MenuLayer);
+	m_MenuLayer->setPosition(0.f, 0.f);
+	this->addChild(m_MenuLayer,100);
 	//MasterManager::getInstance().Init();
 
 	for each (void(*fp) () in List_of_Init_func)

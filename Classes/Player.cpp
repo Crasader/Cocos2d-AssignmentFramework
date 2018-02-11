@@ -181,6 +181,37 @@ void Player::Move(Movement_Direction dir)
 	}
 }
 
+void Player::Move_AnimationOnly(Movement_Direction dir)
+{
+	switch (dir)
+	{
+	case Player::Movement_Direction::Left:
+	{
+		if (moving_state == Moving_State::Idle)
+		{
+			moving_state = Moving_State::Tilting_Left;
+			Animation* animation = Animation::createWithSpriteFrames(animFrames_tilt_left, 0.1f);
+			Animate* tilt_left = Animate::create(animation);
+			sprite->runAction(tilt_left);
+		}
+	}
+	break;
+	case Player::Movement_Direction::Right:
+	{
+		if (moving_state == Moving_State::Idle)
+		{
+			moving_state = Moving_State::Tilting_Right;
+			Animation* animation = Animation::createWithSpriteFrames(animFrames_tilt_right, 0.1f);
+			Animate* tilt_right = Animate::create(animation);
+			sprite->runAction(tilt_right);
+		}
+	}
+	break;
+	default:
+		break;
+	}
+}
+
 void Player::Shoot()
 {
 	if (shooting_timer >= SHOOTING_SPEED)

@@ -18,6 +18,9 @@ public:
 	Player* get_Player(int index);
 	Player* createPlayer();
 
+	void OnTouchMove(Touch* touch, Event* event);
+
+
 	vector<Player*> List_of_players;
 private:
 	PlayerManager();

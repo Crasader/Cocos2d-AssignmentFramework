@@ -20,6 +20,10 @@ PlayerManager::~PlayerManager()
 
 void PlayerManager::Init()
 {
+	InputManager::getInstance().m_onTouchMove_EventListMap.push_back([](Touch* touch, Event* event) {
+		PlayerManager().getInstance().OnTouchMove(touch, event);
+	});
+
 	if (List_of_players.size() > 0)
 	{
 		Remove_All_Players();
@@ -30,6 +34,9 @@ void PlayerManager::Init()
 
 void PlayerManager::Update(float dt)
 {
+#ifdef __APPLE__
+
+#else
 	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
 		get_Player(0)->Move(Player::Movement_Direction::Right);
 	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_LEFT_ARROW))
@@ -39,6 +46,12 @@ void PlayerManager::Update(float dt)
 		get_Player(0)->Move(Player::Movement_Direction::Up);
 	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_DOWN_ARROW))
 		get_Player(0)->Move(Player::Movement_Direction::Down);
+
+
+#endif
+	
+
+
 
 	for (vector<Player*>::iterator it = List_of_players.begin(); it < List_of_players.end(); it++)
 	{
@@ -87,10 +100,16 @@ Player* PlayerManager::createPlayer()
 	int playerIndex = List_of_players.size() + 1;
 	Player* temp = Player::create("Player" + std::to_string(playerIndex));
 	temp->Init("Plane_Idle.png");
-	//this->addChild(player1->get_Node(), 1);
-	//SceneManager::getInstance().get_current_scene()->addChild();
 	Size playingsize = SceneManager::getInstance().currScene_playingSize;
 	temp->set_Position(playingsize.width * 0.5f, playingsize.height * 0.5f);
 	Add_Player(temp);
 	return temp;
+}
+
+void PlayerManager::OnTouchMove(Touch* touch, Event* event)
+{
+	EventMouse* temp = (EventMouse*)event;
+	Vec2 prevLocation = touch->getPreviousLocation();
+	Vec2 currLocation;
+
 }

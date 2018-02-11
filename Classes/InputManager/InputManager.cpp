@@ -2,8 +2,7 @@
 #include "SceneManager.h"
 #include "MasterManager.h"
 
-InputManager::InputManager() :
-	m_mousedown(false)
+InputManager::InputManager()
 {
 	MASTERMANAGER_CALLBACK_INIT_FUNC(InputManager, Init)
 	MASTERMANAGER_CALLBACK_UPDATE_FUNC(InputManager, Update)
@@ -17,19 +16,20 @@ InputManager::~InputManager()
 
 void InputManager::Init()
 {
+	m_mousedown = false;
+	m_touching = false;
+
+	m_onKeyPress_EventMap.clear();
+	m_onKeyRelease_EventListMap.clear();
+
+	m_onTouchBegin_EventListMap.clear();
+	m_onTouchEnd_EventListMap.clear();
+	m_onTouchMove_EventListMap.clear();
 	Key_map.clear();
 
 	auto k_listener = EventListenerKeyboard::create();
 	k_listener->onKeyPressed = CC_CALLBACK_2(InputManager::onKeyPressed, this);
-	//k_listener->onKeyPressed = std::bind(&InputManager::onKeyPressed, this, std::placeholders::_1, std::placeholders::_2);
-	/*k_listener->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event* event) {
-		InputManager::getInstance().onKeyPressed(keyCode, event);
-	};*/
 	k_listener->onKeyReleased = CC_CALLBACK_2(InputManager::onKeyReleased, this);
-	
-	/*k_listener->onKeyReleased = [](EventKeyboard::KeyCode keyCode, Event* event) {
-		InputManager::getInstance().onKeyReleased(keyCode, event);
-	};*/
 	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(k_listener, SceneManager::getInstance().get_current_scene());
 
 	auto m_listener = EventListenerMouse::create();
@@ -37,9 +37,13 @@ void InputManager::Init()
 
 	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_listener, SceneManager::getInstance().get_current_scene());
 
+	auto t_listener = EventListenerTouchOneByOne::create();
+	t_listener->onTouchBegan = CC_CALLBACK_2(InputManager::onTouchBegin, this);
+	t_listener->onTouchEnded = CC_CALLBACK_2(InputManager::onTouchEnd, this);
+	t_listener->onTouchMoved = CC_CALLBACK_2(InputManager::onTouchMove, this);
+	
 	//screencap testing
-	m_onKeyPress_EventMap.push_back([](EventKeyboard::KeyCode keyCode, Event* event) {
-		
+	m_onKeyPress_EventMap.push_back([](EventKeyboard::KeyCode keyCode, Event* event) {		
 		if (keyCode == EventKeyboard::KeyCode::KEY_M)
 		{
 			InputManager* instance = &InputManager::getInstance();
@@ -120,6 +124,34 @@ void InputManager::onMouseScroll(Event* event)
 bool InputManager::isMouseDown()
 {
 	return m_mousedown;
+}
+
+bool InputManager::onTouchBegin(Touch* touch, Event* event)
+{
+	m_touching = true;
+	for (int i = 0; i < m_onTouchBegin_EventListMap.size(); ++i)
+	{
+		m_onTouchBegin_EventListMap[i](touch, event);
+	}
+	return true;
+}
+
+bool InputManager::onTouchEnd(Touch* touch, Event* event)
+{
+	m_touching = false;
+	for (int i = 0; i < m_onTouchEnd_EventListMap.size(); ++i)
+	{
+		m_onTouchEnd_EventListMap[i](touch, event);
+	}
+	return true;
+}
+
+void InputManager::onTouchMove(Touch* touch, Event* event)
+{
+	for (int i = 0; i < m_onTouchMove_EventListMap.size(); ++i)
+	{
+		m_onTouchMove_EventListMap[i](touch, event);
+	}
 }
 
 void InputManager::afterScreenCapture(bool somebool, const std::string& somestring)

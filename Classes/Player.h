@@ -33,6 +33,7 @@ public:
 	void set_Position(float x, float y);
 	Animate* Add_animation(string plist_filename, string animation__name);
 	void Move(Movement_Direction dir);
+	void Move_AnimationOnly(Movement_Direction dir);
 	void Shoot();
 	void Set_moving_state(Moving_State mov_st);
 	int get_hp();

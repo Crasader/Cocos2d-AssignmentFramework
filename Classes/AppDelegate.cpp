@@ -1,6 +1,10 @@
 #include "AppDelegate.h"
 #include "SceneManager.h"
 #include "MasterManager.h"
+#ifdef SDKBOX_ENABLED
+#include "PluginFacebook/PluginFacebook.h"
+#endif
+
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
 
@@ -59,6 +63,13 @@ static int register_all_packages()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
+#ifdef SDKBOX_ENABLED
+    sdkbox::PluginFacebook::init();
+	if (!sdkbox::PluginFacebook::isLoggedIn())
+		sdkbox::PluginFacebook::login();
+	sdkbox::PluginFacebook::requestReadPermissions({ FB_PERM_READ_PUBLIC_PROFILE, FB_PERM_READ_USER_FRIENDS });
+	sdkbox::PluginFacebook::requestPublishPermissions({ FB_PERM_PUBLISH_POST });
+#endif
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
@@ -98,11 +109,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-    // create a scene. it's an autorelease object
-    //auto scene = HelloWorld::createScene();
+	// create a scene. it's an autorelease object
+	//auto scene = HelloWorld::createScene();
 
-    // run
-    //director->runWithScene(scene);
+	// run
+	//director->runWithScene(scene);
 	//SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);
 	//MasterManager::getInstance().Init();
 	SceneManager::getInstance().Init();

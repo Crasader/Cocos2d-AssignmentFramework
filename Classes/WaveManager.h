@@ -1,7 +1,12 @@
 #ifndef WAVE_MANAGER_H_
 #define WAVE_MANAGER_H_
 //#include <json\json\json.h>
+
+#ifdef __APPLE__
+#include "JSON/json/json.h"
+#else
 #include <JSON\json\json.h>
+#endif
 #include "Wave.h"
 #include "EnemyManager.h"
 #include "GenericManager.h"

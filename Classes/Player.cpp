@@ -4,8 +4,12 @@
 #include "ShieldManager.h"
 #include "PlayerManager.h"
 #include "SceneManager.h"
-//#ifndef SDKBOX
+#ifdef __APPLE__
+#include "InputManager/InputManager.h"
+#else
 #include "InputManager\InputManager.h"
+#endif
+
 #define SHOOTING_SPEED 0.3f
 #define MAX_POWER 2
 Player::Player() :
@@ -45,10 +49,8 @@ void Player::Init(string sprite_filename)
 	//PlayerManager::getInstance().Add_Player(this);
 	node = Node::create();
 	node->setName(Name);
-	node->setAnchorPoint(Vec2(0.5f, 0.5f));
 	spriteNode = Node::create();
 	spriteNode->setName(Name + "_spriteNode");
-	spriteNode->setAnchorPoint(Vec2(0.5f, 0.5f));
 	node->addChild(spriteNode);
 	SceneManager::getInstance().get_current_scene()->addChild(node);
 	
@@ -222,14 +224,67 @@ void Player::get_hit(int damage)
 void Player::Collision()
 {
 //#define ENEMYLIST EnemyManager::getInstance().EnemyList
-//#define POWERUPLIST PowerUpManager::getInstance().PowerUpList
+#define POWERUPLIST PowerUpManager::getInstance().PowerUpList
 
-	/*CCRect Player_rect = CCRectMake(
+	CCRect Player_rect = CCRectMake(
 		node->getPosition().x - (sprite->getContentSize().width * 0.5f),
 		node->getPosition().y - (sprite->getContentSize().height * 0.5f),
 		sprite->getContentSize().width,
 		sprite->getContentSize().height
-	);*/	
+	);
+
+	//for (int i = 0; i < ENEMYLIST.size(); ++i)
+	//{
+	//	CCRect enemy_rect = CCRectMake(
+	//		ENEMYLIST.at(i)->get_Node()->getPosition().x - (ENEMYLIST.at(i)->getSprite()->getContentSize().width * 0.5f),
+	//		ENEMYLIST.at(i)->get_Node()->getPosition().y - (ENEMYLIST.at(i)->getSprite()->getContentSize().height * 0.5f),
+	//		ENEMYLIST.at(i)->getSprite()->getContentSize().width,
+	//		ENEMYLIST.at(i)->getSprite()->getContentSize().height
+	//	);
+
+	//	if (Player_rect.intersectsRect(enemy_rect))
+	//	{
+	//		//ENEMYLIST.at(i)->get_hit(damage);
+	//		get_hit(ENEMYLIST.at(i)->get_damage());
+	//		ENEMYLIST.at(i)->destroy = true;
+	//		break;
+	//	}
+	//}
+	for (int i = 0; i < POWERUPLIST.size(); ++i)
+	{
+		CCRect powerup_rect = CCRectMake(
+			POWERUPLIST.at(i)->get_Node()->getPosition().x - (POWERUPLIST.at(i)->getSprite()->getContentSize().width * 0.5f),
+			POWERUPLIST.at(i)->get_Node()->getPosition().y - (POWERUPLIST.at(i)->getSprite()->getContentSize().height * 0.5f),
+			POWERUPLIST.at(i)->getSprite()->getContentSize().width,
+			POWERUPLIST.at(i)->getSprite()->getContentSize().height
+		);
+
+		if (Player_rect.intersectsRect(powerup_rect))
+		{
+			/*POWERUPLIST.at(i)->destroy = true;
+
+			switch (POWERUPLIST.at(i)->typeOfPowerUp)
+			{
+			
+			case PowerUp::HEAL:
+				set_hp(get_hp() + 5);
+				break;
+			case PowerUp::SHIELD:
+				ShieldManager::getInstance().CreateShield("shield_activated.png", this);
+				break;
+			case PowerUp::MULTISHOT:
+				bulletMultiply++;
+				if (PowerLevel < MAX_POWER)
+					++PowerLevel;
+				break;
+
+			default:
+				break;
+			}
+
+			break;*/
+		}
+	}
 }
 
 void Player::Exit()

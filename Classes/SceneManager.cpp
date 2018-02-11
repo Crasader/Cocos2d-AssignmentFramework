@@ -89,7 +89,7 @@ void SceneManager::Run_Scene(string scene_name)
 	//m_curr_scene = dynamic_cast<GenericScene*>(scene->_createScene());//dynamic_cast<GenericScene*>(scene->createScene());
 	CCDirector::getInstance()->runWithScene(scene->get_SceneNode());
 	m_curr_scene = scene;
-	currScene_playingSize = Director::getInstance()->getVisibleSize();//get_playingSize();
+	currScene_playingSize = Director::getInstance()->getVisibleSize();//m_curr_scene->get_playingSize();
 
 	MasterManager::getInstance().Init();
 }

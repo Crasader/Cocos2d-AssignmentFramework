@@ -1,7 +1,12 @@
 #include "PlayerManager.h"
 #include "MasterManager.h"
 #include "SceneManager.h"
+#ifdef __APPLE__
+#include "InputManager/InputManager.h"
+#else
 #include "InputManager\InputManager.h"
+#endif
+
 PlayerManager::PlayerManager()
 {
 	MASTERMANAGER_CALLBACK_INIT_FUNC(PlayerManager, Init)

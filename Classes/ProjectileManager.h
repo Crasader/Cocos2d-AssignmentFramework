@@ -1,10 +1,18 @@
 #ifndef PROJECTILE_MANAGER_H_
 #define PROJECTILE_MANAGER_H_
 
+#ifdef __APPLE__
+#include "Projectile/BaseProjectile.h"
+#include "Projectile/Projectile_45degree.h"
+#include "Projectile/Projectile_tri_shot.h"
+#include "GenericManager.h"
+#else
 #include "Projectile\BaseProjectile.h"
 #include "Projectile\Projectile_45degree.h"
 #include "Projectile\Projectile_tri_shot.h"
 #include "GenericManager.h"
+#endif
+
 typedef std::function<BaseProjectile*()> ProjectileCreatePtr;//BaseProjectile* (*ProjectileCreatePtr)();
 
 class ProjectileManager : GenericManager

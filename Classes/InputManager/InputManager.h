@@ -8,7 +8,7 @@ class InputManager
 {
 public:
 	//typedef std::function<void(Event*)> functionpt;
-	typedef void(*functionpt)(Event*);
+	typedef void(*functionpt)(EventKeyboard::KeyCode, Event*);
 	SINGLETON_CLASS(InputManager)
 
 	virtual void Init();
@@ -26,6 +26,7 @@ public:
 
 	bool isMouseDown();
 
+	void afterScreenCapture(bool somebool, const std::string& somestring);
 public:
 	std::vector<functionpt> m_onKeyPress_EventMap;
 	std::vector<functionpt> m_onKeyRelease_EventListMap;

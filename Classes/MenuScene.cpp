@@ -1,4 +1,4 @@
-#include "HelloWorldScene.h"
+#include "MenuScene.h"
 #include "SimpleAudioEngine.h"
 #include "SceneManager.h"
 #include "WaveManager.h"
@@ -14,29 +14,29 @@ USING_NS_CC;
 
 // Because cocos2d-x requres createScene() to be static, we need to make other non-pointer members static
 std::map<cocos2d::EventKeyboard::KeyCode,
-	std::chrono::high_resolution_clock::time_point> HelloWorld::Key_map;
+	std::chrono::high_resolution_clock::time_point> MenuScene::Key_map;
 
-Scene* HelloWorld::createScene()
+Scene* MenuScene::createScene()
 {
 	auto scene = Scene::createWithPhysics();
-	auto layer = HelloWorld::create();
+	auto layer = MenuScene::create();
 	scene->addChild(layer);
 	return scene;
 }
 
-//Scene* HelloWorld::_createScene()
+//Scene* MenuScene::_createScene()
 //{
 //	auto scene_Node = Scene::createWithPhysics();
-//	auto layer = HelloWorld::create();
+//	auto layer = MenuScene::create();
 //	layer->set_SceneNode(scene_Node);
 //	scene_Node->addChild(layer);
 //	return layer;
 //}
 
-Scene* HelloWorld::_createScene_withSceneNode()
+Scene* MenuScene::_createScene_withSceneNode()
 {
 	auto scene_Node = Scene::createWithPhysics();
-	auto layer = HelloWorld::create();
+	auto layer = MenuScene::create();
 	layer->set_SceneNode(scene_Node);
 	scene_Node->addChild(layer);
 	return layer;
@@ -45,26 +45,26 @@ Scene* HelloWorld::_createScene_withSceneNode()
 // Print useful error message instead of segfaulting when files are not there.
 static void problemLoading(const char* filename)
 {
-    printf("Error while loading: %s\n", filename);
-    printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
+	printf("Error while loading: %s\n", filename);
+	printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in MenuSceneScene.cpp\n");
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool MenuScene::init()
 {
-	
-	
-    
+
+
+
 
 	//////////////////////////////
-    // 1. super init first
-    if ( !GenericScene::init() )
-    {
-        return false;
-    }
+	// 1. super init first
+	if (!GenericScene::init())
+	{
+		return false;
+	}
 
 	SceneManager::getInstance().currScene_playingSize = visibleSize;
-	
+
 
 	//Creating a node container to store non-movable variables
 	auto nodeItems = Node::create();
@@ -125,20 +125,20 @@ bool HelloWorld::init()
 
 	this->addChild(hpbar_main, 2);
 
-	
+
 
 	auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "fonts/arial.ttf", 46);
-	
+
 	auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
-		CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+		CC_CALLBACK_1(MenuScene::menuCloseCallback, this));
 	menuItem->setPosition(10, 10);
 	menuTitle->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
 	menuTitle->setName("menuTitle");
-	menuTitle->setAnchorPoint(Vec2(0.5f,0.5f));
+	menuTitle->setAnchorPoint(Vec2(0.5f, 0.5f));
 	auto menuLayer = Menu::create(menuItem, NULL);
-	
+
 	//this->addChild(menuLayer,99);
-	this->addChild(menuTitle,39);
+	this->addChild(menuTitle, 39);
 
 	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
 	powerup_frame->setAnchorPoint(Vec2::ZERO);
@@ -169,13 +169,13 @@ bool HelloWorld::init()
 
 	//for (int i = 0; i < bgcount; i++)
 	//{
-	
+
 	//}
 
 	//Setting anchor point and position of your object (Bottom Left)
 	//sprite->setAnchorPoint(Vec2::ZERO);
 	//sprite->setPosition(0, visibleSize.height / 2);
-	
+
 	//Add object into the node container
 	//nodeItems->addChild(sprite, 0);
 	//Add the note container into the scene graph
@@ -199,7 +199,7 @@ bool HelloWorld::init()
 	//this->addChild(spriteNode, 1);
 
 	{
-		
+
 		//auto testbox = Sprite::create("ZigzagForest_Square.png");
 		//testbox->setName("testbox");
 		//testbox->setPosition(Vec2(mainSprite->getPosition().x,mainSprite->getPosition().y - testbox->getContentSize().height * 1.5f));
@@ -222,7 +222,7 @@ bool HelloWorld::init()
 		//	this->addChild(platformbox, 1);
 		//}
 	}
-	
+
 
 	//Movement
 	//auto moveEvent = MoveBy::create(5, Vec2(200, 0));
@@ -235,20 +235,20 @@ bool HelloWorld::init()
 
 #ifndef KEYBOARD_EVENT_INIT
 	auto listener = EventListenerKeyboard::create();
-	listener->onKeyPressed = CC_CALLBACK_2(HelloWorld::onKeyPressed, this);
-	listener->onKeyReleased = CC_CALLBACK_2(HelloWorld::onKeyReleased, this);
+	listener->onKeyPressed = CC_CALLBACK_2(MenuScene::onKeyPressed, this);
+	listener->onKeyReleased = CC_CALLBACK_2(MenuScene::onKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 #endif
 
 #ifndef MOUSE_EVENT_INIT
 	auto m_listener = EventListenerMouse::create();
-	m_listener->onMouseMove = CC_CALLBACK_1(HelloWorld::onMouseMove, this);
-	m_listener->onMouseUp = CC_CALLBACK_1(HelloWorld::onMouseUp, this);
-	m_listener->onMouseDown = CC_CALLBACK_1(HelloWorld::onMouseDown, this);
-	m_listener->onMouseScroll = CC_CALLBACK_1(HelloWorld::onMouseScroll, this);
+	m_listener->onMouseMove = CC_CALLBACK_1(MenuScene::onMouseMove, this);
+	m_listener->onMouseUp = CC_CALLBACK_1(MenuScene::onMouseUp, this);
+	m_listener->onMouseDown = CC_CALLBACK_1(MenuScene::onMouseDown, this);
+	m_listener->onMouseScroll = CC_CALLBACK_1(MenuScene::onMouseScroll, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(m_listener, this);
 #endif
-	
+
 #ifndef TOUCH_EVENT_INIT
 	auto t_listener = EventListenerTouchOneByOne::create();
 	t_listener->onTouchBegan = [](Touch* touch, Event* event) {
@@ -265,7 +265,7 @@ bool HelloWorld::init()
 	//};
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(t_listener, this);
 #endif
-	
+
 #ifndef ANIMATION_INIT
 	//Loading one by one
 	Animate* animIdle;
@@ -281,7 +281,7 @@ bool HelloWorld::init()
 		Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.5f);
 		animIdle = Animate::create(animation);
 	}
-	
+
 
 	//Optimized ver [Loading sprites from sprite sheet]
 	Vector<SpriteFrame*> animFrames(3);
@@ -301,7 +301,7 @@ bool HelloWorld::init()
 			animFrames.pushBack(frame);
 		}
 	}
-	
+
 
 	//Loading the spritesheet animation
 	Animate* animate;
@@ -316,7 +316,7 @@ bool HelloWorld::init()
 		// Don't confused between Animation and Animate
 		animate = Animate::create(animation);
 	}
-	
+
 
 #endif
 
@@ -332,7 +332,7 @@ bool HelloWorld::init()
 		shaderCharEffect->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_POSITION, GLProgram::VERTEX_ATTRIB_POSITION);
 		shaderCharEffect->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_COLOR, GLProgram::VERTEX_ATTRIB_COLOR);
 		shaderCharEffect->bindAttribLocation(GLProgram::ATTRIBUTE_NAME_TEX_COORD, GLProgram::VERTEX_ATTRIB_TEX_COORDS);
-		
+
 		shaderCharEffect->link();
 		shaderCharEffect->updateUniforms();
 
@@ -399,35 +399,35 @@ bool HelloWorld::init()
 	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
 #endif 
 
-//#ifndef PROJECTILE_MANAGER_INIT
-//	ProjectileManager::getInstance().Init();
-//#endif // !PROJECTILE_MANAGER_INIT
-//
-//#ifndef ENEMY_PROJECTILE_MANAGER_INIT
-//	EnemyProjectileManager::getInstance().Init();
-//#endif // !PROJECTILE_MANAGER_INIT
-//
-//#ifndef ENEMY_MANAGER_INIT
-//	EnemyManager::getInstance().Init();
-//#endif // !ENEMY_MANAGER_INIT
-//
-//#ifndef WAVE_MANAGER_INIT
-//	WaveManager::getInstance().Init();
-//#endif // WAVE_MANAGER_INIT
-//
-//#ifndef POWERUP_MANAGER_INIT
-//	PowerUpManager::getInstance().Init();
-//#endif // !POWERUP_MANAGER_INIT
-//#ifndef SHIELD_MANAGER_INIT
-//	ShieldManager::getInstance().Init();
-//#endif // !POWERUP_MANAGER_INIT
+	//#ifndef PROJECTILE_MANAGER_INIT
+	//	ProjectileManager::getInstance().Init();
+	//#endif // !PROJECTILE_MANAGER_INIT
+	//
+	//#ifndef ENEMY_PROJECTILE_MANAGER_INIT
+	//	EnemyProjectileManager::getInstance().Init();
+	//#endif // !PROJECTILE_MANAGER_INIT
+	//
+	//#ifndef ENEMY_MANAGER_INIT
+	//	EnemyManager::getInstance().Init();
+	//#endif // !ENEMY_MANAGER_INIT
+	//
+	//#ifndef WAVE_MANAGER_INIT
+	//	WaveManager::getInstance().Init();
+	//#endif // WAVE_MANAGER_INIT
+	//
+	//#ifndef POWERUP_MANAGER_INIT
+	//	PowerUpManager::getInstance().Init();
+	//#endif // !POWERUP_MANAGER_INIT
+	//#ifndef SHIELD_MANAGER_INIT
+	//	ShieldManager::getInstance().Init();
+	//#endif // !POWERUP_MANAGER_INIT
 
 
 	{
 		/*float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
 		EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));*/
 	}
-	
+
 
 
 	//mainSprite->runAction(RepeatForever::create(animIdle));
@@ -442,7 +442,7 @@ bool HelloWorld::init()
 	/*auto closeItem = MenuItemImage::create(
 	"CloseNormal.png",
 	"CloseSelected.png",
-	CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+	CC_CALLBACK_1(MenuScene::menuCloseCallback, this));
 
 	if (closeItem == nullptr ||
 	closeItem->getContentSize().width <= 0 ||
@@ -483,11 +483,11 @@ bool HelloWorld::init()
 	//    this->addChild(label, 1);
 	//}
 
-	//// add "HelloWorld" splash screen"
-	//auto sprite = Sprite::create("HelloWorld.png");
+	//// add "MenuScene" splash screen"
+	//auto sprite = Sprite::create("MenuScene.png");
 	//if (sprite == nullptr)
 	//{
-	//    problemLoading("'HelloWorld.png'");
+	//    problemLoading("'MenuScene.png'");
 	//}
 	//else
 	//{
@@ -500,15 +500,15 @@ bool HelloWorld::init()
 #endif 
 
 	auto cam = this->getDefaultCamera();//Camera::getDefaultCamera();
-	//cam->setPosition(mainSprite->getPosition());
+										//cam->setPosition(mainSprite->getPosition());
 
-	//activate update feature per frame
+										//activate update feature per frame
 	this->scheduleUpdate();
 
-    return true;
+	return true;
 }
 
-void HelloWorld::update(float delta) 
+void MenuScene::update(float delta)
 {
 	GenericScene::update(delta);
 	/*rendtex->beginWithClear(0.f, 0.f, 0.f, 0.f);
@@ -516,12 +516,12 @@ void HelloWorld::update(float delta)
 	rendtex->end();
 	rendtexSprite->setTexture(rendtex->getSprite()->getTexture());
 	rendtexSprite->setGLProgram(proPostProcess);*/
-	
 
-	if(PlayerManager::getInstance().get_Player(0)->get_hp() >=0)
+
+	if (PlayerManager::getInstance().get_Player(0)->get_hp() >= 0)
 		hpbar_main->setScaleY(PlayerManager::getInstance().get_Player(0)->get_hp() * 0.01f);
 
-	
+
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
 	{
 		if (!runWave)
@@ -563,12 +563,12 @@ void HelloWorld::update(float delta)
 		SceneManager::getInstance().Change_Scene("Scene2");
 }
 
-Scene* HelloWorld::get_SceneNode()
+Scene* MenuScene::get_SceneNode()
 {
 	return sceneNode;
 }
 
-void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+void MenuScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	if (Key_map.find(keyCode) == Key_map.end()) {
 		Key_map[keyCode] = std::chrono::high_resolution_clock::now();
@@ -576,7 +576,7 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 	{
-		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, HelloWorld::createScene(),Color3B(0,255,255)));
+		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, MenuScene::createScene(),Color3B(0,255,255)));
 		//PlayerManager::getInstance().get_Player(0)->Shoot();		
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_ALT)
@@ -599,7 +599,7 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 
 }
 
-void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+void MenuScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	Key_map.erase(keyCode);
 	if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)
@@ -612,7 +612,7 @@ void HelloWorld::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	}
 }
 
-bool HelloWorld::isKeyPressed(EventKeyboard::KeyCode code) 
+bool MenuScene::isKeyPressed(EventKeyboard::KeyCode code)
 {
 	// Check if the key is currently pressed by seeing it it's in the std::map Key_map
 	if (Key_map.find(code) != Key_map.end())
@@ -620,15 +620,15 @@ bool HelloWorld::isKeyPressed(EventKeyboard::KeyCode code)
 	return false;
 }
 
-double HelloWorld::keyPressedDuration(EventKeyboard::KeyCode code, bool seconds)
+double MenuScene::keyPressedDuration(EventKeyboard::KeyCode code, bool seconds)
 {
-	
+
 	if (!isKeyPressed(code))
 		return 0;  // Not pressed, so no duration 
 
-	// Return the amount of time that has elapsed between now and when the user
-   // first started holding down the key in milliseconds
-   // Obviously the start time is the value we hold in our std::map Key_map
+				   // Return the amount of time that has elapsed between now and when the user
+				   // first started holding down the key in milliseconds
+				   // Obviously the start time is the value we hold in our std::map Key_map
 	if (seconds)
 		return (std::chrono::duration_cast<std::chrono::milliseconds>
 		(std::chrono::high_resolution_clock::now() - Key_map[code]).count()) * 0.001f;
@@ -638,25 +638,25 @@ double HelloWorld::keyPressedDuration(EventKeyboard::KeyCode code, bool seconds)
 
 
 
-void HelloWorld::onMouseMove(Event* event)
+void MenuScene::onMouseMove(Event* event)
 {
 	EventMouse* e = (EventMouse*)event;
 	e->getCursorX();
 }
-void HelloWorld::onMouseDown(Event* event)
+void MenuScene::onMouseDown(Event* event)
 {
 	EventMouse* e = (EventMouse*)event;
 }
-void HelloWorld::onMouseUp(Event* event)
+void MenuScene::onMouseUp(Event* event)
 {
 	EventMouse* e = (EventMouse*)event;
 }
-void HelloWorld::onMouseScroll(Event* event)
+void MenuScene::onMouseScroll(Event* event)
 {
 	EventMouse* e = (EventMouse*)event;
 }
 
-bool HelloWorld::checkBoxCollision(Sprite* box1, Sprite* box2)
+bool MenuScene::checkBoxCollision(Sprite* box1, Sprite* box2)
 {
 	Rect box1Rect = box1->boundingBox();
 	Rect box2Rect = box2->boundingBox();
@@ -670,19 +670,19 @@ bool HelloWorld::checkBoxCollision(Sprite* box1, Sprite* box2)
 		return false;
 	}
 }
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void MenuScene::menuCloseCallback(Ref* pSender)
 {
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
+	//Close the cocos2d-x game scene and quit the application
+	Director::getInstance()->end();
 
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+	exit(0);
 #endif
 
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
+	/*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
 
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
+	//EventCustom customEndEvent("game_scene_close_event");
+	//_eventDispatcher->dispatchEvent(&customEndEvent);
 
 
 }

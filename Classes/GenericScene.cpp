@@ -40,9 +40,13 @@ bool GenericScene::init_Generic_only()
 	this->addChild(m_MenuLayer,100);
 	//MasterManager::getInstance().Init();
 
-	for each (void(*fp) () in List_of_Init_func)
+	/*for each (void(*fp) () in List_of_Init_func)
 	{
 		fp();
+	}*/
+	for (int i = 0; i < List_of_Init_func.size(); ++i)
+	{
+		List_of_Init_func[i]();
 	}
 
 	m_initialzed = true;
@@ -62,9 +66,13 @@ void GenericScene::Add_Update_Function(void(*fp) (float))
 
 void GenericScene::update(float delta)
 {
-	for each (void(*fp) (float) in List_of_Update_func)
+	/*for each (void(*fp) (float) in List_of_Update_func)
 	{
 		fp(delta);
+	}*/
+	for (int i = 0; i < List_of_Update_func.size(); ++i)
+	{
+		List_of_Update_func[i](delta);
 	}
 }
 

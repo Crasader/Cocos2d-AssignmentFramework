@@ -1,4 +1,9 @@
+
+#ifdef __APPLE__
+#include "BaseProjectile.h"
+#else
 #include "Projectile\BaseProjectile.h"
+#endif
 #include "EnemyManager.h"
 #include "PlayerManager.h"
 BaseProjectile::BaseProjectile()

@@ -34,13 +34,24 @@ void InputManager::Init()
 	m_listener->onMouseDown = std::bind(&InputManager::onMouseDown, this, std::placeholders::_1);
 
 	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_listener, SceneManager::getInstance().get_current_scene());
+
+	//screencap testing
+	m_onKeyPress_EventMap.push_back([](EventKeyboard::KeyCode keyCode, Event* event) {
+		
+		if (keyCode == EventKeyboard::KeyCode::KEY_M)
+		{
+			InputManager* instance = &InputManager::getInstance();
+			utils::captureScreen(std::bind(&InputManager::afterScreenCapture, instance, std::placeholders::_1, std::placeholders::_2), "testcapture.png");
+		}
+	});
 }
 
 void InputManager::Update(float dt)
 {
- 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_BACK_SLASH))
-		int test = 0;
-
+	/*if (isKeyPressed(EventKeyboard::KeyCode::KEY_F2))
+	{
+		utils::captureScreen(, "Screenshots/testcapture.png");
+	}*/
 }
 
 void InputManager::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
@@ -50,7 +61,7 @@ void InputManager::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	}
 	for (int i = 0; i < m_onKeyPress_EventMap.size(); ++i)
 	{
-		m_onKeyPress_EventMap[i](event);
+		m_onKeyPress_EventMap[i](keyCode,event);
 	}
 }
 void InputManager::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
@@ -59,7 +70,7 @@ void InputManager::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 
 	for (int i = 0; i < m_onKeyRelease_EventListMap.size(); ++i)
 	{
-		m_onKeyRelease_EventListMap[i](event);
+		m_onKeyRelease_EventListMap[i](keyCode,event);
 	}
 }
 bool InputManager::isKeyPressed(cocos2d::EventKeyboard::KeyCode code)
@@ -107,4 +118,18 @@ void InputManager::onMouseScroll(Event* event)
 bool InputManager::isMouseDown()
 {
 	return m_mousedown;
+}
+
+void InputManager::afterScreenCapture(bool somebool, const std::string& somestring)
+{
+	CCLOG(std::to_string(somebool).c_str());
+	CCLOG(somestring.c_str());
+	CCLOG("screencapded");
+#ifdef __APPLE__
+	sdkbox::FBShareInfo info;
+	info.type = sdkbox::FB_PHOTO;
+	info.title = "My Photo";
+	info.image = somebool;
+	sdkbox::PluginFacebook::dialog(info);
+#endif
 }

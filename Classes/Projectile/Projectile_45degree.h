@@ -1,7 +1,11 @@
 #ifndef PROJECTILE_45DEGREE_H_
 #define PROJECTILE_45DEGREE_H_
-#include "Projectile\BaseProjectile.h"
 
+#ifdef __APPLE__
+#include "BaseProjectile.h"
+#else
+#include "Projectile\BaseProjectile.h"
+#endif
 class Projectile_45degree : BaseProjectile
 {
 public:

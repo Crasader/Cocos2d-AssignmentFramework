@@ -2,7 +2,8 @@
 #include "SceneManager.h"
 #include "MasterManager.h"
 
-InputManager::InputManager()
+InputManager::InputManager() :
+	m_mousedown(false)
 {
 	MASTERMANAGER_CALLBACK_INIT_FUNC(InputManager, Init)
 	MASTERMANAGER_CALLBACK_UPDATE_FUNC(InputManager, Update)
@@ -18,25 +19,28 @@ void InputManager::Init()
 {
 	Key_map.clear();
 
-	//SceneManager::getInstance().get_current_scene()->addChild(this);
-
 	auto k_listener = EventListenerKeyboard::create();
-	//k_listener->onKeyPressed = CC_CALLBACK_2(InputManager::onKeyPressed, this);
-	//k_listener->onKeyReleased = CC_CALLBACK_2(InputManager::onKeyReleased, this);
-	k_listener->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event* event) {
+	k_listener->onKeyPressed = CC_CALLBACK_2(InputManager::onKeyPressed, this);
+	k_listener->onKeyReleased = CC_CALLBACK_2(InputManager::onKeyReleased, this);
+	/*k_listener->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event* event) {
 		InputManager::getInstance().onKeyPressed(keyCode, event);
 	};
 	k_listener->onKeyReleased = [](EventKeyboard::KeyCode keyCode, Event* event) {
 		InputManager::getInstance().onKeyReleased(keyCode, event);
-	};
+	};*/
 	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(k_listener, SceneManager::getInstance().get_current_scene());
 
+	auto m_listener = EventListenerMouse::create();
+	m_listener->onMouseDown = std::bind(&InputManager::onMouseDown, this, std::placeholders::_1);
+
+	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(m_listener, SceneManager::getInstance().get_current_scene());
 }
 
 void InputManager::Update(float dt)
 {
  	if (isKeyPressed(EventKeyboard::KeyCode::KEY_BACK_SLASH))
 		int test = 0;
+
 }
 
 void InputManager::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
@@ -44,14 +48,23 @@ void InputManager::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	if (Key_map.find(keyCode) == Key_map.end()) {
 		Key_map[keyCode] = std::chrono::high_resolution_clock::now();
 	}
-
+	for (int i = 0; i < m_onKeyPress_EventMap.size(); ++i)
+	{
+		m_onKeyPress_EventMap[i](event);
+	}
 }
 void InputManager::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	Key_map.erase(keyCode);
+
+	for (int i = 0; i < m_onKeyRelease_EventListMap.size(); ++i)
+	{
+		m_onKeyRelease_EventListMap[i](event);
+	}
 }
 bool InputManager::isKeyPressed(cocos2d::EventKeyboard::KeyCode code)
 {
+	//check if key has been pressed and inside key_map
 	if (Key_map.find(code) != Key_map.end())
 		return true;
 	return false;
@@ -75,17 +88,23 @@ double InputManager::keyPressedDuration(EventKeyboard::KeyCode code, bool second
 void InputManager::onMouseMove(Event* event)
 {
 	EventMouse* e = (EventMouse*)event;
-	e->getCursorX();
 }
 void InputManager::onMouseUp(Event* event)
 {
 	EventMouse* e = (EventMouse*)event;
+	m_mousedown = false;
 }
 void InputManager::onMouseDown(Event* event)
 {
 	EventMouse* e = (EventMouse*)event;
+	m_mousedown = true;
 }
 void InputManager::onMouseScroll(Event* event)
 {
 	EventMouse* e = (EventMouse*)event;
+}
+
+bool InputManager::isMouseDown()
+{
+	return m_mousedown;
 }

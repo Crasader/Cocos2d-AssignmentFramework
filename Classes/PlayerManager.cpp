@@ -1,6 +1,7 @@
 #include "PlayerManager.h"
 #include "MasterManager.h"
 #include "SceneManager.h"
+#include "InputManager\InputManager.h"
 PlayerManager::PlayerManager()
 {
 	MASTERMANAGER_CALLBACK_INIT_FUNC(PlayerManager, Init)
@@ -24,6 +25,16 @@ void PlayerManager::Init()
 
 void PlayerManager::Update(float dt)
 {
+	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
+		get_Player(0)->Move(Player::Movement_Direction::Right);
+	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_LEFT_ARROW))
+		get_Player(0)->Move(Player::Movement_Direction::Left);
+
+	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_UP_ARROW))
+		get_Player(0)->Move(Player::Movement_Direction::Up);
+	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_DOWN_ARROW))
+		get_Player(0)->Move(Player::Movement_Direction::Down);
+
 	for (vector<Player*>::iterator it = List_of_players.begin(); it < List_of_players.end(); it++)
 	{
 		(*it)->Update(dt);

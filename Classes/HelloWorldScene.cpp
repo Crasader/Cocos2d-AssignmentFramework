@@ -517,16 +517,7 @@ void HelloWorld::update(float delta)
 	if(PlayerManager::getInstance().get_Player(0)->get_hp() >=0)
 		hpbar_main->setScaleY(PlayerManager::getInstance().get_Player(0)->get_hp() * 0.01f);
 
-
-	if (isKeyPressed(EventKeyboard::KeyCode::KEY_RIGHT_ARROW))
-		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Right);
-	if (isKeyPressed(EventKeyboard::KeyCode::KEY_LEFT_ARROW))
-		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Left);
-
-	if (isKeyPressed(EventKeyboard::KeyCode::KEY_UP_ARROW))
-		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Up);
-	if (isKeyPressed(EventKeyboard::KeyCode::KEY_DOWN_ARROW))
-		PlayerManager::getInstance().get_Player(0)->Move(Player::Movement_Direction::Down);
+	
 	if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
 	{
 		if (!runWave)

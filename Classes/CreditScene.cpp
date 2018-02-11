@@ -84,29 +84,29 @@ bool CreditScene::init()
 	bgNode = Node::create();
 	bgNode->setName("bg Node Main");
 
-	auto bgFirst = Sprite::create("bg5.jpg");
-	//bgNode->setAnchorPoint(Vec2::ZERO);
-	bgFirst->setAnchorPoint(Vec2::ZERO);
-	bgSize.setPoint(bgFirst->getContentSize().width, bgFirst->getContentSize().height);
-	bgX = 0;
-	bgY = 0;
-	bgFirst->setPosition(Vec2(bgX, bgY));
-	//bgX += bgFirst->getContentSize().width;
-	bgFirst->setName("FirstBackground");
-	bgNode->addChild(bgFirst);
+	//auto bgFirst = Sprite::create("bg5.jpg");
+	////bgNode->setAnchorPoint(Vec2::ZERO);
+	//bgFirst->setAnchorPoint(Vec2::ZERO);
+	//bgSize.setPoint(bgFirst->getContentSize().width, bgFirst->getContentSize().height);
+	//bgX = 0;
+	//bgY = 0;
+	//bgFirst->setPosition(Vec2(bgX, bgY));
+	////bgX += bgFirst->getContentSize().width;
+	//bgFirst->setName("FirstBackground");
+	//bgNode->addChild(bgFirst);
 
-	auto bgSecd = Sprite::create("bg5.jpg");
-	bgSecd->setAnchorPoint(Vec2::ZERO);
-	bg2X = 0;
-	bg2Y = bgSecd->getContentSize().height;
-	bgSecd->setPosition(Vec2(bg2X, bg2Y));
-	//bg2X += bgSecd->getContentSize().width;
-	bgSecd->setName("SecdBackground");
-	bgNode->addChild(bgSecd);
+	//auto bgSecd = Sprite::create("bg5.jpg");
+	//bgSecd->setAnchorPoint(Vec2::ZERO);
+	//bg2X = 0;
+	//bg2Y = bgSecd->getContentSize().height;
+	//bgSecd->setPosition(Vec2(bg2X, bg2Y));
+	////bg2X += bgSecd->getContentSize().width;
+	//bgSecd->setName("SecdBackground");
+	//bgNode->addChild(bgSecd);
 
-	this->addChild(bgNode, 0);
+	//this->addChild(bgNode, 0);
 
-	auto hpbar_frame = Sprite::create("emptybar.jpg");
+	/*auto hpbar_frame = Sprite::create("emptybar.jpg");
 	hpbar_frame->setAnchorPoint(Vec2::ZERO);
 	float hpFramepos_x = getContentSize().width * 0.01f;
 	float hpFramepos_y = getContentSize().height * 0.01f;
@@ -123,34 +123,34 @@ bool CreditScene::init()
 	hpbar_main->setScaleY(1.0f);
 	hpbar_main->setName("hpFull");
 
-	this->addChild(hpbar_main, 2);
+	this->addChild(hpbar_main, 2);*/
 
 
 
-	auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "fonts/arial.ttf", 46);
+	//auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "fonts/arial.ttf", 46);
 
-	auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
-		CC_CALLBACK_1(CreditScene::menuCloseCallback, this));
-	menuItem->setPosition(10, 10);
-	menuTitle->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
-	menuTitle->setName("menuTitle");
-	menuTitle->setAnchorPoint(Vec2(0.5f, 0.5f));
-	auto menuLayer = Menu::create(menuItem, NULL);
+	//auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
+	//	CC_CALLBACK_1(CreditScene::menuCloseCallback, this));
+	//menuItem->setPosition(10, 10);
+	//menuTitle->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
+	//menuTitle->setName("menuTitle");
+	//menuTitle->setAnchorPoint(Vec2(0.5f, 0.5f));
+	//auto menuLayer = Menu::create(menuItem, NULL);
 
-	//this->addChild(menuLayer,99);
-	this->addChild(menuTitle, 39);
+	////this->addChild(menuLayer,99);
+	//this->addChild(menuTitle, 39);
 
-	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
+	/*auto powerup_frame = Sprite::create("powerupEmpty.jpg");
 	powerup_frame->setAnchorPoint(Vec2::ZERO);
 	float PUpos_x = getContentSize().width * 0.85f;
 	float PUpos_y = getContentSize().height * 0.005f;
-	powerup_frame->setPosition(Vec2(PUpos_x, PUpos_y));
-	powerup_frame->setName("pwrupFrame");
+	powerup_frame->setPosition(Vec2(PUpos_x, PUpos_y));*/
+	//powerup_frame->setName("pwrupFrame");
 
 	//this->addChild(powerup_frame, 2);
 
 
-	bgMenu = Sprite::create("bgMenuTemp.png");
+	bgMenu = Sprite::create("creditBg.png");
 	//bgNode->setAnchorPoint(Vec2::ZERO);
 	bgMenu->setAnchorPoint(Vec2::ZERO);
 	//bgSize.setPoint(bgMenu->getContentSize().width, bgMenu->getContentSize().height);
@@ -158,7 +158,7 @@ bool CreditScene::init()
 	float bgMenuY = 0;
 	bgMenu->setPosition(Vec2(bgMenuX, bgMenuY));
 	//bgX += bgMenu->getContentSize().width;
-	bgMenu->setName("MenuBg");
+	bgMenu->setName("creditsBg");
 
 
 	this->addChild(bgMenu, 10);
@@ -518,49 +518,49 @@ void CreditScene::update(float delta)
 	rendtexSprite->setGLProgram(proPostProcess);*/
 
 
-	if (PlayerManager::getInstance().get_Player(0)->get_hp() >= 0)
-		hpbar_main->setScaleY(PlayerManager::getInstance().get_Player(0)->get_hp() * 0.01f);
+	//if (PlayerManager::getInstance().get_Player(0)->get_hp() >= 0)
+		//hpbar_main->setScaleY(PlayerManager::getInstance().get_Player(0)->get_hp() * 0.01f);
 
 
-	if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
-	{
-		if (!runWave)
-		{
-			isStarted = true;
-		}
-		removeChild(bgMenu);
-		WaveManager::getInstance().Run_next_wave();
-		WaveManager::getInstance().Add_wave(0);
-		//PlayerManager::getInstance().get_Player(0)->Shoot();
-	}
+	//if (isKeyPressed(EventKeyboard::KeyCode::KEY_SPACE))
+	//{
+	//	if (!runWave)
+	//	{
+	//		isStarted = true;
+	//	}
+	//	removeChild(bgMenu);
+	//	WaveManager::getInstance().Run_next_wave();
+	//	WaveManager::getInstance().Add_wave(0);
+	//	//PlayerManager::getInstance().get_Player(0)->Shoot();
+	//}
 
-	if (isStarted)
-	{
-		//WaveManager::getInstance().Run_next_wave();
-		//WaveManager::getInstance().Add_wave(0);
-		runWave = true;
-		isStarted = false;
-	}
+	//if (isStarted)
+	//{
+	//	//WaveManager::getInstance().Run_next_wave();
+	//	//WaveManager::getInstance().Add_wave(0);
+	//	runWave = true;
+	//	isStarted = false;
+	//}
 
 
-	auto bgScrolling1 = MoveBy::create(0.f, Vec2(0.f, -50.f*delta));
-	auto bgScrolling2 = MoveBy::create(0.f, Vec2(0.f, -50.f*delta));
-	//auto bgResetHigher = MoveBy::create(0.f, Vec2(0.f, playingSize.height *2.5));
-	auto tempbg = this->getChildByName("bg Node Main")->getChildByName("FirstBackground");
-	tempbg->runAction(bgScrolling1);
-	this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->runAction(bgScrolling2);
+	//auto bgScrolling1 = MoveBy::create(0.f, Vec2(0.f, -50.f*delta));
+	//auto bgScrolling2 = MoveBy::create(0.f, Vec2(0.f, -50.f*delta));
+	////auto bgResetHigher = MoveBy::create(0.f, Vec2(0.f, playingSize.height *2.5));
+	//auto tempbg = this->getChildByName("bg Node Main")->getChildByName("FirstBackground");
+	//tempbg->runAction(bgScrolling1);
+	//this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->runAction(bgScrolling2);
 
-	if (this->getChildByName("bg Node Main")->getChildByName("FirstBackground")->getPositionY() <= -bgSize.y)
-	{
-		this->getChildByName("bg Node Main")->getChildByName("FirstBackground")->setPosition(0, bgSize.y);
-	}
-	if (this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->getPositionY() <= -bgSize.y)
-	{
-		this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->setPosition(0, bgSize.y);
-	}
+	//if (this->getChildByName("bg Node Main")->getChildByName("FirstBackground")->getPositionY() <= -bgSize.y)
+	//{
+	//	this->getChildByName("bg Node Main")->getChildByName("FirstBackground")->setPosition(0, bgSize.y);
+	//}
+	//if (this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->getPositionY() <= -bgSize.y)
+	//{
+	//	this->getChildByName("bg Node Main")->getChildByName("SecdBackground")->setPosition(0, bgSize.y);
+	//}
 
-	if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_BACKSPACE))
-		SceneManager::getInstance().Change_Scene("Scene2");
+	//if (InputManager::getInstance().isKeyPressed(EventKeyboard::KeyCode::KEY_BACKSPACE))
+	//	SceneManager::getInstance().Change_Scene("Scene2");
 }
 
 Scene* CreditScene::get_SceneNode()

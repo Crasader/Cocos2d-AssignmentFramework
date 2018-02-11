@@ -28,15 +28,15 @@
     <Filter Include="src\cpp\MenuScene">
       <UniqueIdentifier>{7c437707-5f12-4123-9fa1-bf8523dc1e03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scenes">
+      <UniqueIdentifier>{4f076312-8be0-4392-a86c-45a19b396fbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>win32</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
@@ -105,9 +105,6 @@
     <ClCompile Include="..\Classes\GenericManager.cpp">
       <Filter>src\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GenericScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\InputManager\InputManager.cpp">
       <Filter>src\InputManager</Filter>
     </ClCompile>
@@ -117,15 +114,24 @@
     <ClCompile Include="..\Classes\MenuScene.cpp">
       <Filter>src\cpp\MenuScene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GenericScene.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CreditScene.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InstructionScene.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>src\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
       <Filter>win32</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Player.h">
@@ -197,9 +203,6 @@
     <ClInclude Include="..\Classes\ManagerMacro.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GenericScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\GlobalDeclarations.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -211,6 +214,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
       <Filter>src\cpp\MenuScene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GenericScene.h">
+      <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CreditScene.h">
+      <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InstructionScene.h">
+      <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

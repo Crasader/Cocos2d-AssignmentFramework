@@ -3,6 +3,8 @@
 #include "Scene2.h"
 #include "MenuScene.h"
 #include "MasterManager.h"
+#include "CreditScene.h"
+#include "InstructionScene.h"
 using namespace cocos2d;
 
 #define ADDSCENE(SCENECLASS,SCENENAME)\
@@ -45,6 +47,14 @@ void SceneManager::Init()
 	});
 	Add_Scene("MenuScene", []() {
 		return MenuScene::_createScene_withSceneNode();
+	});
+
+	Add_Scene("CreditScene", []() {
+		return CreditScene::_createScene_withSceneNode();
+	});
+
+	Add_Scene("InstructionScene", []() {
+		return InstructionScene::_createScene_withSceneNode();
 	});
 
 	currSceneName = "";

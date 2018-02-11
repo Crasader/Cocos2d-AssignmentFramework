@@ -17,6 +17,8 @@ public:
 	virtual void Init(string sprite_filename, Vec2 Direction_vector, Player player, Vec2 position, float lifetime);
 	virtual void Update(float delta);
 	virtual Node* get_Node();
+	virtual Sprite* getSprite(void) { return sprite; }
+	virtual int get_damage();
 	virtual void set_Position(float x, float y);
 	static EnemyBaseProjectile* create();
 	virtual void Collision();

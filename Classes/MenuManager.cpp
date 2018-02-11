@@ -48,7 +48,7 @@ void MenuManager::Init()
 
 
 	createButtonImageInScene("menu_img/playbtn.png", "menu_img/playbtn_selected.png", 
-		Vec2(0.5f, 0.5f), Vec2(x, y * 0.35f));
+		Vec2(0.5f, 0.5f), Vec2(x, y * 0.35f))->setCallback(CC_CALLBACK_0(MenuManager::PlayBtnStart,this));
 
 	createButtonImageInScene("menu_img/controlsbtn.png", "menu_img/controlsbtn_selected.png",
 		Vec2(0.5f, 0.5f), Vec2(x, y* 0.28f));
@@ -94,6 +94,7 @@ void MenuManager::PlayBtnStart()
 {
 	//Enter gameplay
 	CCLOG("Start game");
+	SceneManager::getInstance().Change_Scene("HelloWorld");
 }
 
 void MenuManager::ControlBtn_Pressed()

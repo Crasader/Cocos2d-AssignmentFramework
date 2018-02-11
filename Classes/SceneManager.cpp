@@ -9,12 +9,6 @@ using namespace cocos2d;
 Add_Scene(SCENENAME, []()-> GenericScene* {\
 return (GenericScene*)SCENECLASS::_createScene_withSceneNode();\
 });
-/*
-SceneManager& SceneManager::getInstance()
-{
-	static SceneManager instance;
-	return instance;
-}*/
 
 SceneManager::SceneManager() /*:
 	_prevSceneType(SceneType::SCENE1),
@@ -39,9 +33,20 @@ void SceneManager::Init()
 		return (GenericScene*)HelloWorld::_createScene_withSceneNode();
 	});*/
 
-	ADDSCENE(HelloWorld, "HelloWorld");
-	ADDSCENE(Scene2, "Scene2");
-	ADDSCENE(MenuScene, "MenuScene");
+	//ADDSCENE(HelloWorld, "HelloWorld");
+	//ADDSCENE(Scene2, "Scene2");
+	//ADDSCENE(MenuScene, "MenuScene");
+
+	Add_Scene("HelloWorld", []() {
+		return HelloWorld::_createScene_withSceneNode();
+	});
+	Add_Scene("Scene2", []() {
+		return Scene2::_createScene_withSceneNode();
+	});
+	Add_Scene("MenuScene", []() {
+		return MenuScene::_createScene_withSceneNode();
+	});
+
 }
 
 void SceneManager::Update(float dt)
@@ -67,74 +72,62 @@ GenericScene* SceneManager::get_current_scene()
 //	m_Scene_Map.insert(pair<string, GenericScene*>(scene_name, scene));
 //}
 
-void SceneManager::Add_Scene(string scene_name, GenericScene* (*fp)())
+void SceneManager::Add_Scene(string scene_name, Scene* (*fp)())
 {
-	m_Scene_Map_Create.insert(pair<string, GenericScene* (*)()>(scene_name, fp));
+	//m_Scene_Map_Create.insert(pair<string, GenericScene* (*)()>(scene_name, fp));
+	SceneInfo temp;
+	temp.createfunc = fp;
+	temp.name = scene_name;
+	m_SceneInfoList.push_back(temp);
 }
 
 void SceneManager::Change_Scene(string scene_name)
 {
-	//delete scene stuff here if needed
-	m_curr_scene->On_Change_Scene(true);
-	GenericScene* scene = m_Scene_Map_Create.find(scene_name)->second();
-	m_curr_scene = scene;
-	//scene stuff here
-	CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, scene->get_SceneNode()));
-	currScene_playingSize = m_curr_scene->get_playingSize();
+	////delete scene stuff here if needed
+	//m_curr_scene->On_Change_Scene(true);
+	//GenericScene* scene = m_Scene_Map_Create.find(scene_name)->second();
+	//m_curr_scene = scene;
+	////scene stuff here
+	//CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, scene->get_SceneNode()));
+	//currScene_playingSize = m_curr_scene->get_playingSize();
 
-	MasterManager::getInstance().Init();
+	//MasterManager::getInstance().Init();
+
+
+	m_curr_scene->On_Change_Scene(true);
+	for (int i = 0; i < m_SceneInfoList.size(); ++i)
+	{
+		if (m_SceneInfoList[i].name == scene_name)
+		{
+			m_curr_scene = dynamic_cast<GenericScene*>(m_SceneInfoList[i].createfunc());
+			CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, m_curr_scene->get_SceneNode()));
+			MasterManager::getInstance().Init();
+			CCLOG("ChangeScene SUCCESS");
+			return;
+		}
+	}
+	CCLOG("ChangeScene FAILED");
 }
 
 void SceneManager::Run_Scene(string scene_name)
 {
-	GenericScene* scene = m_Scene_Map_Create.find(scene_name)->second();
-	//m_curr_scene = dynamic_cast<GenericScene*>(scene->_createScene());//dynamic_cast<GenericScene*>(scene->createScene());
-	CCDirector::getInstance()->runWithScene(scene->get_SceneNode());
-	m_curr_scene = scene;
-	currScene_playingSize = Director::getInstance()->getVisibleSize();//m_curr_scene->get_playingSize();
+	//GenericScene* scene = m_Scene_Map_Create.find(scene_name)->second();
+	////m_curr_scene = dynamic_cast<GenericScene*>(scene->_createScene());//dynamic_cast<GenericScene*>(scene->createScene());
+	//CCDirector::getInstance()->runWithScene(scene->get_SceneNode());
+	//m_curr_scene = scene;
+	//currScene_playingSize = Director::getInstance()->getVisibleSize();//m_curr_scene->get_playingSize();
 
-	MasterManager::getInstance().Init();
+	for (int i = 0; i < m_SceneInfoList.size(); ++i)
+	{
+		if (m_SceneInfoList[i].name == scene_name)
+		{
+			m_curr_scene = dynamic_cast<GenericScene*>(m_SceneInfoList[i].createfunc());
+			CCDirector::getInstance()->runWithScene(m_curr_scene->get_SceneNode());
+			MasterManager::getInstance().Init();
+			CCLOG("RunScene SUCCESS");
+			return;
+		}
+	}
+	CCLOG("RunScene FAILED");
+	
 }
-
-//void SceneManager::runSceneWithType(const SceneType sceneType)
-//{
-//	Scene* sceneToRun = nullptr;
-//
-//	switch (sceneType)
-//	{
-//	case SceneType::SCENE1:
-//		sceneToRun = HelloWorld::createScene();
-//		break;
-//	case SceneType::SCENE2:
-//		sceneToRun = Scene2::createScene();
-//		break;
-//	default:
-//		sceneToRun = HelloWorld::createScene();
-//		break;
-//	}
-//
-//	SceneType oldSceneType = _currSceneType;
-//	_currSceneType = sceneType;
-//	sceneToRun->setTag(static_cast<int>(sceneType));
-//
-//	if (sceneToRun == nullptr)
-//	{
-//		_currSceneType = oldSceneType;
-//		return;
-//	}
-//
-//	_prevSceneType = oldSceneType;
-//	if (CCDirector::getInstance()->getRunningScene() == nullptr)
-//	{
-//		CCDirector::getInstance()->runWithScene(sceneToRun);
-//	}
-//	else
-//	{
-//		CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, sceneToRun));
-//	}
-//}
-//
-//void SceneManager::returnToPrevScene()
-//{
-//	this->runSceneWithType(_prevSceneType);
-//}

@@ -21,11 +21,13 @@ void InputManager::Init()
 
 	auto k_listener = EventListenerKeyboard::create();
 	k_listener->onKeyPressed = CC_CALLBACK_2(InputManager::onKeyPressed, this);
-	k_listener->onKeyReleased = CC_CALLBACK_2(InputManager::onKeyReleased, this);
+	//k_listener->onKeyPressed = std::bind(&InputManager::onKeyPressed, this, std::placeholders::_1, std::placeholders::_2);
 	/*k_listener->onKeyPressed = [](EventKeyboard::KeyCode keyCode, Event* event) {
 		InputManager::getInstance().onKeyPressed(keyCode, event);
-	};
-	k_listener->onKeyReleased = [](EventKeyboard::KeyCode keyCode, Event* event) {
+	};*/
+	k_listener->onKeyReleased = CC_CALLBACK_2(InputManager::onKeyReleased, this);
+	
+	/*k_listener->onKeyReleased = [](EventKeyboard::KeyCode keyCode, Event* event) {
 		InputManager::getInstance().onKeyReleased(keyCode, event);
 	};*/
 	SceneManager::getInstance().get_current_scene()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(k_listener, SceneManager::getInstance().get_current_scene());

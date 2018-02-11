@@ -117,7 +117,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	//SceneManager::getInstance().runSceneWithType(SceneType::SCENE1);
 	//MasterManager::getInstance().Init();
 	SceneManager::getInstance().Init();
-	SceneManager::getInstance().Run_Scene("HelloWorld");
+	SceneManager::getInstance().Run_Scene("MenuScene");
 	//MasterManager::getInstance().Init();
     return true;
 }

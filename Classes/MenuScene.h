@@ -1,5 +1,5 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __MENU_SCENE_H__
+#define __MENU_SCENE_H__
 
 //#include "Player.h"
 //#include "EnemyManager.h"

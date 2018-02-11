@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "HelloWorldScene.h"
 #include "Scene2.h"
+#include "MenuScene.h"
 #include "MasterManager.h"
 using namespace cocos2d;
 
@@ -38,8 +39,9 @@ void SceneManager::Init()
 		return (GenericScene*)HelloWorld::_createScene_withSceneNode();
 	});*/
 
-	ADDSCENE(HelloWorld,"HelloWorld")
-	ADDSCENE(Scene2,"Scene2")
+	ADDSCENE(HelloWorld, "HelloWorld");
+	ADDSCENE(Scene2, "Scene2");
+	ADDSCENE(MenuScene, "MenuScene");
 }
 
 void SceneManager::Update(float dt)

@@ -47,6 +47,7 @@ void SceneManager::Init()
 		return MenuScene::_createScene_withSceneNode();
 	});
 
+	currSceneName = "";
 }
 
 void SceneManager::Update(float dt)
@@ -90,6 +91,7 @@ void SceneManager::Change_Scene(string scene_name)
 		if (m_SceneInfoList[i].name == scene_name)
 		{
 			m_curr_scene = dynamic_cast<GenericScene*>(m_SceneInfoList[i].createfunc());
+			currSceneName = m_SceneInfoList[i].name;
 			CCDirector::getInstance()->replaceScene(TransitionFade::create(1.5f, m_curr_scene->get_SceneNode()));
 			MasterManager::getInstance().Init();
 			CCLOG("ChangeScene SUCCESS");
@@ -112,6 +114,7 @@ void SceneManager::Run_Scene(string scene_name)
 		if (m_SceneInfoList[i].name == scene_name)
 		{
 			m_curr_scene = dynamic_cast<GenericScene*>(m_SceneInfoList[i].createfunc());
+			currSceneName = m_SceneInfoList[i].name;
 			CCDirector::getInstance()->runWithScene(m_curr_scene->get_SceneNode());
 			MasterManager::getInstance().Init();
 			CCLOG("RunScene SUCCESS");

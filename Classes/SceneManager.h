@@ -25,6 +25,7 @@ public:
 	void Change_Scene(string scene_name);
 	void Run_Scene(string scene_name);
 	Size currScene_playingSize;
+	std::string currSceneName;
 private:
 	~SceneManager();
 	SceneManager();

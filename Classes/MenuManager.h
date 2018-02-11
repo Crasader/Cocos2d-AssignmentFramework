@@ -30,6 +30,8 @@ public:
 	void OptionsBtn_Pressed();
 	void ExitBtn_Pressed();
 
+	void ReturnMainMenu();
+
 	static MenuItemImage* createButtonImage(const std::string& normalImage, const std::string& selectedImage, Vec2 anchor, Vec2 position);
 	static MenuItemImage* createButtonImageInScene(const std::string& normalImage, const std::string& selectedImage, Vec2 anchor, Vec2 position);
 	//Play Game

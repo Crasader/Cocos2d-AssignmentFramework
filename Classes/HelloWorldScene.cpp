@@ -150,18 +150,18 @@ bool HelloWorld::init()
 	//this->addChild(powerup_frame, 2);
 
 
-	bgMenu = Sprite::create("bgMenuTemp.png");
-	//bgNode->setAnchorPoint(Vec2::ZERO);
-	bgMenu->setAnchorPoint(Vec2::ZERO);
-	//bgSize.setPoint(bgMenu->getContentSize().width, bgMenu->getContentSize().height);
-	float bgMenuX = 0;
-	float bgMenuY = 0;
-	bgMenu->setPosition(Vec2(bgMenuX, bgMenuY));
-	//bgX += bgMenu->getContentSize().width;
-	bgMenu->setName("MenuBg");
+	//bgMenu = Sprite::create("bgMenuTemp.png");
+	////bgNode->setAnchorPoint(Vec2::ZERO);
+	//bgMenu->setAnchorPoint(Vec2::ZERO);
+	////bgSize.setPoint(bgMenu->getContentSize().width, bgMenu->getContentSize().height);
+	//float bgMenuX = 0;
+	//float bgMenuY = 0;
+	//bgMenu->setPosition(Vec2(bgMenuX, bgMenuY));
+	////bgX += bgMenu->getContentSize().width;
+	//bgMenu->setName("MenuBg");
 
 
-	this->addChild(bgMenu, 10);
+	//this->addChild(bgMenu, 10);
 
 
 	//int count = visibleSize.width - (sprite->getContentSize().height);
@@ -528,7 +528,7 @@ void HelloWorld::update(float delta)
 		{
 			isStarted = true;
 		}
-		removeChild(bgMenu);
+		//removeChild(bgMenu);
 		WaveManager::getInstance().Run_next_wave();
 		WaveManager::getInstance().Add_wave(0);
 		//PlayerManager::getInstance().get_Player(0)->Shoot();

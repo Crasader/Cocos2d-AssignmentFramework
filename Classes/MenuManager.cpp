@@ -46,20 +46,33 @@ void MenuManager::Init()
 
 	//playButton->setCallback(CC_CALLBACK_0(MenuManager::ExampleFunction,this));
 
+	if (SceneManager::getInstance().currSceneName == "MenuScene")
+	{
+		createButtonImageInScene("menu_img/playbtn.png", "menu_img/playbtn_selected.png",
+			Vec2(0.5f, 0.5f), Vec2(x, y * 0.35f))->setCallback(CC_CALLBACK_0(MenuManager::PlayBtnStart, this));
 
-	createButtonImageInScene("menu_img/playbtn.png", "menu_img/playbtn_selected.png", 
-		Vec2(0.5f, 0.5f), Vec2(x, y * 0.35f))->setCallback(CC_CALLBACK_0(MenuManager::PlayBtnStart,this));
+		createButtonImageInScene("menu_img/controlsbtn.png", "menu_img/controlsbtn_selected.png",
+			Vec2(0.5f, 0.5f), Vec2(x, y* 0.28f))->setCallback(CC_CALLBACK_0(MenuManager::ControlBtn_Pressed, this));;
+		createButtonImageInScene("menu_img/creditsbtn.png", "menu_img/creditsbtn_selected.png",
+			Vec2(0.5f, 0.5f), Vec2(x, y* 0.21f))->setCallback(CC_CALLBACK_0(MenuManager::CreditsBtn_Pressed, this));;
+		createButtonImageInScene("menu_img/optionbtn_selected.png", "menu_img/optionbtn_selected.png",
+			Vec2(0.5f, 0.5f), Vec2(x, y* 0.14f))->setCallback(CC_CALLBACK_0(MenuManager::OptionsBtn_Pressed, this));;
 
-	createButtonImageInScene("menu_img/controlsbtn.png", "menu_img/controlsbtn_selected.png",
-		Vec2(0.5f, 0.5f), Vec2(x, y* 0.28f));
-	createButtonImageInScene("menu_img/creditsbtn.png", "menu_img/creditsbtn_selected.png",
-		Vec2(0.5f, 0.5f), Vec2(x, y* 0.21f));
-	createButtonImageInScene("menu_img/optionbtn.png", "menu_img/optionbtn_selected.png",
-		Vec2(0.5f, 0.5f), Vec2(x, y* 0.14f));
+		createButtonImageInScene("menu_img/exitbtn.png", "menu_img/exitbtn_selected.png",
+			Vec2(0.5f, 0.5f), Vec2(x, y* 0.07f))->setCallback(CC_CALLBACK_0(MenuManager::ExitBtn_Pressed, this));;
 
-	createButtonImageInScene("menu_img/exitbtn.png", "menu_img/exitbtn_selected.png",
-		Vec2(0.5f, 0.5f), Vec2(x, y* 0.07f));
+	}
+	else if (SceneManager::getInstance().currSceneName == "CreditScene" ||
+		SceneManager::getInstance().currSceneName == "InstructionScene")
+	{
+		createButtonImageInScene("menu_img/backbtn.png", "menu_img/backbtn_selected.png",
+			Vec2(0.5f, 0.5f), Vec2(x, y* 0.07f))->setCallback(CC_CALLBACK_0(MenuManager::ReturnMainMenu, this));
 
+	}
+	else
+	{
+		return;
+	}
 }
 
 void MenuManager::Update(float dt)
@@ -100,11 +113,13 @@ void MenuManager::PlayBtnStart()
 void MenuManager::ControlBtn_Pressed()
 {
 	CCLOG("View intructions");
+	SceneManager::getInstance().Change_Scene("InstructionScene");
 }
 
 void MenuManager::CreditsBtn_Pressed()
 {
 	CCLOG("Enter Credit page");
+	SceneManager::getInstance().Change_Scene("CreditScene");
 }
 
 void MenuManager::OptionsBtn_Pressed()
@@ -114,7 +129,13 @@ void MenuManager::OptionsBtn_Pressed()
 
 void MenuManager::ExitBtn_Pressed()
 {
+	Director::getInstance()->end();
 	CCLOG("Quit game");
+}
+
+void MenuManager::ReturnMainMenu()
+{
+	SceneManager::getInstance().Change_Scene("MenuScene");
 }
 
 

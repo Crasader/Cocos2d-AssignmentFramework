@@ -24,6 +24,12 @@ public:
 
 	void ExampleFunction();
 
+	void PlayBtnStart();
+	void ControlBtn_Pressed();
+	void CreditsBtn_Pressed();
+	void OptionsBtn_Pressed();
+	void ExitBtn_Pressed();
+
 	static MenuItemImage* createButtonImage(const std::string& normalImage, const std::string& selectedImage, Vec2 anchor, Vec2 position);
 	static MenuItemImage* createButtonImageInScene(const std::string& normalImage, const std::string& selectedImage, Vec2 anchor, Vec2 position);
 	//Play Game

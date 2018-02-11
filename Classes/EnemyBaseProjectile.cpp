@@ -120,3 +120,8 @@ void EnemyBaseProjectile::release()
 {
 	SceneManager::getInstance().get_current_scene()->removeChild(node);
 }
+
+int EnemyBaseProjectile::get_damage()
+{
+	return damage;
+}

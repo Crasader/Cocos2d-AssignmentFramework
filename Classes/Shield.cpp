@@ -59,6 +59,7 @@ void Shield::Collision()
 {
 #define ENEMYLIST EnemyManager::getInstance().EnemyList
 #define POWERUPLIST PowerUpManager::getInstance().PowerUpList
+#define ENEMYPROJECTILELIST	EnemyProjectileManager::getInstance().ProjectileList
 
 	CCRect Shield_rect = CCRectMake(
 		node->getPosition().x - (sprite->getContentSize().width * 0.5f),
@@ -106,6 +107,23 @@ void Shield::Collision()
 				break;
 			}
 
+			break;
+		}
+	}
+
+	for (int i = 0; i < ENEMYPROJECTILELIST.size(); ++i)
+	{
+		CCRect enemyProjectile_rect = CCRectMake(
+			ENEMYPROJECTILELIST.at(i)->get_Node()->getPosition().x - (ENEMYPROJECTILELIST.at(i)->getSprite()->getContentSize().width * 0.5f),
+			ENEMYPROJECTILELIST.at(i)->get_Node()->getPosition().y - (ENEMYPROJECTILELIST.at(i)->getSprite()->getContentSize().height * 0.5f),
+			ENEMYPROJECTILELIST.at(i)->getSprite()->getContentSize().width,
+			ENEMYPROJECTILELIST.at(i)->getSprite()->getContentSize().height
+		);
+
+		if (Shield_rect.intersectsRect(enemyProjectile_rect))
+		{
+			get_hit(ENEMYPROJECTILELIST.at(i)->get_damage());
+			ENEMYPROJECTILELIST.at(i)->destroy = true;
 			break;
 		}
 	}

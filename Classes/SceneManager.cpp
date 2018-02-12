@@ -58,6 +58,8 @@ void SceneManager::Init()
 	});
 
 	currSceneName = "";
+
+	currScene_playingSize = Director::getInstance()->getVisibleSize();
 }
 
 void SceneManager::Update(float dt)
@@ -126,6 +128,7 @@ void SceneManager::Run_Scene(string scene_name)
 			m_curr_scene = dynamic_cast<GenericScene*>(m_SceneInfoList[i].createfunc());
 			currSceneName = m_SceneInfoList[i].name;
 			CCDirector::getInstance()->runWithScene(m_curr_scene->get_SceneNode());
+			widthHeight_ratio = CCDirector::getInstance()->getVisibleSize().width / CCDirector::getInstance()->getVisibleSize().height;
 			MasterManager::getInstance().Init();
 			CCLOG("RunScene SUCCESS");
 			return;
@@ -133,4 +136,23 @@ void SceneManager::Run_Scene(string scene_name)
 	}
 	CCLOG("RunScene FAILED");
 	
+}
+
+
+Size SceneManager::AdjustContentSize(Size originalcontentsize, float ratioToScreenHeight)
+{
+	Size adjusted;
+	float originalratio = originalcontentsize.width / originalcontentsize.height;
+	adjusted.height = SceneManager::getInstance().currScene_playingSize.height * ratioToScreenHeight;
+	adjusted.width = originalratio * adjusted.height;
+	return adjusted;
+}
+
+void SceneManager::AdjustContentSize(Sprite* sprite, float ratioToScreenHeight)
+{
+	Size adjusted;
+	float originalratio = sprite->getContentSize().width / sprite->getContentSize().height;
+	adjusted.height = SceneManager::getInstance().currScene_playingSize.height * ratioToScreenHeight;
+	adjusted.width = originalratio * adjusted.height;
+	sprite->setContentSize(adjusted);
 }

@@ -18,6 +18,7 @@ void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Ve
 	node->setPosition(position);
 	sprite = Sprite::create("Projectile/" + sprite_filename);
 	sprite->setName("EnemyBaseProjectile");
+	SceneManager::AdjustContentSize(sprite, 0.015f);
 	node->addChild(sprite);
 	movement_spd = 2.f;
 	Direction_Vector = Direction_vector;
@@ -32,6 +33,7 @@ void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Ve
 	node->setPosition(position);
 	sprite = Sprite::create("Projectile/" + sprite_filename);
 	sprite->setName("EnemyBaseProjectile");
+	SceneManager::AdjustContentSize(sprite, 0.015f);
 	node->addChild(sprite);
 	movement_spd = 5.f;
 	Direction_Vector = Direction_vector;
@@ -45,6 +47,7 @@ void EnemyBaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Pl
 	node->setPosition(position);
 	sprite = Sprite::create("Projectile/" + sprite_filename);
 	sprite->setName("EnemyBaseProjectile");
+	SceneManager::AdjustContentSize(sprite, 0.015f);
 	node->addChild(sprite);
 	movement_spd = 5.f;
 	Direction_Vector = Direction_vector;
@@ -96,10 +99,11 @@ void EnemyBaseProjectile::Collision()
 
 	
 		CCRect enemy_rect = CCRectMake(
-			PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition().x - (PlayerManager::getInstance().get_Player(0)->getSprite()->getContentSize().width * 0.5f),
-			PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition().y - (PlayerManager::getInstance().get_Player(0)->getSprite()->getContentSize().height * 0.5f),
-			PlayerManager::getInstance().get_Player(0)->get_Node()->getContentSize().width,
-			PlayerManager::getInstance().get_Player(0)->get_Node()->getContentSize().height
+			PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition().x/* - (PlayerManager::getInstance().get_Player(0)->getSprite()->getContentSize().width * 0.5f)*/,
+			PlayerManager::getInstance().get_Player(0)->get_Node()->getPosition().y /*- (PlayerManager::getInstance().get_Player(0)->getSprite()->getContentSize().height * 0.5f)*/,
+			/*PlayerManager::getInstance().get_Player(0)->get_Node()->getContentSize().width*/ 0.5f,
+			/*PlayerManager::getInstance().get_Player(0)->get_Node()->getContentSize().height*/
+			0.5f
 		);
 
 		if (projectile_rect.intersectsRect(enemy_rect))

@@ -126,6 +126,9 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>src\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ParticleManager.cpp">
+      <Filter>src\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -226,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>src\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ParticleManager.h">
+      <Filter>src\cpp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

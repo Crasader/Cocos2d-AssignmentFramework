@@ -20,6 +20,14 @@ PlayerManager::~PlayerManager()
 
 void PlayerManager::Init()
 {
+	if (List_of_players.size() != 0)
+	{
+		Player* temp = List_of_players[0];
+		temp->Release();
+		List_of_players.pop_back();
+		delete temp;
+	}
+
 	InputManager::getInstance().m_onTouchMove_EventListMap.push_back([](Touch* touch, Event* event) {
 		PlayerManager().getInstance().OnTouchMove(touch, event);
 	});
@@ -110,6 +118,15 @@ void PlayerManager::OnTouchMove(Touch* touch, Event* event)
 {
 	EventMouse* temp = (EventMouse*)event;
 	Vec2 prevLocation = touch->getPreviousLocation();
-	Vec2 currLocation;
-
+	Vec2 currLocation = touch->getLocation();
+	Vec2 dirvec = touch->getLocation() - touch->getPreviousLocation();
+	get_Player(0)->Move_PositionOnly(dirvec);
+	if (dirvec.x > 0.f)
+	{
+		get_Player(0)->Move_AnimationOnly(Player::Movement_Direction::Right);
+	}
+	else if (dirvec.x < 0.f)
+	{
+		get_Player(0)->Move_AnimationOnly(Player::Movement_Direction::Left);
+	}
 }

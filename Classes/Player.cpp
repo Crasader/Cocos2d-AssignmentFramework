@@ -46,17 +46,23 @@ Player::~Player()
 
 void Player::Init(string sprite_filename)
 {
+	//animFrames_idle.clear();
+
 	//PlayerManager::getInstance().Add_Player(this);
 	node = Node::create();
 	node->setName(Name);
+	node->setAnchorPoint(Vec2(0.5f, 0.5f));
 	spriteNode = Node::create();
 	spriteNode->setName(Name + "_spriteNode");
+	spriteNode->setAnchorPoint(Vec2(0.5f, 0.5f));
 	node->addChild(spriteNode);
 	SceneManager::getInstance().get_current_scene()->addChild(node);
 	
 	sprite = Sprite::create("Player/" + sprite_filename);
 	sprite->setName(Name + "_sprite");
 	sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+	//sprite->setContentSize(SceneManager::AdjustContentSize(sprite->getContentSize() , 0.065f));
+	SceneManager::AdjustContentSize(sprite, 0.065f);
 	spriteNode->addChild(sprite, 0);
 	movement_spd = 10.0f;
 	moving_state = Moving_State::Idle;
@@ -66,6 +72,11 @@ void Player::Init(string sprite_filename)
 		animFrames_tilt_left.pushBack(SpriteFrame::create("Player/Plane_Left_02.png", Rect(0, 0, 64, 64)));
 		animFrames_tilt_left.pushBack(SpriteFrame::create("Player/Plane_Left_03.png", Rect(0, 0, 64, 64)));
 		animFrames_tilt_left.pushBack(SpriteFrame::create("Player/Plane_Left_04.png", Rect(0, 0, 64, 64)));
+
+		/*for (int i = 0; i < animFrames_tilt_left.size(); ++i)
+		{
+			animFrames_tilt_left.at(i)->setOriginalSize(SceneManager::AdjustContentSize(animFrames_tilt_left.at(i)->getOriginalSize(),0.65f));
+		}*/
 	}
 	{
 		//Loading each frames
@@ -74,11 +85,15 @@ void Player::Init(string sprite_filename)
 		animFrames_tilt_right.pushBack(SpriteFrame::create("Player/Plane_Right_02.png", Rect(0, 0, 64, 64)));
 		animFrames_tilt_right.pushBack(SpriteFrame::create("Player/Plane_Right_03.png", Rect(0, 0, 64, 64)));
 		animFrames_tilt_right.pushBack(SpriteFrame::create("Player/Plane_Right_04.png", Rect(0, 0, 64, 64)));
-		
+		/*for (int i = 0; i < animFrames_tilt_left.size(); ++i)
+		{
+			animFrames_tilt_right.at(i)->setOriginalSize(SceneManager::AdjustContentSize(animFrames_tilt_right.at(i)->getOriginalSize(), 0.65f));
+		}*/
 	}
 	{
 		animFrames_idle.reserve(1);
 		animFrames_idle.pushBack(SpriteFrame::create("Player/Plane_Idle.png", Rect(0, 0, 64, 64)));
+		//animFrames_idle.at(0)->setOriginalSize(SceneManager::AdjustContentSize(animFrames_idle.at(0)->getOriginalSize(), 0.65f));
 	}
 	original_sprite = SpriteFrame::create("Player/Plane_Idle.png", Rect(0, 0, 64, 64));
 	//idle_anim = Animate::create(Animation::create()->addSpriteFrame(SpriteFrame::create("Player/Plane_Default.png", Rect(0, 0, 64, 64))));
@@ -212,6 +227,13 @@ void Player::Move_AnimationOnly(Movement_Direction dir)
 	}
 }
 
+void Player::Move_PositionOnly(Vec2 dirVec)
+{
+	Vec2 temp = node->getPosition();
+	temp += dirVec;
+	node->setPosition(temp);
+}
+
 void Player::Shoot()
 {
 	if (shooting_timer >= SHOOTING_SPEED)
@@ -334,4 +356,17 @@ Player* Player::create(string name)
 void Player::Set_Name(string name)
 {
 	this->Name = name;
+}
+
+void Player::Release()
+{
+	/*while (animFrames_tilt_left.size() > 0)
+	{
+
+	}
+	while (animFrames_tilt_left.size() > 0)
+	{
+
+	}
+	animFrames_idle.clear();*/
 }

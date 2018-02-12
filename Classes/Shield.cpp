@@ -1,7 +1,7 @@
 #include "Shield.h"
 #include "EnemyManager.h"
 #include "PowerUpManager.h"
-
+#include "SceneManager.h"
 Shield::Shield()
 	: destroy(false),
 	shieldValue(10)
@@ -18,8 +18,9 @@ void Shield::Init(string sprite_filename, Player* player)
 	node->setPosition(player->get_Node()->getPosition());
 	sprite = Sprite::create("PowerUp/" + sprite_filename);
 	sprite->setName("Shield");
+	SceneManager::AdjustContentSize(sprite, 0.1f);
 	node->addChild(sprite);
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 	this->player = player;
 }
 
@@ -131,5 +132,5 @@ void Shield::Collision()
 
 void Shield::release()
 {
-	CCDirector::getInstance()->getRunningScene()->removeChild(node);
+	SceneManager::getInstance().get_current_scene()->removeChild(node);
 }

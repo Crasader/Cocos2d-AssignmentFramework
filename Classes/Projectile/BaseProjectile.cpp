@@ -6,6 +6,7 @@
 #endif
 #include "EnemyManager.h"
 #include "PlayerManager.h"
+#include "SceneManager.h"
 BaseProjectile::BaseProjectile()
 {
 }
@@ -23,10 +24,11 @@ void BaseProjectile::Init()
 	node = Node::create();
 	sprite = Sprite::create("Projectile/projectile1.png");
 	sprite->setName("BaseProjectile");
+	SceneManager::AdjustContentSize(sprite, 0.015f);
 	node->addChild(sprite);
 	movement_spd = 10.f;
 	Direction_Vector = Vec2(0, 1);
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 
 
 	Player* temp_player = PlayerManager::getInstance().get_Player(0);
@@ -41,10 +43,11 @@ void BaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Vec2 po
 	node->setPosition(position);
 	sprite = Sprite::create("Projectile/" + sprite_filename);
 	sprite->setName("BaseProjectile");
+	SceneManager::AdjustContentSize(sprite, 0.015f);
 	node->addChild(sprite);
 	movement_spd = 10.f;
 	Direction_Vector = Direction_vector;
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 }
 
 void BaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Vec2 position, float lifetime)
@@ -53,11 +56,12 @@ void BaseProjectile::Init(string sprite_filename, Vec2 Direction_vector, Vec2 po
 	node->setPosition(position);
 	sprite = Sprite::create("Projectile/" + sprite_filename);
 	sprite->setName("BaseProjectile");
+	SceneManager::AdjustContentSize(sprite, 0.015f);
 	node->addChild(sprite);
 	movement_spd = 5.f;
 	Direction_Vector = Direction_vector;
 	this->lifetime = lifetime;
-	CCDirector::getInstance()->getRunningScene()->addChild(node);
+	SceneManager::getInstance().get_current_scene()->addChild(node);
 }
 
 void BaseProjectile::Update(float delta)
@@ -136,5 +140,5 @@ void BaseProjectile::set_offset(Vec2 offset)
 
 void BaseProjectile::release()
 {
-	CCDirector::getInstance()->getRunningScene()->removeChild(node);
+	SceneManager::getInstance().get_current_scene()->removeChild(node);
 }

@@ -26,6 +26,10 @@ public:
 	void Run_Scene(string scene_name);
 	Size currScene_playingSize;
 	std::string currSceneName;
+	float widthHeight_ratio;
+
+	static Size AdjustContentSize(Size originalcontentsize, float ratioToScreenHeight);
+	static void AdjustContentSize(Sprite* sprite, float ratioToScreenHeight);
 private:
 	~SceneManager();
 	SceneManager();

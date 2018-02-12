@@ -112,7 +112,7 @@ bool HelloWorld::init()
 	float hpFramepos_y = getContentSize().height * 0.01f;
 	hpbar_frame->setPosition(Vec2(hpFramepos_x, hpFramepos_y));
 	hpbar_frame->setName("hpFrame");
-
+	SceneManager::AdjustContentSize(hpbar_frame, 0.5f);
 	this->addChild(hpbar_frame, 2);
 
 	hpbar_main = Sprite::create("fullbar.jpg");
@@ -122,23 +122,23 @@ bool HelloWorld::init()
 	hpbar_main->setPosition(Vec2(hppos_x, hppos_y));
 	hpbar_main->setScaleY(1.0f);
 	hpbar_main->setName("hpFull");
-
+	SceneManager::AdjustContentSize(hpbar_main, 0.5f);
 	this->addChild(hpbar_main, 2);
 
 	
 
-	auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "fonts/arial.ttf", 46);
-	
-	auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
-		CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-	menuItem->setPosition(10, 10);
-	menuTitle->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
-	menuTitle->setName("menuTitle");
-	menuTitle->setAnchorPoint(Vec2(0.5f,0.5f));
-	auto menuLayer = Menu::create(menuItem, NULL);
-	
-	//this->addChild(menuLayer,99);
-	this->addChild(menuTitle,39);
+	//auto menuTitle = Label::createWithTTF("fontCancerNEXTSTAGE", "fonts/arial.ttf", 46);
+	//
+	//auto menuItem = MenuItemImage::create("powerupEmpty.jpg", "powerupEmpty.jpg",
+	//	CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+	//menuItem->setPosition(10, 10);
+	//menuTitle->setPosition(Vec2(visibleSize.width * 0.5f, visibleSize.height * 0.5f));
+	//menuTitle->setName("menuTitle");
+	//menuTitle->setAnchorPoint(Vec2(0.5f,0.5f));
+	//auto menuLayer = Menu::create(menuItem, NULL);
+	//
+	////this->addChild(menuLayer,99);
+	//this->addChild(menuTitle,39);
 
 	auto powerup_frame = Sprite::create("powerupEmpty.jpg");
 	powerup_frame->setAnchorPoint(Vec2::ZERO);
@@ -268,54 +268,54 @@ bool HelloWorld::init()
 	
 #ifndef ANIMATION_INIT
 	//Loading one by one
-	Animate* animIdle;
-	{
-		//Loading each frames
-		Vector<SpriteFrame*> animFrames;
-		animFrames.reserve(4);
-		animFrames.pushBack(SpriteFrame::create("Blue_Front2.png", Rect(0, 0, 65, 81)));
-		animFrames.pushBack(SpriteFrame::create("Blue_Front1.png", Rect(0, 0, 65, 81)));
-		animFrames.pushBack(SpriteFrame::create("Blue_Front3.png", Rect(0, 0, 65, 81)));
-		animFrames.pushBack(SpriteFrame::create("Blue_Front1.png", Rect(0, 0, 65, 81)));
-		//Creating animations of frames
-		Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.5f);
-		animIdle = Animate::create(animation);
-	}
-	
+	//Animate* animIdle;
+	//{
+	//	//Loading each frames
+	//	Vector<SpriteFrame*> animFrames;
+	//	animFrames.reserve(4);
+	//	animFrames.pushBack(SpriteFrame::create("Blue_Front2.png", Rect(0, 0, 65, 81)));
+	//	animFrames.pushBack(SpriteFrame::create("Blue_Front1.png", Rect(0, 0, 65, 81)));
+	//	animFrames.pushBack(SpriteFrame::create("Blue_Front3.png", Rect(0, 0, 65, 81)));
+	//	animFrames.pushBack(SpriteFrame::create("Blue_Front1.png", Rect(0, 0, 65, 81)));
+	//	//Creating animations of frames
+	//	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.5f);
+	//	animIdle = Animate::create(animation);
+	//}
+	//
 
-	//Optimized ver [Loading sprites from sprite sheet]
-	Vector<SpriteFrame*> animFrames(3);
-	{
-		SpriteBatchNode* spritebatch = SpriteBatchNode::create("sprite.png");
-		SpriteFrameCache* cache = SpriteFrameCache::getInstance();
-		cache->addSpriteFramesWithFile("sprite.plist");
-		auto Sprite1 = Sprite::createWithSpriteFrameName("Blue_Back1.png");
-		spritebatch->addChild(Sprite1);
-		this->addChild(spritebatch);
-		char str[100] = { 0 };
-		for (int i = 1; i < 3; i++)
-		{
-			sprintf(str, "Blue_Back%d.png", i);
-			SpriteFrame* frame = cache->getSpriteFrameByName(str);
-			frame->setAnchorPoint(Vec2::ZERO);
-			animFrames.pushBack(frame);
-		}
-	}
+	////Optimized ver [Loading sprites from sprite sheet]
+	//Vector<SpriteFrame*> animFrames(3);
+	//{
+	//	SpriteBatchNode* spritebatch = SpriteBatchNode::create("sprite.png");
+	//	SpriteFrameCache* cache = SpriteFrameCache::getInstance();
+	//	cache->addSpriteFramesWithFile("sprite.plist");
+	//	auto Sprite1 = Sprite::createWithSpriteFrameName("Blue_Back1.png");
+	//	spritebatch->addChild(Sprite1);
+	//	this->addChild(spritebatch);
+	//	char str[100] = { 0 };
+	//	for (int i = 1; i < 3; i++)
+	//	{
+	//		sprintf(str, "Blue_Back%d.png", i);
+	//		SpriteFrame* frame = cache->getSpriteFrameByName(str);
+	//		frame->setAnchorPoint(Vec2::ZERO);
+	//		animFrames.pushBack(frame);
+	//	}
+	//}
 	
 
 	//Loading the spritesheet animation
-	Animate* animate;
-	{
-		// "caches" are always singletons in cocos2d
-		auto cache = AnimationCache::getInstance();
-		cache->addAnimationsWithFile("sprite_ani.plist");
+	//Animate* animate;
+	//{
+	//	// "caches" are always singletons in cocos2d
+	//	auto cache = AnimationCache::getInstance();
+	//	cache->addAnimationsWithFile("sprite_ani.plist");
 
-		// should be getAnimationByName(..) in future versions
-		auto animation = cache->animationByName("walk_right");
+	//	// should be getAnimationByName(..) in future versions
+	//	auto animation = cache->animationByName("walk_right");
 
-		// Don't confused between Animation and Animate
-		animate = Animate::create(animation);
-	}
+	//	// Don't confused between Animation and Animate
+	//	animate = Animate::create(animation);
+	//}
 	
 
 #endif
@@ -372,66 +372,14 @@ bool HelloWorld::init()
 
 #ifndef SOUND_INIT
 	CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/bgm.wav", false);
-	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.1f);
+	CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.f);
 #endif
 
-#ifndef PLAYER_INIT
-	/*PlayerManager::getInstance().get_Player(0) = Player::create("Player1");
-	PlayerManager::getInstance().get_Player(0)->Init("Plane_Idle.png");
-	this->addChild(PlayerManager::getInstance().get_Player(0)->get_Node(),1);
-	PlayerManager::getInstance().get_Player(0)->set_Position(playingSize.width * 0.5f, playingSize.height * 0.5f);*/
-#endif
 
-#ifndef ENEMY_INIT
-	//enemyInstance = Enemy::create("Enemy1");
-	//enemyInstance->Init("Enemy_Idle.png");
-	//this->addChild(enemyInstance->get_Node(), 1);
-	////float random = rand() % (int)(playingSize.width);
-	//float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
-	//enemyInstance->set_Position(random, playingSize.height);
-
-#endif
-
-#ifndef POWERUP_INIT
-	/*powerUp = PowerUp::create("PowerUp");
-	powerUp->Init("powerupEmpty.jpg", PowerUp::TypesOfPowerUp::HEAL, PlayerManager::getInstance().get_Player(0));
-	this->addChild(powerUp->get_Node(), 1);
-	powerUp->set_Position(playingSize.width * 0.5f, playingSize.height * 0.8f);*/
-#endif 
-
-//#ifndef PROJECTILE_MANAGER_INIT
-//	ProjectileManager::getInstance().Init();
-//#endif // !PROJECTILE_MANAGER_INIT
-//
-//#ifndef ENEMY_PROJECTILE_MANAGER_INIT
-//	EnemyProjectileManager::getInstance().Init();
-//#endif // !PROJECTILE_MANAGER_INIT
-//
-//#ifndef ENEMY_MANAGER_INIT
-//	EnemyManager::getInstance().Init();
-//#endif // !ENEMY_MANAGER_INIT
-//
-//#ifndef WAVE_MANAGER_INIT
-//	WaveManager::getInstance().Init();
-//#endif // WAVE_MANAGER_INIT
-//
-//#ifndef POWERUP_MANAGER_INIT
-//	PowerUpManager::getInstance().Init();
-//#endif // !POWERUP_MANAGER_INIT
-//#ifndef SHIELD_MANAGER_INIT
-//	ShieldManager::getInstance().Init();
-//#endif // !POWERUP_MANAGER_INIT
-
-
-	{
-		/*float random = (float)cocos2d::RandomHelper::random_int(0, (int)playingSize.width);
-		EnemyManager::getInstance().CreateEnemy("Enemy1", "Enemy_Idle.png", Vec2(random, playingSize.height));*/
-	}
-	
 
 
 	//mainSprite->runAction(RepeatForever::create(animIdle));
-	mainSprite->runAction(animate);
+	//mainSprite->runAction(animate);
 	//this->removeChild(spriteNode);
 #ifdef COMMENTS
 	/////////////////////////////
@@ -577,7 +525,8 @@ void HelloWorld::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	if (keyCode == EventKeyboard::KeyCode::KEY_SPACE)
 	{
 		//CCDirector::getInstance()->replaceScene(TransitionFade::create(0.5f, HelloWorld::createScene(),Color3B(0,255,255)));
-		//PlayerManager::getInstance().get_Player(0)->Shoot();		
+		//PlayerManager::getInstance().get_Player(0)->Shoot();	
+		//CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("Sound/bgm.wav", false);
 	}
 	if (keyCode == EventKeyboard::KeyCode::KEY_ALT)
 	{
